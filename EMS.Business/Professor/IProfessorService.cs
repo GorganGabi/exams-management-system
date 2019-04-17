@@ -15,6 +15,6 @@ namespace EMS.Business
 
         Task<Guid> CreateNew(Guid userId);
 
-        Task<bool> UpdateAsync(Guid id, Professor professorUpdated);
+        Task UpdateAsync(Guid id, Professor professorUpdated);
     }
 }

@@ -8,6 +8,8 @@ namespace EMS.Business
 
         public string CourseName { get; set; }
 
+        public Guid CourseId { get; set; }
+
         public string Checked { get; set; }
 
         public DateTime Date { get; set; }

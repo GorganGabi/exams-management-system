@@ -25,7 +25,7 @@ namespace exams_management_system.Controllers
         [HttpGet]
         public async Task<IActionResult> GetStudents()
         {
-            var students = await this.studentService.GetAll();
+            var students = await studentService.GetAll();
 
             if (students.Count == 0)
             {
@@ -38,7 +38,7 @@ namespace exams_management_system.Controllers
         [HttpGet("{id:guid}/grades", Name = "GetGradeByStudentId")]
         public async Task<IActionResult> GetGradeByStudentId(Guid id)
         {
-            var grade = await this.gradeService.FindByStudentId(id);
+            var grade = await gradeService.FindByStudentId(id);
 
             if (grade == null)
             {
@@ -51,7 +51,7 @@ namespace exams_management_system.Controllers
         [HttpGet("{id:guid}/exams", Name = "GetExamsByStudentId")]
         public async Task<IActionResult> GetExamsByStudentId(Guid id)
         {
-            var grade = this.studentService.FindExamsByStudentId(id);
+            var grade = studentService.FindExamsByStudentId(id);
 
             if (grade == null)
             {
@@ -64,7 +64,7 @@ namespace exams_management_system.Controllers
         [HttpGet("{id:guid}", Name = "GetStudentById")]
         public async Task<IActionResult> GetStudentById(Guid id)
         {
-            var student = await this.studentService.FindById(id);
+            var student = await studentService.FindById(id);
 
             if (student == null)
             {
@@ -77,7 +77,7 @@ namespace exams_management_system.Controllers
         [HttpPut("{id:guid}/exams/{examId:guid}", Name = "CheckExam")]
         public async Task<IActionResult> CheckExam(Guid id, Guid examId)
         {
-            var result = await this.studentService.CheckExam(id,examId);
+            var result = await studentService.CheckExam(id,examId);
 
             if (result)
             {
@@ -93,7 +93,7 @@ namespace exams_management_system.Controllers
         [HttpGet("{id:guid}/sendmail", Name = "SendMail")]
         public async Task<IActionResult> SendMail(Guid id)
         {
-            var studentModelDetails = await this.studentService.FindById(id);
+            var studentModelDetails = await studentService.FindById(id);
 
             if (studentModelDetails == null)
             {

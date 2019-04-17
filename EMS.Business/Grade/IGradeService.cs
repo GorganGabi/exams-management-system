@@ -16,8 +16,8 @@ namespace EMS.Business
 
         Task<Guid> CreateNew(CreatingGradeModel newGrade);
 
-        Task<bool> Update(Guid id, Domain.Grade examModel);
+        Task Update(Guid id, Domain.Grade examModel);
 
-        Task<bool> Delete(Guid id);
+        Task Delete(Guid id);
     }
 }

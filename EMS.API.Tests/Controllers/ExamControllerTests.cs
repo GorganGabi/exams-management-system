@@ -146,9 +146,10 @@ namespace EMS.API.Tests
         public async Task Given_UpdateExam_When_ModelIsValid_Then_OkStatusCode()
         {
             // Arrange
-            mockRepo
+            /*mockRepo
             .Setup(e => e.Update(It.IsAny<Guid>(), It.IsAny<Exam>()))
             .ReturnsAsync(true);
+            */
 
             mockRepo
             .Setup(u => u.FindById(It.IsAny<Guid>()))
@@ -165,9 +166,9 @@ namespace EMS.API.Tests
         public async Task Given_UpdateExam_When_ModelIsInvalid_Then_BadStatusCode()
         {
             // Arrange
-            mockRepo
+            /*mockRepo
             .Setup(e => e.Update(It.IsAny<Guid>(), It.IsAny<Exam>()))
-            .ReturnsAsync(true);
+            .ReturnsAsync(true);*/
 
             mockRepo
             .Setup(u => u.FindById(It.IsIn<Guid>()))
@@ -187,10 +188,10 @@ namespace EMS.API.Tests
         public async Task Given_DeleteExam_When_IdIsValid_Then_OkStatusCode()
         {
             //Arrange
-            mockRepo
+            /*mockRepo
             .Setup(e => e.Delete(It.IsAny<Guid>()))
             .ReturnsAsync(true);
-
+            */
             mockRepo
             .Setup(u => u.FindById(It.IsAny<Guid>()))
             .ReturnsAsync(new ExamDetailsModel());
@@ -225,10 +226,10 @@ namespace EMS.API.Tests
             .Setup(u => u.FindById(It.IsAny<Guid>()))
             .ReturnsAsync(new ExamDetailsModel());
 
-            mockRepo
+            /*mockRepo
             .Setup(e => e.Delete(It.IsAny<Guid>()))
             .ReturnsAsync(false);
-
+            */
             //Act
             var result = (ObjectResult)await controller.DeleteExam(It.IsAny<Guid>());
 

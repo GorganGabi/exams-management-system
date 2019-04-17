@@ -23,7 +23,7 @@ namespace exams_management_system.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCourses()
         {
-            var Courses = await this.courseService.GetAll();
+            var Courses = await courseService.GetAll();
 
             if (Courses.Count == 0)
             {
@@ -36,11 +36,11 @@ namespace exams_management_system.Controllers
         [HttpGet("{id:guid}", Name = "GetCourseById")]
         public async Task<IActionResult> GetCourseById(Guid id)
         {
-            var course = await this.courseService.FindById(id);
+            var course = await courseService.FindById(id);
 
             if (course == null)
             {
-                return StatusCode(StatusCodes.Status422UnprocessableEntity);
+                return NotFound();
             }
 
             return Ok(course);
@@ -54,7 +54,14 @@ namespace exams_management_system.Controllers
                 return BadRequest(ModelState);
             }
 
-            var courseId = await this.courseService.CreateNew(model);
+            var professor = await courseService.GetProfessorCourse(model.ProfessorId);
+
+            if (professor != null)
+            {
+                return Conflict();
+            }
+
+            var courseId = await courseService.CreateNew(model);
             return StatusCode(StatusCodes.Status201Created, courseId);
 
         }
@@ -67,43 +74,41 @@ namespace exams_management_system.Controllers
                 return BadRequest(ModelState);
             }
 
-            var course = await this.courseService.FindById(id);
+            var course = await courseService.FindById(id);
             if (course == null)
             {
-                return StatusCode(StatusCodes.Status422UnprocessableEntity);
+                return NotFound();
             }
 
             var courseModel = Mapper.Map<UpdateCourseModel, Course>(updateCourseModel);
-            var response = await this.courseService.Update(id, courseModel);
-            if (response)
-            {
-                return StatusCode(StatusCodes.Status204NoContent);
-            }
-            return Ok();
+            await courseService.Update(id, courseModel);
+
+            return NoContent();
         }
 
         [HttpGet("{courseId:guid}/students/{studentId:guid}", Name = "AssignStudentToCourse")]
         public async Task<IActionResult> AssignStudentToCourse(Guid courseId, Guid studentId)
         {
-            var course = await this.courseService.FindById(courseId);
+            var course = await courseService.FindById(courseId);
             if (course == null)
             {
-                return StatusCode(StatusCodes.Status422UnprocessableEntity);
+                return NotFound();
             }
-            var response = await this.courseService.AssignStudentToCourse(courseId, studentId);
+            var response = await courseService.AssignStudentToCourse(courseId, studentId);
             return Ok();
         }
 
         [HttpDelete("{id:guid}", Name = "DeleteCourse")]
         public async Task<IActionResult> DeleteCourse(Guid id)
         {
-
-            var response = await this.courseService.Delete(id);
-            if (response)
+            var course = await courseService.FindById(id);
+            if (course == null)
             {
-                return StatusCode(StatusCodes.Status204NoContent);
+                return NotFound();
             }
-            return StatusCode(StatusCodes.Status409Conflict);
+
+            await courseService.Delete(id);
+            return NoContent();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace exams_management_system.Controllers
         [HttpGet]
         public async Task<IActionResult> GetExams()
         {
-            var exams = await this.examService.GetAll();
+            var exams = await examService.GetAll();
 
             return Ok(exams);
         }
@@ -32,11 +32,11 @@ namespace exams_management_system.Controllers
         [HttpGet("{id:guid}/grades", Name = "GetGradeByExamId")]
         public async Task<IActionResult> GetGradeByExamId(Guid id)
         {
-            var grade = await this.gradeService.FindByExamId(id);
+            var grade = await gradeService.FindByExamId(id);
 
             if (grade.Count == 0)
             {
-                return StatusCode(StatusCodes.Status404NotFound);
+                return NotFound();
             }
 
             return Ok(grade);
@@ -52,24 +52,24 @@ namespace exams_management_system.Controllers
             
             // Todo: need to check all fields before entering a new one. 
             // Todo: Exams with the same date, but with different rooms, are two separate exams
-            var exam = this.examService.FindByTime(model.Date);
+            var exam = examService.FindByTime(model.Date);
             if (exam.Result == null)
             {
-                var examId = await this.examService.CreateNew(model);
+                var examId = await examService.CreateNew(model);
                 return StatusCode(StatusCodes.Status201Created, examId);
             }
 
-            return StatusCode(StatusCodes.Status422UnprocessableEntity);
+            return Conflict();
         }
 
         [HttpGet("{id:guid}", Name = "GetExamById")]
         public async Task<IActionResult> GetExamById(Guid id)
         {
-            var exam = await this.examService.FindById(id);
+            var exam = await examService.FindById(id);
 
             if (exam == null)
             {
-                return StatusCode(StatusCodes.Status404NotFound);
+                return NotFound();
             }
 
             return Ok(exam);
@@ -83,18 +83,14 @@ namespace exams_management_system.Controllers
                 return BadRequest(ModelState);
             }
 
-            var exam = await this.examService.FindById(id);
+            var exam = await examService.FindById(id);
             if (exam == null)
             {
-                return StatusCode(StatusCodes.Status404NotFound);
+                return NotFound();
             }
 
             var examModel = Mapper.Map<UpdateExamModel, Exam>(updateExamModel);
-            var response = await this.examService.Update(id, examModel);
-            if (response)
-            {
-                return StatusCode(StatusCodes.Status204NoContent);
-            }
+            await examService.Update(id, examModel);
 
             return NoContent();
         }
@@ -102,18 +98,15 @@ namespace exams_management_system.Controllers
         [HttpDelete("{id:guid}", Name = "DeleteExam")]
         public async Task<IActionResult> DeleteExam(Guid id)
         {
-            var exam = await this.examService.FindById(id);
+            var exam = await examService.FindById(id);
             if (exam == null)
             {
-                return StatusCode(StatusCodes.Status404NotFound);
-            }
-            
-            if (await this.examService.Delete(id))
-            {
-                return Ok("Exam deleted");
+                return NotFound();
             }
 
-            return StatusCode(StatusCodes.Status409Conflict, "Exam could not be deleted");
+            await examService.Delete(id);
+
+            return NoContent();
         }
     }
 }

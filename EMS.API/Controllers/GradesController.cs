@@ -19,7 +19,7 @@ namespace exams_management_system.Controllers
         [HttpGet]
         public async Task<IActionResult> GetGrades()
         {
-            var exams = await this.gradeService.GetAll();
+            var exams = await gradeService.GetAll();
 
             return Ok(exams);
         }
@@ -32,14 +32,14 @@ namespace exams_management_system.Controllers
                 return BadRequest(ModelState);
             }
 
-            var gradeId = await this.gradeService.CreateNew(model);
+            var gradeId = await gradeService.CreateNew(model);
 
             if (gradeId == default(Guid))
             {
                 return StatusCode(StatusCodes.Status422UnprocessableEntity);
             }
 
-            var gradeModel = await this.gradeService.FindById(gradeId);
+            var gradeModel = await gradeService.FindById(gradeId);
             SMTPClient.ProfessorSendMail(gradeModel);
             return StatusCode(StatusCodes.Status201Created);
 
@@ -48,7 +48,7 @@ namespace exams_management_system.Controllers
         [HttpGet("{id:guid}", Name = "GetGradeById")]
         public async Task<IActionResult> GetGradeById(Guid id)
         {
-            var grade = await this.gradeService.FindById(id);
+            var grade = await gradeService.FindById(id);
 
             if (grade == null)
             {
@@ -66,20 +66,17 @@ namespace exams_management_system.Controllers
                 return BadRequest(ModelState);
             }
 
-            var grade = await this.gradeService.FindById(id);
+            var grade = await gradeService.FindById(id);
             if (grade == null)
             {
-                return StatusCode(StatusCodes.Status404NotFound);
+                return NotFound();
             }
 
             var gradeModel = Mapper.Map<UpdateGradeModel, Grade>(updateGradeModel);
-            var response = await this.gradeService.Update(id, gradeModel);
-            if (response)
-            {
-                var updatedGrade = await this.gradeService.FindById(id);
-                SMTPClient.ProfessorSendMail(updatedGrade);
-                return NoContent();
-            }
+
+            await gradeService.Update(id, gradeModel);
+            var updatedGrade = await gradeService.FindById(id);
+            SMTPClient.ProfessorSendMail(updatedGrade);
 
             return NoContent();
         }
@@ -87,18 +84,14 @@ namespace exams_management_system.Controllers
         [HttpDelete("{id:guid}", Name = "DeleteGrade")]
         public async Task<IActionResult> DeleteGrade(Guid id)
         {
-            var grade = await this.gradeService.FindById(id);
+            var grade = await gradeService.FindById(id);
             if (grade == null)
             {
-                return StatusCode(StatusCodes.Status404NotFound);
+                return NotFound();
             }
 
-            if (await this.gradeService.Delete(id))
-            {
-                return NoContent();
-            }
-
-            return StatusCode(StatusCodes.Status409Conflict);
+            await gradeService.Delete(id);
+            return NoContent();
         }
     }
 }

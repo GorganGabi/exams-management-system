@@ -16,9 +16,9 @@ namespace EMS.Business
 
         public async Task<Guid> CreateNew(CreatingGradeModel newGrade)
         {
-            var student = await this.repository.FindByIdAsync<Student>(newGrade.StudentId);
-            var exam = await this.repository.FindByIdAsync<Exam>(newGrade.ExamId);
-            var tmpGrade = this.repository.GetAll<Grade>().FirstOrDefault();
+            var student = await repository.FindByIdAsync<Student>(newGrade.StudentId);
+            var exam = await repository.FindByIdAsync<Exam>(newGrade.ExamId);
+            var tmpGrade = repository.GetAll<Grade>().FirstOrDefault();
 
             if (tmpGrade != null)
             {
@@ -30,8 +30,8 @@ namespace EMS.Business
                 examId: newGrade.ExamId,
                 studentId: newGrade.StudentId);
 
-            await this.repository.AddNewAsync(grade);
-            await this.repository.SaveAsync();
+            await repository.AddNewAsync(grade);
+            await repository.SaveAsync();
 
             return grade.Id;
         }
@@ -41,7 +41,7 @@ namespace EMS.Business
         public Task<GradeDetailsModel> FindById(Guid id) => AllGradeDetails.SingleOrDefaultAsync(g => g.Id == id);
 
         public Task<List<GradeDetailsModel>> FindByExamId(Guid examId)
-        => this.repository.GetAll<Grade>()
+        => repository.GetAll<Grade>()
                 .Where(g => g.ExamId == examId)
                 .Include(g => g.Exam)
                 .Include(g => g.Student)
@@ -55,7 +55,7 @@ namespace EMS.Business
             }).ToListAsync();       
 
         public Task<List<GradeDetailsModel>> FindByStudentId(Guid studentId)
-        => this.repository.GetAll<Grade>()
+        => repository.GetAll<Grade>()
                 .Where(g => g.StudentId == studentId)
                 .Include(g => g.Exam)
                 .Include(g => g.Student)
@@ -69,38 +69,25 @@ namespace EMS.Business
                 }).ToListAsync();
 
 
-        public async Task<bool> Update(Guid id, Grade updatedGrade)
+        public async Task Update(Guid id, Grade updatedGrade)
         {
-            var gradeToUpdate = await this.repository.FindByIdAsync<Grade>(id);
+            var gradeToUpdate = await repository.FindByIdAsync<Grade>(id);
 
-            if (await repository.TryUpdateModelAsync(
+            await repository.TryUpdateModelAsync(
                     gradeToUpdate,
                     updatedGrade
-                    ))
-            {
-                await repository.SaveAsync();
-                return true;
-            }
-
-            return false;
+                    );
+            await repository.SaveAsync();
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task Delete(Guid id)
         {
-            var grade = await this.repository.FindByIdAsync<Grade>(id);
-            if (grade != null)
-            {
-                await repository.RemoveAsync(grade);
-                await repository.SaveAsync();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var grade = await repository.FindByIdAsync<Grade>(id);
+            await repository.RemoveAsync(grade);
+            await repository.SaveAsync();
         }
 
-        private IQueryable<GradeDetailsModel> AllGradeDetails => this.repository.GetAll<Grade>()
+        private IQueryable<GradeDetailsModel> AllGradeDetails => repository.GetAll<Grade>()
           .Select(g => new GradeDetailsModel
           {
               Id = g.Id,

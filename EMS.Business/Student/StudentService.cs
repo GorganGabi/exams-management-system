@@ -20,8 +20,8 @@ namespace EMS.Business
         {
             var student = Student.Create(userId);
 
-            await this.repository.AddNewAsync(student);
-            await this.repository.SaveAsync();
+            await repository.AddNewAsync(student);
+            await repository.SaveAsync();
 
             return student.Id;
         }
@@ -42,8 +42,8 @@ namespace EMS.Business
                 rnumber: rNumber
                 );
 
-            await this.repository.AddNewAsync(student);
-            await this.repository.SaveAsync();
+            await repository.AddNewAsync(student);
+            await repository.SaveAsync();
 
             return student.Id;
         }
@@ -51,8 +51,8 @@ namespace EMS.Business
         public async Task<bool> CheckExam(Guid id, Guid examId)
         {
 
-            var student = await this.repository.FindByIdAsync<Student>(id);
-            var exam = await this.repository.FindByIdAsync<Exam>(examId);
+            var student = await repository.FindByIdAsync<Student>(id);
+            var exam = await repository.FindByIdAsync<Exam>(examId);
             var studentExam = new StudentExam(student, exam);
 
             exam.StudentExams.Add(studentExam);
@@ -60,18 +60,13 @@ namespace EMS.Business
             await repository.SaveAsync();
             return true;
         }
-        public async Task<bool> UpdateAsync(Guid id, Student studentUpdated)
+        public async Task UpdateAsync(Guid id, Student studentUpdated)
         {
-            var studentToUpdate = await this.repository.FindByIdAsync<Student>(id);
+            var studentToUpdate = await repository.FindByIdAsync<Student>(id);
 
-            if (await repository.TryUpdateModelAsync(
-                    studentToUpdate, studentUpdated))
-            {
-                await repository.SaveAsync();
-                return true;
-            }
-
-            return false;
+            await repository.TryUpdateModelAsync(
+                    studentToUpdate, studentUpdated);
+            await repository.SaveAsync();
         }
 
         public Task<List<StudentDetailsModel>> GetAll() => GetAllStudentDetails().ToListAsync();
@@ -79,7 +74,7 @@ namespace EMS.Business
         public Task<StudentDetailsModel> FindById(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(p => p.Id == id);
 
 
-        private IQueryable<StudentDetailsModel> GetAllStudentDetails() => this.repository.GetAll<Student>()
+        private IQueryable<StudentDetailsModel> GetAllStudentDetails() => repository.GetAll<Student>()
                 .Select(c => new StudentDetailsModel
                 {
                     Id = c.Id,
@@ -92,7 +87,7 @@ namespace EMS.Business
                     Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.StudentExams.Select(sc => sc.Exam).ToList()),
                 });
 
-        public IQueryable<ExamDetailsModel> FindExamsByStudentId(Guid studId) => this.repository.GetAll<Exam>()
+        public IQueryable<ExamDetailsModel> FindExamsByStudentId(Guid studId) => repository.GetAll<Exam>()
             .Include(e => e.Course)
                 .ThenInclude(s => s.StudentCourses)
             .Select(e => new ExamDetailsModel
@@ -104,6 +99,5 @@ namespace EMS.Business
                 Room = e.Room,
                 Checked = e.StudentExams.SingleOrDefault(eg => eg.StudentId == studId).Checked
             });
-
     }
 }

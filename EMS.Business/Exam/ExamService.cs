@@ -21,8 +21,8 @@ namespace EMS.Business
                 courseId: newExam.CourseId,
                 room: newExam.Room);
 
-            await this.repository.AddNewAsync(exam);
-            await this.repository.SaveAsync();
+            await repository.AddNewAsync(exam);
+            await repository.SaveAsync();
 
             return exam.Id;
         }
@@ -31,39 +31,28 @@ namespace EMS.Business
 
         public Task<ExamDetailsModel> FindByTime(DateTime date) => AllExamDetails.SingleOrDefaultAsync(e => e.Date == date);
 
-        public async Task<bool> Update(Guid id, Exam updatedExam)
+        public async Task Update(Guid id, Exam updatedExam)
 
         {
-            var examToUpdate = await this.repository.FindByIdAsync<Exam>(id);
+            var examToUpdate = await repository.FindByIdAsync<Exam>(id);
 
-            if (await repository.TryUpdateModelAsync(
+            await repository.TryUpdateModelAsync(
                     examToUpdate,
                     updatedExam
-                    ))
-            {
-                await repository.SaveAsync();
-                return true;
-            }
+                    );
 
-            return false;
+            await repository.SaveAsync();
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task Delete(Guid id)
         {
-            var exam = await this.repository.FindByIdAsync<Exam>(id);
-            if (exam != null)
-            {
-                await repository.SaveAsync();
-                await repository.RemoveAsync(exam);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var exam = await repository.FindByIdAsync<Exam>(id);
+            await repository.RemoveAsync(exam);
+            await repository.SaveAsync();
+
         }
 
-        private IQueryable<ExamDetailsModel> AllExamDetails => this.repository.GetAll<Exam>()
+        private IQueryable<ExamDetailsModel> AllExamDetails => repository.GetAll<Exam>()
           .Select(e => new ExamDetailsModel
           {
               Id = e.Id,
@@ -73,7 +62,7 @@ namespace EMS.Business
               CourseName = e.Course.Title
           });
 
-        public Task<List<ExamDetailsModel>> GetAll() => this.repository.GetAll<Exam>()
+        public Task<List<ExamDetailsModel>> GetAll() => repository.GetAll<Exam>()
           .Include(e => e.Course)
           .Include(e => e.StudentExams)
           .Select(e => new ExamDetailsModel

@@ -1,4 +1,5 @@
 ﻿using EMS.Domain;
+using EMS.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,10 +16,12 @@ namespace EMS.Business
 
         Task<Guid> CreateNew(CreatingCourseModel newCourse);
 
-        Task<bool> Update(Guid id, Course updatedCourse);
+        Task Update(Guid id, Course updatedCourse);
+
+        Task Delete(Guid id);
 
         Task<bool> AssignStudentToCourse(Guid courseId, Guid studentId);
 
-        Task<bool> Delete(Guid id);
+        Task<ProfessorDetailsModel> GetProfessorCourse(Guid id);
     }
 }

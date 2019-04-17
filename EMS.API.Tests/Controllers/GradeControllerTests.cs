@@ -78,9 +78,10 @@ namespace EMS.API.Tests
         public async Task Given_UpdateGrade_When_ModelIsValid_Then_OkStatusCode()
         {
             // Arrange
-            mockRepo
+            /*mockRepo
             .Setup(g => g.Update(It.IsAny<Guid>(), It.IsAny<Grade>()))
             .ReturnsAsync(true);
+            */
 
             mockRepo
             .Setup(g => g.FindById(It.IsAny<Guid>()))
@@ -97,9 +98,9 @@ namespace EMS.API.Tests
         public async Task Given_UpdateGrade_When_ModelIsInvalid_Then_BadStatusCode()
         {
             // Arrange
-            mockRepo
+            /*mockRepo
             .Setup(g => g.Update(It.IsAny<Guid>(), It.IsAny<Grade>()))
-            .ReturnsAsync(true);
+            .ReturnsAsync(true);*/
 
             mockRepo
             .Setup(g => g.FindById(It.IsIn<Guid>()))
@@ -120,7 +121,7 @@ namespace EMS.API.Tests
         {
             // Arrange
             mockRepo.Setup(g => g.FindById(It.IsAny<Guid>())).ReturnsAsync(new GradeDetailsModel());
-            mockRepo.Setup(g => g.Update(It.IsAny<Guid>(), gradeModel)).ReturnsAsync(true);
+            //mockRepo.Setup(g => g.Update(It.IsAny<Guid>(), gradeModel)).ReturnsAsync(true);
 
             //Act
             var result = await controller.UpdateGrade(updateGradeModel, It.IsAny<Guid>());
@@ -185,9 +186,9 @@ namespace EMS.API.Tests
         public async Task Given_DeleteGrade_When_IdIsValid_Then_OkStatusCode()
         {
             //Arrange
-            mockRepo
+            /*mockRepo
             .Setup(g => g.Delete(It.IsAny<Guid>()))
-            .ReturnsAsync(true);
+            .ReturnsAsync(true);*/
 
             mockRepo
             .Setup(g => g.FindById(It.IsAny<Guid>()))
@@ -223,9 +224,9 @@ namespace EMS.API.Tests
             .Setup(g => g.FindById(It.IsAny<Guid>()))
             .ReturnsAsync(new GradeDetailsModel());
 
-            mockRepo
+            /*mockRepo
             .Setup(g => g.Delete(It.IsAny<Guid>()))
-            .ReturnsAsync(false);
+            .ReturnsAsync(false);*/
 
             //Act
             var result = (ObjectResult)await controller.DeleteGrade(It.IsAny<Guid>());

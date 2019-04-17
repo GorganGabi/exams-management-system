@@ -13,7 +13,7 @@ namespace EMS.Domain
         Task<TEntity> FindByIdAsync<TEntity>(Guid id)
             where TEntity : Entity;
 
-        Task<bool> TryUpdateModelAsync<TEntity>(TEntity entityToUpdate, TEntity updatedEntity)
+        Task TryUpdateModelAsync<TEntity>(TEntity entityToUpdate, TEntity updatedEntity)
             where TEntity : IUpdatable<TEntity>;
 
         Task AddNewAsync<TEntity>(TEntity entity)
