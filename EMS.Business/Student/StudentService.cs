@@ -96,8 +96,7 @@ namespace EMS.Business
                 Type = e.Type,
                 CourseName = e.Course.StudentCourses.SingleOrDefault(sc => sc.StudentId == studId).Course.Title,
                 Date = e.Date,
-                Room = e.Room,
-                Checked = e.StudentExams.SingleOrDefault(eg => eg.StudentId == studId).Checked
+                Room = e.Room
             });
     }
 }
