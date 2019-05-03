@@ -45,6 +45,10 @@ namespace EMS.Persistence
                .WithOne(e => e.Exam)
                .IsRequired();
 
+            modelBuilder.Entity<Course>()
+                .HasMany(c => c.Exams)
+                .WithOne(e => e.Course);
+
             modelBuilder.Entity<StudentCourse>()
                 .HasKey(sc => new { sc.StudentId, sc.CourseId });
             modelBuilder.Entity<StudentCourse>()

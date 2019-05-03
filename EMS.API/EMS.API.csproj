@@ -27,51 +27,11 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="ClientApp\src\components\SignIn - Copy\**" />
-    <Compile Remove="ClientApp\src\components\NewFolder1\**" />
-    <Compile Remove="ClientApp\src\NewFolder1\**" />
-    <Compile Remove="ClientApp\src\NewFolder2\**" />
-    <Compile Remove="ClientApp\src\NewFolder3\**" />
-    <Compile Remove="ClientApp\src\NewFolder\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="ClientApp\src\components\SignIn - Copy\**" />
-    <Content Remove="ClientApp\src\components\NewFolder1\**" />
-    <Content Remove="ClientApp\src\NewFolder1\**" />
-    <Content Remove="ClientApp\src\NewFolder2\**" />
-    <Content Remove="ClientApp\src\NewFolder3\**" />
-    <Content Remove="ClientApp\src\NewFolder\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="ClientApp\src\components\SignIn - Copy\**" />
-    <EmbeddedResource Remove="ClientApp\src\components\NewFolder1\**" />
-    <EmbeddedResource Remove="ClientApp\src\NewFolder1\**" />
-    <EmbeddedResource Remove="ClientApp\src\NewFolder2\**" />
-    <EmbeddedResource Remove="ClientApp\src\NewFolder3\**" />
-    <EmbeddedResource Remove="ClientApp\src\NewFolder\**" />
-    <None Remove="ClientApp\src\components\SignIn - Copy\**" />
-    <None Remove="ClientApp\src\components\NewFolder1\**" />
-    <None Remove="ClientApp\src\NewFolder1\**" />
-    <None Remove="ClientApp\src\NewFolder2\**" />
-    <None Remove="ClientApp\src\NewFolder3\**" />
-    <None Remove="ClientApp\src\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="ClientApp\src\reducers\authReducer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="ClientApp\src\components\SignIn\Login.js" />
-    <None Remove="ClientApp\src\components\SignIn\Login.js" />
-    <None Remove="ClientApp\src\components\SignIn\LoginCard.js" />
-    <None Remove="ClientApp\src\components\SignIn\LoginCard.js" />
-    <None Remove="ClientApp\src\reducers\authReducer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\images\" />
     <ProjectReference Include="..\EMS.Business\EMS.Business.csproj" />
     <ProjectReference Include="..\EMS.Persistence\EMS.Persistence.csproj" />
   </ItemGroup>
