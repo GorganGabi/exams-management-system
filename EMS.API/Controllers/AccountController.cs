@@ -30,6 +30,7 @@ namespace EMS.API.Controllers
         {
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
+            //trateaza exceptia la post; cazul in care nu api-ul e down; global exception handler
             var response = await client.PostAsync(link, httpContent);
             var responseString = await response.Content.ReadAsStringAsync();
 
@@ -71,9 +72,10 @@ namespace EMS.API.Controllers
 
             var result = await SendHttpRequest("http://localhost:8080/api/account/login", json);
 
+            //acceaseaza status code direct din result
             if (result.StatusCode == StatusCodes.Status200OK)
             {
-                return StatusCode(StatusCodes.Status201Created, result);
+                return StatusCode(StatusCodes.Status200OK, result);
             }
             else if (result.StatusCode == StatusCodes.Status422UnprocessableEntity)
             {

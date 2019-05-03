@@ -39,6 +39,7 @@ namespace EMS.Business
         public Task<CourseDetailsModel> FindById(Guid id) => GetAllCourseDetails().SingleOrDefaultAsync(s => s.Id == id);
 
         private IQueryable<CourseDetailsModel> GetAllCourseDetails() => repository.GetAll<Course>()
+            .Include(c => c.Exams)
             .Select(c => new CourseDetailsModel
             {
                 Id = c.Id,
