@@ -22,3 +22,6 @@ EMS.Service.Tests/obj/Debug/netcoreapp2.1/EMS.Service.Tests.AssemblyInfo.cs
 /EMS.Domain.Tests/bin/Debug/netcoreapp2.1
 /EMS.API.Tests/obj/Debug/netcoreapp2.1
 /EMS.API.Tests/bin/Debug/netcoreapp2.1
+/EMS.Presentation/ClientApp/node_modules
+/EMS.Presentation/obj/Debug/netcoreapp2.2
+/EMS.Presentation/bin/Debug/netcoreapp2.2
