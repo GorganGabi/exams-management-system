@@ -6,6 +6,7 @@ using AutoMapper;
 using EMS.Domain;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Cors;
 
 namespace exams_management_system.Controllers
 {

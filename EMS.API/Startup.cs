@@ -22,6 +22,7 @@ namespace exams_management_system
         }
 
         public IConfiguration Configuration { get; }
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -34,11 +35,19 @@ namespace exams_management_system
             {
                 c.SwaggerDoc("v1", new Info { Title = "EMS", Version = "v1" });
             });
-
-            // In production, the React files will be served from this directory
+         
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
+            });
+          
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("https://localhost:44340");
+                });
             });
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -82,6 +91,7 @@ namespace exams_management_system
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseSwagger();
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseSwaggerUI(c =>
             {

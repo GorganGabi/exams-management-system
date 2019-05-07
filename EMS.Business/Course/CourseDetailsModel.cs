@@ -1,6 +1,4 @@
-﻿using EMS.Domain;
-using EMS.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace EMS.Business
