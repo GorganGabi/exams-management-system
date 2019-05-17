@@ -35,6 +35,7 @@ namespace exams_management_system.Controllers
         }
 
         [HttpGet("{id:guid}", Name = "GetCourseById")]
+        [EnableCors]
         public async Task<IActionResult> GetCourseById(Guid id)
         {
             var course = await courseService.FindById(id);

@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CoursesComponent } from './courses/courses.component';
 import { ExamsComponent } from './exams/exams.component';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ExamsComponent } from './exams/exams.component';
     CounterComponent,
     FetchDataComponent,
     CoursesComponent,
+    CourseDetailComponent,
     ExamsComponent,
   ],
   imports: [
@@ -31,6 +33,7 @@ import { ExamsComponent } from './exams/exams.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'courses', component: CoursesComponent },
+      { path: 'courses/:id', component: CourseDetailComponent },
       { path: 'exams', component: ExamsComponent },
     ])
   ],

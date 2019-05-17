@@ -27,6 +27,18 @@ namespace exams_management_system
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("*")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                });
+            });
+
             services.AddPersistance(Configuration.GetConnectionString("EMS"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddBusiness();
@@ -35,19 +47,10 @@ namespace exams_management_system
             {
                 c.SwaggerDoc("v1", new Info { Title = "EMS", Version = "v1" });
             });
-         
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
-            });
-          
-            services.AddCors(options =>
-            {
-                options.AddPolicy(MyAllowSpecificOrigins,
-                builder =>
-                {
-                    builder.WithOrigins("https://localhost:44340");
-                });
             });
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
