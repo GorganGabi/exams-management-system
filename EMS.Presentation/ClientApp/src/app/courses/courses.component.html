@@ -1,8 +1,24 @@
-<h2> Courses </h2>
-<ul class="courses">
-  <li *ngFor="let course of courses">
-    <p>Am afisat cursul</p>
-    <span> {{course.title}} </span>
-    <span> {{course.id}}</span>
-  </li>
-</ul>
+<h2> Toate Cursurile </h2>
+<button type="button" class="btn btn-secondary" (click)="getCoursesByUserId()">Cursurile mele</button>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titlu</th>
+      <th scope="col">Profesor</th>
+      <th scope="col">An</th>
+      <th scope="col">Semestru</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let course of courses; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ course.title }}</td>
+      <td>{{ course.professor.name }}</td>
+      <td>{{ course.studentYear }}</td>
+      <td>{{ course.semester }}</td>
+      <a routerLink = "/courses/{{course.id}}"><td><button class="btn btn-primary btn-sm">Details</button></td></a>
+    </tr>
+  </tbody>
+</table>

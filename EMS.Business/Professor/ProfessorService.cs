@@ -48,9 +48,11 @@ namespace EMS.Business
             .Select(p => new ProfessorDetailsModel
             {
                 Id = p.Id,
-                UserId = p.UserId, 
+                UserId = p.UserId,
                 Title = p.Title,
                 Name = p.Name
             });
+
+        public Task<ProfessorDetailsModel> FindByUserId(Guid id) => GetAllProfessorDetails().SingleOrDefaultAsync(p => p.UserId == id);
     }
 }

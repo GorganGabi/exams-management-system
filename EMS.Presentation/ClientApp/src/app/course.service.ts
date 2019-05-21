@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Course } from './course';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
   })
 };
 
@@ -14,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CourseService {
-  private coursesUrl = 'http://localhost:50158/api/v1/courses';
+  private coursesUrl = 'http://localhost:11111/api/v1/courses';
 
   constructor(private http: HttpClient) { }
 
@@ -22,9 +22,20 @@ export class CourseService {
     return this.http.get<Course[]>(this.coursesUrl);
   }
 
-  getCourse(id: number): Observable<Course> {
+  getCourse(id: string): Observable<Course> {
     const url = `${this.coursesUrl}/${id}`;
-    console.log(`[course service] url:`)
-    return this.http.get<Course>(url, httpOptions);
+    return this.http.get<Course>(url);
+  }
+
+  updateCourse(course: Course): Observable<any> {
+    const url = `${this.coursesUrl}/${course.id}`;
+    const body = {
+      "title": course.title,
+      "universityYear": course.universityYear,
+      "studentYear": course.studentYear,
+      "semester": course.semester
+    }
+
+    return this.http.put<Course>(url, body, httpOptions);
   }
 }

@@ -15,4 +15,16 @@ export class NavMenuComponent {
   toggle() {
     this.isExpanded = !this.isExpanded;
   }
+
+  hideLogin(){
+    if (localStorage.getItem('userID'))
+    {
+      return true;
+    }
+    return false;
+  }
+
+  logout(){
+    localStorage.removeItem('userID');
+  }
 }

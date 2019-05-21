@@ -12,6 +12,8 @@ namespace EMS.Business
 
         Task<StudentDetailsModel> FindById(Guid id);
 
+        Task<StudentDetailsModel> FindByUserId(Guid id);
+
         Task<Guid> CreateNew(Guid userId);
 
         Task<Guid> CreateNew(Guid userId, string json);
@@ -21,5 +23,7 @@ namespace EMS.Business
         Task<bool> CheckExam(Guid id, Guid examId);
 
         IQueryable<ExamDetailsModel> FindExamsByStudentId(Guid studId);
+
+        IQueryable<CourseDetailsModel> FindCoursesByStudentId(Guid studId);
     }
 }

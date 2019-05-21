@@ -7,22 +7,24 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CoursesComponent } from './courses/courses.component';
 import { ExamsComponent } from './exams/exams.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
+import { StudentsComponent } from './students/students.component';
+import { ProfessorsComponent } from './professors/professors.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     CoursesComponent,
     CourseDetailComponent,
     ExamsComponent,
+    StudentsComponent,
+    ProfessorsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,13 +32,15 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'courses', component: CoursesComponent },
       { path: 'courses/:id', component: CourseDetailComponent },
       { path: 'exams', component: ExamsComponent },
+      { path: 'students', component: StudentsComponent },
+      { path: 'professors', component: ProfessorsComponent },
+      { path: 'login', component: LoginComponent}
     ])
   ],
+  exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })

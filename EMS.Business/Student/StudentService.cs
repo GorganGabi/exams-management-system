@@ -102,5 +102,18 @@ namespace EMS.Business
                 Date = e.Date,
                 Room = e.Room
             });
+
+        public IQueryable<CourseDetailsModel> FindCoursesByStudentId(Guid studId) => repository.GetAll<Course>()
+            .Where(c => c.StudentCourses.Any(cs => cs.StudentId == studId))
+            .Select(c => new CourseDetailsModel
+            {
+                Id = c.Id,
+                Title = c.Title,
+                StudentYear = c.StudentYear,
+                UniversityYear = c.UniversityYear,
+                Semester = c.Semester
+            });
+
+        public Task<StudentDetailsModel> FindByUserId(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.UserId == id);
     }
 }

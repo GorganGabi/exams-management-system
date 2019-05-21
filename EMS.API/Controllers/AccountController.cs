@@ -16,6 +16,7 @@ namespace EMS.API.Controllers
     public class AccountController : ControllerBase
     {
         private static readonly HttpClient client = new HttpClient();
+        private Guid entityId = new Guid();
         private readonly IStudentService studentService;
         private readonly IProfessorService professorService;
 
@@ -30,7 +31,6 @@ namespace EMS.API.Controllers
         {
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            //trateaza exceptia la post; cazul in care nu api-ul e down; global exception handler
             var response = await client.PostAsync(link, httpContent);
             var responseString = await response.Content.ReadAsStringAsync();
 
@@ -48,17 +48,17 @@ namespace EMS.API.Controllers
             {
                 if (result.ResultModel.Role == "Student")
                 {
-                    await studentService.CreateNew(Guid.Parse(result.ResultModel.Id));
+                    entityId = await studentService.CreateNew(Guid.Parse(result.ResultModel.Id));
                 }
                 else
                 {
-                    await professorService.CreateNew(Guid.Parse(result.ResultModel.Id));
+                    entityId = await professorService.CreateNew(Guid.Parse(result.ResultModel.Id));
                 }
-                return StatusCode(StatusCodes.Status201Created, result);
+                return StatusCode(StatusCodes.Status201Created, entityId);
             }
             else if (result.StatusCode == StatusCodes.Status422UnprocessableEntity)
             {
-                return StatusCode(StatusCodes.Status422UnprocessableEntity, result);
+                return StatusCode(StatusCodes.Status422UnprocessableEntity);
             }
 
             return BadRequest();
@@ -72,14 +72,24 @@ namespace EMS.API.Controllers
 
             var result = await SendHttpRequest("http://localhost:8080/api/account/login", json);
 
-            //acceaseaza status code direct din result
             if (result.StatusCode == StatusCodes.Status200OK)
             {
-                return StatusCode(StatusCodes.Status200OK, result);
+                //todo: refactor the code
+                if (result.ResultModel.Role == "Student")
+                {
+                    var student = await studentService.FindByUserId(Guid.Parse(result.ResultModel.Id));
+                    entityId = student.Id;
+                }
+                else
+                {
+                    var professor = await professorService.FindByUserId(Guid.Parse(result.ResultModel.Id));
+                    entityId = professor.Id;
+                }
+                return StatusCode(StatusCodes.Status200OK, new UserDetailsModel { Id = entityId.ToString() });
             }
             else if (result.StatusCode == StatusCodes.Status422UnprocessableEntity)
             {
-                return StatusCode(StatusCodes.Status422UnprocessableEntity, result);
+                return StatusCode(StatusCodes.Status422UnprocessableEntity);
             }
 
             return BadRequest();
