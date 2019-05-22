@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Exam } from '../exam';
+import { ExamService } from '../exam.service';
 
 @Component({
   selector: 'app-exams',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./exams.component.css']
 })
 export class ExamsComponent implements OnInit {
+  exams: Exam[];
 
-  constructor() { }
+  constructor(private examService: ExamService) { }
 
   ngOnInit() {
+    this.getExams();
+  }
+
+  getExams(){
+    this.examService.getExams()
+    .subscribe(exams => this.exams = exams);
   }
 
 }

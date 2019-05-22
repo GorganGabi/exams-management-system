@@ -41,7 +41,15 @@ namespace EMS.Business
 
         public Task<ProfessorDetailsModel> FindByTitle(string title) => GetAllProfessorDetails().SingleOrDefaultAsync(p => p.Title == title);
 
-        public Task<ProfessorDetailsModel> FindById(Guid id) => GetAllProfessorDetails().SingleOrDefaultAsync(p => p.Id == id);
+        public Task<List<CourseDetailsModel>> GetCourseByProfId(Guid id) => repository.GetAll<Course>()
+            .Where(c => c.ProfessorId == id)
+            .Select(c => new CourseDetailsModel
+            {
+                Title = c.Title,
+                Semester = c.Semester,
+                StudentYear = c.StudentYear,
+                UniversityYear = c.UniversityYear
+            }).ToListAsync();
 
 
         private IQueryable<ProfessorDetailsModel> GetAllProfessorDetails() => repository.GetAll<Professor>()

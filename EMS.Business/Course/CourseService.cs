@@ -81,9 +81,10 @@ namespace EMS.Business
 
         public Task<ProfessorDetailsModel> GetProfessorCourse(Guid id) => repository.GetAll<Course>()
             .Where(c => c.ProfessorId == id)
-            .Select(p => new ProfessorDetailsModel
+            .Select(c => new ProfessorDetailsModel
             {
-                Id = p.Id
+                Name = c.Professor.Name,
+                Title = c.Professor.Title,                
             }).SingleOrDefaultAsync();
 
     }

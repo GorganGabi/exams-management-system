@@ -13,6 +13,8 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { StudentsComponent } from './students/students.component';
 import { ProfessorsComponent } from './professors/professors.component';
 import { LoginComponent } from './login/login.component';
+import { AddExamComponent } from './add-exam/add-exam.component';
+import { ExamDetailsComponent } from './exam-details/exam-details.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { LoginComponent } from './login/login.component';
     ExamsComponent,
     StudentsComponent,
     ProfessorsComponent,
-    LoginComponent
+    LoginComponent,
+    AddExamComponent,
+    ExamDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,6 +39,7 @@ import { LoginComponent } from './login/login.component';
       { path: 'courses', component: CoursesComponent },
       { path: 'courses/:id', component: CourseDetailComponent },
       { path: 'exams', component: ExamsComponent },
+      { path: 'exams/:id', component: ExamDetailsComponent },
       { path: 'students', component: StudentsComponent },
       { path: 'professors', component: ProfessorsComponent },
       { path: 'login', component: LoginComponent}

@@ -30,10 +30,10 @@ export class CourseService {
   updateCourse(course: Course): Observable<any> {
     const url = `${this.coursesUrl}/${course.id}`;
     const body = {
-      "title": course.title,
-      "universityYear": course.universityYear,
-      "studentYear": course.studentYear,
-      "semester": course.semester
+      title: course.title,
+      universityYear: course.universityYear,
+      studentYear: course.studentYear,
+      semester: course.semester
     }
 
     return this.http.put<Course>(url, body, httpOptions);

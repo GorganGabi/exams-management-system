@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../course';
 import { CourseService } from '../course.service';
 import { StudentService } from '../student.service';
+import { ProfessorService } from '../professor.service';
 
 @Component({
   selector: 'app-courses',
@@ -11,10 +12,12 @@ import { StudentService } from '../student.service';
 export class CoursesComponent implements OnInit {
   courses: Course[];
 
-  constructor(private courseService: CourseService,
-              private studentService: StudentService) { }
+  constructor(
+    private courseService: CourseService,
+    private studentService: StudentService,
+    private profesorService: ProfessorService) { }
 
-  ngOnInit() {   
+  ngOnInit() {
     this.getCourses();
   }
 
@@ -25,6 +28,8 @@ export class CoursesComponent implements OnInit {
 
   getCoursesByUserId(): void {
     this.studentService.getStudentCourses(localStorage.getItem("userID"))
+      .subscribe(courses => this.courses = courses);
+    this.profesorService.getProfessorCourses(localStorage.getItem("userID"))
       .subscribe(courses => this.courses = courses);
   }
 }

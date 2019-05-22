@@ -35,7 +35,7 @@ namespace exams_management_system.Controllers
         [HttpGet("{id:guid}", Name = "GetProfessorById")]
         public async Task<IActionResult> GetProfessorById(Guid id)
         {
-            var professor = await professorService.FindById(id);
+            var professor = await professorService.GetCourseByProfId(id);
 
             if (professor == null)
             {
@@ -43,6 +43,19 @@ namespace exams_management_system.Controllers
             }
 
             return Ok(professor);
+        }
+
+        [HttpGet("{id:guid}/courses", Name = "GetCourseByProfId")]
+        public async Task<IActionResult> GetCourseByProfId(Guid id)
+        {
+            var course = await professorService.GetCourseByProfId(id);
+
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(course);
         }
 
         [HttpPut("{id:guid}", Name = "UpdateProfessor")]
@@ -53,7 +66,7 @@ namespace exams_management_system.Controllers
                 return BadRequest(ModelState);
             }
 
-            var professor = await professorService.FindById(id);
+            var professor = await professorService.GetCourseByProfId(id);
             if (professor == null)
             {
                 return NotFound();
