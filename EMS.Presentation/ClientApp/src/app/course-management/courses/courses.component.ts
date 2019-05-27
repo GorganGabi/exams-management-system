@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from '../course';
-import { CourseService } from '../course.service';
-import { StudentService } from '../student.service';
-import { ProfessorService } from '../professor.service';
+import { Course } from '../../course';
+import { CourseService } from '../../course.service';
+import { StudentService } from '../../student.service';
+import { ProfessorService } from '../../professor.service';
 
 @Component({
   selector: 'app-courses',
@@ -31,5 +31,10 @@ export class CoursesComponent implements OnInit {
       .subscribe(courses => this.courses = courses);
     this.profesorService.getProfessorCourses(localStorage.getItem("userID"))
       .subscribe(courses => this.courses = courses);
+  }
+
+  deleteCourse(course: Course) {
+    this.courseService.deleteCourse(course.id)
+      .subscribe(() => location.reload());
   }
 }

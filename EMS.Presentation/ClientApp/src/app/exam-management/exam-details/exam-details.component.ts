@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Exam } from '../exam';
-import { ExamService } from '../exam.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { Exam } from '../../exam';
+import { ExamService } from '../../exam.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Location } from '@angular/common';

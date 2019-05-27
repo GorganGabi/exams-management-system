@@ -38,4 +38,21 @@ export class CourseService {
 
     return this.http.put<Course>(url, body, httpOptions);
   }
+
+  createCourse(course: Course): Observable<Course> {
+    var courseCreateModel = {
+      title: course.title,
+      universityYear: course.universityYear,
+      studentYear: course.studentYear,
+      semester: course.semester,
+      professorId: localStorage.getItem('userID')
+    }
+    console.log(courseCreateModel);
+    return this.http.post<Course>(this.coursesUrl, courseCreateModel, httpOptions);
+  }
+
+  deleteCourse(id: string): Observable<Course>{
+    const url = `${this.coursesUrl}/${id}`;
+    return this.http.delete<Course>(url);
+  }
 }

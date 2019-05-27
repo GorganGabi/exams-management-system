@@ -45,6 +45,7 @@ namespace EMS.Business
             .Where(c => c.ProfessorId == id)
             .Select(c => new CourseDetailsModel
             {
+                Id = c.Id,
                 Title = c.Title,
                 Semester = c.Semester,
                 StudentYear = c.StudentYear,

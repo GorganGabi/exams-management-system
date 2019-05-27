@@ -1,8 +1,8 @@
 ﻿export class Exam {
-    type: string;
-    courseName: string;
     courseId: string;
+    courseName: string;   
     date: string;
-    room: string;
     id: string;
+    room: string;
+    type: string;
 }

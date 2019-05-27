@@ -5,8 +5,7 @@ import { Exam } from './exam';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Content-Type': 'application/json'
   })
 };
 
@@ -18,11 +17,11 @@ export class ExamService {
 
   constructor(private http: HttpClient) { }
 
-  getExams() : Observable<Exam[]>{
+  getExams(): Observable<Exam[]> {
     return this.http.get<Exam[]>(this.url)
   }
 
-  getExam(id: string): Observable<Exam>{
+  getExam(id: string): Observable<Exam> {
     const url = `${this.url}/${id}`;
     return this.http.get<Exam>(url);
   }
@@ -37,5 +36,22 @@ export class ExamService {
     }
 
     return this.http.put<Exam>(url, body, httpOptions);
+  }
+
+  deleteExam(id: string): Observable<Exam> {
+    const url = `${this.url}/${id}`;
+    return this.http.delete<Exam>(url, httpOptions);
+  }
+
+  createExam(exam: Exam): Observable<Exam> {
+    var examCreateModel = {
+      type: exam.type,
+      date: exam.date,
+      courseId: exam.courseId,
+      professorId: localStorage.getItem('userID'),
+      room: exam.room
+    }
+    console.log(examCreateModel);
+    return this.http.post<Exam>(this.url, examCreateModel, httpOptions);
   }
 }

@@ -59,7 +59,8 @@ namespace EMS.Business
               Type = e.Type,
               Date = e.Date,
               Room = e.Room,
-              CourseName = e.Course.Title
+              CourseName = e.Course.Title,
+              CourseId = e.CourseId
           });
 
         public Task<List<ExamDetailsModel>> GetAll() => repository.GetAll<Exam>()

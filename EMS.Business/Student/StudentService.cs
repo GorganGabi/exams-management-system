@@ -92,15 +92,17 @@ namespace EMS.Business
                 });
 
         public IQueryable<ExamDetailsModel> FindExamsByStudentId(Guid studId) => repository.GetAll<Exam>()
+            .Where(e => e.StudentExams.Any(se => se.StudentId == studId))
             .Include(e => e.Course)
                 .ThenInclude(s => s.StudentCourses)
             .Select(e => new ExamDetailsModel
             {
                 Id = e.Id,
                 Type = e.Type,
-                CourseName = e.Course.StudentCourses.SingleOrDefault(sc => sc.StudentId == studId).Course.Title,
+                CourseName = e.Course.Title,
                 Date = e.Date,
-                Room = e.Room
+                Room = e.Room,
+                CourseId = e.CourseId
             });
 
         public IQueryable<CourseDetailsModel> FindCoursesByStudentId(Guid studId) => repository.GetAll<Course>()
