@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { Course } from './course';
+import { Course } from '../models/course';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {

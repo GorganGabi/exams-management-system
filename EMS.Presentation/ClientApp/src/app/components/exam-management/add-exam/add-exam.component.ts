@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Exam } from '../../exam';
-import { ExamService } from '../../exam.service';
+import { Exam } from '../../../models/exam';
+import { ExamService } from '../../../services/exam.service';
 import { Router } from '@angular/router';
-import { ProfessorService } from 'src/app/professor.service';
-import { Course } from 'src/app/course';
+import { ProfessorService } from 'src/app/services/professor.service';
+import { Course } from 'src/app/models/course';
 
 @Component({
   selector: 'app-add-exam',

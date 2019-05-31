@@ -14,6 +14,8 @@ namespace EMS.Business
 
         Task<List<CourseDetailsModel>> GetCourseByProfId(Guid id);
 
+        Task<List<ExamDetailsModel>> GetExamByProfId(Guid id);
+
         Task<ProfessorDetailsModel> FindByUserId(Guid id);
 
         Task<Guid> CreateNew(Guid userId);

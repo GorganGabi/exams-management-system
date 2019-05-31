@@ -85,7 +85,11 @@ namespace EMS.API.Controllers
                     var professor = await professorService.FindByUserId(Guid.Parse(result.ResultModel.Id));
                     entityId = professor.Id;
                 }
-                return StatusCode(StatusCodes.Status200OK, new UserDetailsModel { Id = entityId.ToString() });
+                return StatusCode(StatusCodes.Status200OK, new UserDetailsModel
+                {
+                    Id = entityId.ToString(),
+                    Token = result.ResultModel.Token
+                });
             }
             else if (result.StatusCode == StatusCodes.Status422UnprocessableEntity)
             {

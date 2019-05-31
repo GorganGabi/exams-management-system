@@ -47,9 +47,25 @@ namespace EMS.Business
                 UniversityYear = c.UniversityYear,
                 Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.Professor),
                 Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
+                //Exams = BuildExams(c.Exams),
                 StudentYear = c.StudentYear,
                 Semester = c.Semester,
             });
+
+        private List<ExamDetailsModel> BuildExams(List<Exam> exams)
+        {
+            List<ExamDetailsModel> result = new List<ExamDetailsModel>();
+            foreach (var exam in exams)
+            {
+                result.Add(new ExamDetailsModel
+                {
+                    Room = exam.Room,
+                    Id = exam.Id
+                });
+            }
+
+            return result;
+        }
 
         public async Task Update(Guid id, Course updatedCourse)
         {

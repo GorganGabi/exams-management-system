@@ -102,18 +102,21 @@ namespace EMS.Business
                 CourseName = e.Course.Title,
                 Date = e.Date,
                 Room = e.Room,
-                CourseId = e.CourseId
+                CourseId = e.CourseId,
             });
 
         public IQueryable<CourseDetailsModel> FindCoursesByStudentId(Guid studId) => repository.GetAll<Course>()
             .Where(c => c.StudentCourses.Any(cs => cs.StudentId == studId))
+            .Include(c => c.Exams)
             .Select(c => new CourseDetailsModel
             {
                 Id = c.Id,
                 Title = c.Title,
                 StudentYear = c.StudentYear,
                 UniversityYear = c.UniversityYear,
-                Semester = c.Semester
+                Semester = c.Semester,
+                Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
+                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.Professor)
             });
 
         public Task<StudentDetailsModel> FindByUserId(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.UserId == id);

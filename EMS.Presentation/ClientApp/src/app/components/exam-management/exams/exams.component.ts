@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Exam } from '../../exam';
-import { ExamService } from '../../exam.service';
-import { StudentService } from '../../student.service';
+import { Exam } from '../../../models/exam';
+import { ExamService } from '../../../services/exam.service';
+import { StudentService } from '../../../services/student.service';
+import { ProfessorService } from 'src/app/services/professor.service';
+import { Professor } from 'src/app/models/professor';
 
 @Component({
   selector: 'app-exams',
@@ -10,13 +12,21 @@ import { StudentService } from '../../student.service';
 })
 export class ExamsComponent implements OnInit {
   exams: Exam[];
+  role: string;
+  professor: Professor;
 
   constructor(
     private examService: ExamService,
-    private studentService: StudentService) { }
+    private studentService: StudentService,
+    private professorService: ProfessorService) { }
 
   ngOnInit() {
-    this.getExams();   
+    this.getExams();
+    this.role = localStorage.getItem('userID');
+    if (this.role){
+      this.professorService.getProfessorById(this.role)
+        .subscribe(professor => { this.professor = professor })
+      }
   }
 
   getExams() {

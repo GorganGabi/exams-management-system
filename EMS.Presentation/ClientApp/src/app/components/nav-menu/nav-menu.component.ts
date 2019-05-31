@@ -26,5 +26,6 @@ export class NavMenuComponent {
 
   logout(){
     localStorage.removeItem('userID');
+    localStorage.removeItem('token');
   }
 }
