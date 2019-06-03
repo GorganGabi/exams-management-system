@@ -94,15 +94,16 @@ namespace EMS.Business
         public IQueryable<ExamDetailsModel> FindExamsByStudentId(Guid studId) => repository.GetAll<Exam>()
             .Where(e => e.StudentExams.Any(se => se.StudentId == studId))
             .Include(e => e.Course)
-                .ThenInclude(s => s.StudentCourses)
+                .ThenInclude(c => c.Professor)
             .Select(e => new ExamDetailsModel
             {
                 Id = e.Id,
                 Type = e.Type,
-                CourseName = e.Course.Title,
+                //CourseName = e.Course.Title,
+                //CourseId = e.CourseId,
+                Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
                 Date = e.Date,
-                Room = e.Room,
-                CourseId = e.CourseId,
+                Room = e.Room,           
             });
 
         public IQueryable<CourseDetailsModel> FindCoursesByStudentId(Guid studId) => repository.GetAll<Course>()

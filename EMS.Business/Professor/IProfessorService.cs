@@ -12,6 +12,8 @@ namespace EMS.Business
 
         Task<ProfessorDetailsModel> FindByTitle(String Title);
 
+        Task<ProfessorDetailsModel> FindById(Guid Title);
+
         Task<List<CourseDetailsModel>> GetCourseByProfId(Guid id);
 
         Task<List<ExamDetailsModel>> GetExamByProfId(Guid id);

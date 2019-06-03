@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-nav-menu',
@@ -16,15 +16,14 @@ export class NavMenuComponent {
     this.isExpanded = !this.isExpanded;
   }
 
-  hideLogin(){
-    if (localStorage.getItem('userID'))
-    {
+  hideLogin() {
+    if (localStorage.getItem('userID')) {
       return true;
     }
     return false;
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('userID');
     localStorage.removeItem('token');
   }

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using EMS.Domain;
+using EMS.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EMS.Business
@@ -59,22 +61,21 @@ namespace EMS.Business
               Type = e.Type,
               Date = e.Date,
               Room = e.Room,
-              CourseName = e.Course.Title,
-              CourseId = e.CourseId
+              Course = Mapper.Map<Course, CourseDetailsModel>(e.Course)
           });
 
         public Task<List<ExamDetailsModel>> GetAll() => repository.GetAll<Exam>()
           .Include(e => e.Course)
-          .Include(e => e.StudentExams)
+            .ThenInclude(c => c.Professor)
           .Select(e => new ExamDetailsModel
           {
               Id = e.Id,
               Type = e.Type,
               Date = e.Date,
-              CourseName = e.Course.Title,
+              Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
               Room = e.Room,
-              CourseId = e.CourseId
           }).ToListAsync();
-        // => AllExamDetails.ToListAsync();
+       
+
     }
 }

@@ -32,7 +32,7 @@ export class AddExamComponent implements OnInit {
     this.exam.date = this.date;
     this.professorService.getProfessorCourses(localStorage.getItem('userID'))
       .subscribe(courses => {
-          this.exam.courseId = courses[0].id,
+          this.exam.course.id = courses[0].id,
           this.examService.createExam(this.exam)
             .subscribe(exam => {
               this.exam = exam,

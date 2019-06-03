@@ -1,6 +1,7 @@
-﻿export class Exam {
-    courseId: string;
-    courseName: string;   
+﻿import {Course} from './course';
+
+export class Exam {
+    course: Course;
     date: string;
     id: string;
     room: string;

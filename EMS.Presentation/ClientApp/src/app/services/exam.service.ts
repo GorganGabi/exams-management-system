@@ -13,12 +13,12 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ExamService {
-  url: string = "http://localhost:11111/api/v1/exams";
+  url = 'http://localhost:11111/api/v1/exams';
 
   constructor(private http: HttpClient) { }
 
   getExams(): Observable<Exam[]> {
-    return this.http.get<Exam[]>(this.url)
+    return this.http.get<Exam[]>(this.url);
   }
 
   getExam(id: string): Observable<Exam> {
@@ -31,9 +31,9 @@ export class ExamService {
     const body = {
       type: exam.type,
       date: exam.date,
-      courseId: exam.courseId,
+      courseId: exam.course.id,
       room: exam.room
-    }
+    };
 
     return this.http.put<Exam>(url, body, httpOptions);
   }
@@ -44,13 +44,13 @@ export class ExamService {
   }
 
   createExam(exam: Exam): Observable<Exam> {
-    var examCreateModel = {
+    const examCreateModel = {
       type: exam.type,
       date: exam.date,
-      courseId: exam.courseId,
+      courseId: exam.course.id,
       professorId: localStorage.getItem('userID'),
       room: exam.room
-    }
+    };
     console.log(examCreateModel);
     return this.http.post<Exam>(this.url, examCreateModel, httpOptions);
   }

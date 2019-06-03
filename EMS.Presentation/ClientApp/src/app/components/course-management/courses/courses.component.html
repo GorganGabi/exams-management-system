@@ -1,37 +1,37 @@
 <h2> Toate Cursurile </h2>
 
 <button *ngIf="role" type="button" class="btn btn-primary btn-sm" (click)="getCoursesByUserId()">Cursurile mele</button>
-<a *ngIf="professor != null && professor.length > 0" routerLink='/courses/create'>
+<a *ngIf="professor" routerLink='/courses/create'>
   <button type="button" class="btn btn-secondary btn-sm">Adauga curs</button>
 </a>
 
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Titlu</th>
-      <th scope="col">Profesor</th>
-      <th scope="col">An</th>
-      <th scope="col">Semestru</th>
-      <th *ngIf="role" scope="col"></th>
-      <th *ngIf="role" scope="col"></th>
-    </tr>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Titlu</th>
+    <th scope="col">Profesor</th>
+    <th scope="col">An</th>
+    <th scope="col">Semestru</th>
+    <th *ngIf="professor" scope="col"></th>
+    <th *ngIf="professor" scope="col"></th>
+  </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let course of courses; index as i">
-      <th scope="row">{{ i + 1 }}</th>
-      <td>{{ course.title }}</td>
-      <td>{{ course.professor.name }}</td>
-      <td>{{ course.studentYear }}</td>
-      <td>{{ course.semester }}</td>
-      <td *ngIf="role">
-        <a routerLink="/courses/{{course.id}}">
-          <button class="btn btn-primary btn-sm">Details</button>
-        </a>
-      </td>
-      <td *ngIf="role">
-        <button class="btn btn-primary btn-sm" (click)="deleteCourse(course)">Delete</button>
-      </td>
-    </tr>
+  <tr *ngFor="let course of courses; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ course.title }}</td>
+    <td>{{ course.professor.name }}</td>
+    <td>{{ course.studentYear }}</td>
+    <td>{{ course.semester }}</td>
+    <td *ngIf="professor">
+      <a routerLink="/courses/{{course.id}}">
+        <button class="btn btn-primary btn-sm">Details</button>
+      </a>
+    </td>
+    <td *ngIf="professor && professor.id == course.professor.id">
+      <button class="btn btn-primary btn-sm" (click)="deleteCourse(course)">Delete</button>
+    </td>
+  </tr>
   </tbody>
 </table>

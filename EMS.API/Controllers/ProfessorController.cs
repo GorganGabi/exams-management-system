@@ -35,7 +35,7 @@ namespace exams_management_system.Controllers
         [HttpGet("{id:guid}", Name = "GetProfessorById")]
         public async Task<IActionResult> GetProfessorById(Guid id)
         {
-            var professor = await professorService.GetCourseByProfId(id);
+            var professor = await professorService.FindById(id);
 
             if (professor == null)
             {

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Professor } from '../models/professor';
 import { Course } from '../models/course';
+import {Exam} from "../models/exam";
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,17 @@ export class ProfessorService {
   }
 
   getProfessorById(id: string): Observable<Professor> {
-    let url = `${this.professorUrl}/${id}`;
+    const url = `${this.professorUrl}/${id}`;
     return this.http.get<Professor>(url);
   }
 
   getProfessorCourses(id: string): Observable<Course[]> {
-    let url = `http://localhost:11111/api/v1/professors/${id}/courses`;
+    const url = `http://localhost:11111/api/v1/professors/${id}/courses`;
     return this.http.get<Course[]>(url);
+  }
+
+  getProfessorExams(id: string): Observable<Exam[]> {
+    const url = `http://localhost:11111/api/v1/professors/${id}/exams`;
+    return this.http.get<Exam[]>(url);
   }
 }

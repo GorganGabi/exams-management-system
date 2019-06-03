@@ -42,6 +42,8 @@ namespace EMS.Business
 
         public Task<ProfessorDetailsModel> FindByTitle(string title) => GetAllProfessorDetails().SingleOrDefaultAsync(p => p.Title == title);
 
+        public Task<ProfessorDetailsModel> FindById(Guid id) => GetAllProfessorDetails().SingleOrDefaultAsync(p => p.Id == id);
+
         public Task<List<CourseDetailsModel>> GetCourseByProfId(Guid id) => repository.GetAll<Course>()
             .Where(c => c.ProfessorId == id)
             .Include(c => c.Exams)
@@ -65,8 +67,9 @@ namespace EMS.Business
            {
                Room = e.Room,
                Id = e.Id,
-               CourseName = e.Course.Title,
-               CourseId = e.CourseId,
+               //CourseName = e.Course.Title,
+               //CourseId = e.CourseId,
+               Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
                Date = e.Date,
                Type = e.Type
            }).ToListAsync();

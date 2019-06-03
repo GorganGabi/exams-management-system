@@ -1,7 +1,9 @@
+import {Professor} from './professor';
+
 export class Course {
   id: string;
   title: string;
-  professors: object;
+  professor: Professor;
   exams: object;
   universityYear: string;
   studentYear: number;
