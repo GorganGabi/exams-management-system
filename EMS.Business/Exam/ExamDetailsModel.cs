@@ -6,9 +6,7 @@ namespace EMS.Business
     {
         public string Type { get; set; }
 
-        public string CourseName { get; set; }
-
-        public Guid CourseId { get; set; }
+        public CourseDetailsModel Course { get; set; }
 
         public DateTime Date { get; set; }
       

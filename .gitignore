@@ -25,3 +25,12 @@ EMS.Service.Tests/obj/Debug/netcoreapp2.1/EMS.Service.Tests.AssemblyInfo.cs
 /EMS.Presentation/ClientApp/node_modules
 /EMS.Presentation/obj/Debug/netcoreapp2.2
 /EMS.Presentation/bin/Debug/netcoreapp2.2
+/EMS.Presentation/.idea/EMS.Presentation.iml
+/EMS.Presentation/.idea/encodings.xml
+/EMS.Presentation/.idea/inspectionProfiles/Project_Default.xml
+/EMS.Presentation/.idea/misc.xml
+/EMS.Presentation/.idea/modules.xml
+/EMS.Presentation/.idea/vcs.xml
+/EMS.Presentation/.idea/workspace.xml
+/EMS.Presentation/package-lock.json
+/EMS.Presentation/ClientApp/package-lock.json

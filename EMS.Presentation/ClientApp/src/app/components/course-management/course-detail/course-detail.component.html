@@ -1,0 +1,44 @@
+<div *ngIf="course">
+  <h2> {{course.title}}</h2>
+
+  <a class="nav-link text-dark" routerLink="/courses/{{course.id}}/grades">
+    <button class="btn btn-primary btn-sm">Vezi note</button>
+  </a>
+
+  <div *ngIf="isEditable == false">
+    <h6>Titlu</h6> {{course.title}}
+    <hr>
+    <h6>An</h6> {{course.studentYear}}
+    <hr>
+    <h6>Semestru</h6> {{course.semester}}
+    <hr>
+  </div>
+  <div *ngIf="isEditable == true">
+    <div class="container">
+      <form>
+        <div class="form-group">
+          <label for="title">Titlu</label>
+          <input type="text" class="form-control" id="title"
+                 [(ngModel)]="course.title" name="title">
+        </div>
+        <div class="form-group">
+          <label for="studentYear">An</label>
+          <input type="text" class="form-control" id="studentYear"
+                 [(ngModel)]="course.studentYear" name="studentYear">
+        </div>
+        <div class="form-group">
+          <label for="semester">Semestru</label>
+          <input type="text" class="form-control" id="semester"
+                 [(ngModel)]="course.semester" name="semester">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="isEditable == false">
+    <button (click)="edit()"> Edit</button>
+  </div>
+  <div *ngIf="isEditable == true">
+    <button class="btn btn-success" type="submit" (click)="saveChanges()"> Save changes</button>
+  </div>
+</div>

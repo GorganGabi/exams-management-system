@@ -62,7 +62,7 @@ namespace EMS.API.Tests
         {
             //Arrange
             var guid = new Guid("ef7e98df-26ed-4b21-b874-c3a2815d18ac");
-            mockRepo.Setup(p => p.FindById(guid)).Returns(Task.FromResult(new ProfessorDetailsModel()));
+            //mockRepo.Setup(p => p.GetCourseByProfId(guid)).Returns(Task.FromResult(new ProfessorDetailsModel()));
 
             // Act
             var result = await controller.GetProfessorById(guid);
@@ -76,7 +76,7 @@ namespace EMS.API.Tests
         public async Task Given_GetProfessorById_When_IdIsValidButNoCourseFound_Then_BadStatusCode()
         {
             //Arrange
-            mockRepo.Setup(p => p.FindById(It.IsIn<Guid>())).Returns(Task.FromResult<ProfessorDetailsModel>(null));
+            //mockRepo.Setup(p => p.GetCourseByProfId(It.IsIn<Guid>())).Returns(Task.FromResult<ProfessorDetailsModel>(null));
 
             var controller = new ProfessorController(mockRepo.Object);
 

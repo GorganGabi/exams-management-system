@@ -47,15 +47,16 @@ namespace EMS.Business
                 .Include(g => g.Student)
                     .ThenInclude(s => s.StudentCourses)
                 .Select(eg => new GradeDetailsModel
-            {
-                Id = eg.Id,
-                ExamName = eg.Exam.Course.Title,
-                StudentName = eg.Student.Name,
-                Value = eg.Value
-            }).ToListAsync();       
+                {
+                    Id = eg.Id,
+                    ExamName = eg.Exam.Course.Title,
+                    StudentName = eg.Student.Name,
+                    Value = eg.Value,
+                    ExamId = eg.ExamId,
+                    StudentId = eg.StudentId
+                }).ToListAsync();
 
-        public Task<List<GradeDetailsModel>> FindByStudentId(Guid studentId)
-        => repository.GetAll<Grade>()
+        public Task<List<GradeDetailsModel>> FindByStudentId(Guid studentId) => repository.GetAll<Grade>()
                 .Where(g => g.StudentId == studentId)
                 .Include(g => g.Exam)
                 .Include(g => g.Student)
@@ -65,7 +66,9 @@ namespace EMS.Business
                     Id = eg.Id,
                     ExamName = eg.Exam.Course.Title,
                     StudentName = eg.Student.Name,
-                    Value = eg.Value
+                    Value = eg.Value,
+                    ExamId = eg.ExamId,
+                    StudentId = eg.StudentId
                 }).ToListAsync();
 
 
@@ -93,7 +96,9 @@ namespace EMS.Business
               Id = g.Id,
               Value = g.Value,
               ExamName = g.Exam.Course.Title,
-              StudentName = g.Student.Name
+              StudentName = g.Student.Name,
+              ExamId = g.ExamId,
+              StudentId = g.StudentId
           });
 
 

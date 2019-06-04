@@ -49,20 +49,46 @@ namespace exams_management_system.Controllers
         [HttpGet("{id:guid}/exams", Name = "GetExamsByStudentId")]
         public async Task<IActionResult> GetExamsByStudentId(Guid id)
         {
-            var grade = studentService.FindExamsByStudentId(id);
+            var exam = studentService.FindExamsByStudentId(id);
 
-            if (grade == null)
+            if (exam == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
 
-            return Ok(grade);
+            return Ok(exam);
+        }
+
+        [HttpGet("{id:guid}/courses", Name = "GetCoursesByStudentId")]
+        public async Task<IActionResult> GetCoursesByStudentId(Guid id)
+        {
+            var courses = studentService.FindCoursesByStudentId(id);
+
+            if (courses == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+
+            return Ok(courses);
         }
 
         [HttpGet("{id:guid}", Name = "GetStudentById")]
         public async Task<IActionResult> GetStudentById(Guid id)
         {
             var student = await studentService.FindById(id);
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(student);
+        }
+
+        [HttpGet("{name}", Name = "GetStudentByName")]
+        public async Task<IActionResult> GetStudentByName(string name)
+        {
+            var student = await studentService.FindbyName(name);
 
             if (student == null)
             {

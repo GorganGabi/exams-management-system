@@ -47,9 +47,26 @@ namespace EMS.Business
                 UniversityYear = c.UniversityYear,
                 Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.Professor),
                 Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
+                //Exams = BuildExams(c.Exams),
                 StudentYear = c.StudentYear,
                 Semester = c.Semester,
+                       
             });
+
+        private List<ExamDetailsModel> BuildExams(List<Exam> exams)
+        {
+            List<ExamDetailsModel> result = new List<ExamDetailsModel>();
+            foreach (var exam in exams)
+            {
+                result.Add(new ExamDetailsModel
+                {
+                    Room = exam.Room,
+                    Id = exam.Id
+                });
+            }
+
+            return result;
+        }
 
         public async Task Update(Guid id, Course updatedCourse)
         {
@@ -81,10 +98,24 @@ namespace EMS.Business
 
         public Task<ProfessorDetailsModel> GetProfessorCourse(Guid id) => repository.GetAll<Course>()
             .Where(c => c.ProfessorId == id)
-            .Select(p => new ProfessorDetailsModel
+            .Select(c => new ProfessorDetailsModel
             {
-                Id = p.Id
+                Name = c.Professor.Name,
+                Title = c.Professor.Title,                
             }).SingleOrDefaultAsync();
 
+        public Task<List<GradeDetailsModel>> GetCourseGrades(Guid id) => repository.GetAll<Grade>()
+            .Where(g => g.Exam.CourseId == id)
+            //.Include(g => g.Exam)
+            //.Include(g => g.Student)
+            .Select(g => new GradeDetailsModel
+            {
+                Value = g.Value,
+                ExamName = g.Exam.Course.Title,
+                ExamId = g.ExamId,
+                StudentName = g.Student.Name,
+                StudentId = g.StudentId,
+                Id = g.Id
+            }).ToListAsync();
     }
 }
