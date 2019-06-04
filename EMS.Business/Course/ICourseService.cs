@@ -13,6 +13,8 @@ namespace EMS.Business
 
         Task<CourseDetailsModel> FindById(Guid id);
 
+        Task<List<GradeDetailsModel>> GetCourseGrades(Guid id);
+
         Task<Guid> CreateNew(CreatingCourseModel newCourse);
 
         Task Update(Guid id, Course updatedCourse);

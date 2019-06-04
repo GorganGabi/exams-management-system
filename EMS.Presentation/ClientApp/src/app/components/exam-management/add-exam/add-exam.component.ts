@@ -36,7 +36,7 @@ export class AddExamComponent implements OnInit {
           this.examService.createExam(this.exam)
             .subscribe(exam => {
               this.exam = exam,
-                this.route.navigate(['/exams'])
+                this.route.navigate(['/exams']);
             });
       });
   }

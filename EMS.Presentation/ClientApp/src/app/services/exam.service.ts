@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Exam } from '../models/exam';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Exam} from '../models/exam';
+import {Grade} from "../models/grade";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -15,7 +16,8 @@ const httpOptions = {
 export class ExamService {
   url = 'http://localhost:11111/api/v1/exams';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getExams(): Observable<Exam[]> {
     return this.http.get<Exam[]>(this.url);
@@ -53,5 +55,11 @@ export class ExamService {
     };
     console.log(examCreateModel);
     return this.http.post<Exam>(this.url, examCreateModel, httpOptions);
+  }
+
+  getExamGrades(id: string): Observable<Grade[]> {
+    const newUrl = `${this.url}/${id}/grades`;
+    console.log(newUrl)
+    return this.http.get<Grade[]>(newUrl);
   }
 }

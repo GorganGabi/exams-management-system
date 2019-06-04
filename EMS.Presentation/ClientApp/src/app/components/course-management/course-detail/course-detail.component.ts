@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { CourseService } from '../../../services/course.service';
-import { Course } from '../../../models/course';
-import { Location } from '@angular/common';
+import {Component, OnInit, Input} from '@angular/core';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {switchMap} from 'rxjs/operators';
+import {CourseService} from '../../../services/course.service';
+import {Course} from '../../../models/course';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-course-detail',
@@ -12,12 +12,13 @@ import { Location } from '@angular/common';
 })
 export class CourseDetailComponent implements OnInit {
   course: Course;
-  isEditable: boolean = false;
+  isEditable = false;
 
   constructor(
     private courseService: CourseService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location) {
+  }
 
   ngOnInit() {
     this.getCourse();
@@ -26,7 +27,7 @@ export class CourseDetailComponent implements OnInit {
   goBack() {
     this.location.back();
   }
-  
+
   getCourse(): void {
     this.route.paramMap.pipe(
       switchMap((map: ParamMap) => this.courseService.getCourse(map.get('id')))

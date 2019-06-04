@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './components/nav-menu/nav-menu.component';
@@ -16,6 +16,11 @@ import {AddExamComponent} from './components/exam-management/add-exam/add-exam.c
 import {ExamDetailsComponent} from './components/exam-management/exam-details/exam-details.component';
 import {AddCourseComponent} from './components/course-management/add-course/add-course.component';
 import {GradesComponent} from './components/grade-management/grades/grades.component';
+import {CourseGradesComponent} from './components/course-management/course-grades/course-grades.component';
+import { AddGradeComponent } from './components/grade-management/add-grade/add-grade.component';
+import {Course} from './models/course';
+import { ExamGradesComponent } from './components/exam-management/exam-grades/exam-grades.component';
+import { GradeUpdateComponent } from './components/grade-management/grade-update/grade-update.component';
 
 @NgModule({
   declarations: [
@@ -29,22 +34,30 @@ import {GradesComponent} from './components/grade-management/grades/grades.compo
     AddExamComponent,
     ExamDetailsComponent,
     AddCourseComponent,
-    GradesComponent
+    GradesComponent,
+    CourseGradesComponent,
+    CourseDetailComponent,
+    AddGradeComponent,
+    ExamGradesComponent,
+    GradeUpdateComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
-    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'courses', component: CoursesComponent},
       {path: 'courses/create', component: AddCourseComponent},
       {path: 'courses/:id', component: CourseDetailComponent},
+      {path: 'courses/:id/grades', component: CourseGradesComponent, data : {course: Course}},
       {path: 'exams', component: ExamsComponent},
       {path: 'exams/create', component: AddExamComponent},
       {path: 'exams/:id', component: ExamDetailsComponent},
+      {path: 'exams/:id/grades', component: ExamGradesComponent},
+      {path: 'exams/:id/grades/create', component: AddGradeComponent},
       {path: 'grades', component: GradesComponent},
       {path: 'login', component: LoginComponent}
     ])

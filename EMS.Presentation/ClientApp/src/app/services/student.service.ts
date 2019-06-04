@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Course } from '../models/course';
-import { Exam } from '../models/exam';
+import {Injectable} from '@angular/core';
+import {HttpHeaders, HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Course} from '../models/course';
+import {Exam} from '../models/exam';
+import {Student} from '../models/student';
 
 
 const httpOptions = {
@@ -17,7 +18,8 @@ const httpOptions = {
 export class StudentService {
   private url: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getStudentCourses(id: string): Observable<Course[]> {
     this.url = `http://localhost:11111/api/v1/students/${id}/courses`;
@@ -28,5 +30,11 @@ export class StudentService {
     this.url = `http://localhost:11111/api/v1/students/${id}/exams`;
     return this.http.get<Exam[]>(this.url);
   }
+
+  getStudentByName(name: string): Observable<Student> {
+    this.url = `http://localhost:11111/api/v1/students/${name}`;
+    return this.http.get<Student>(this.url);
+  }
+
 
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Course } from 'src/app/models/course';
-import { CourseService } from 'src/app/services/course.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Course} from 'src/app/models/course';
+import {CourseService} from 'src/app/services/course.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-course',
@@ -17,7 +17,8 @@ export class AddCourseComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
-    private route: Router) { }  
+    private route: Router) {
+  }
 
   ngOnInit() {
   }
@@ -30,9 +31,9 @@ export class AddCourseComponent implements OnInit {
     this.course.semester = this.semester;
     console.log(this.course);
     this.courseService.createCourse(this.course)
-      .subscribe(() =>{
-        this.route.navigate(['/courses'])
-      } );
+      .subscribe(() => {
+        this.route.navigate(['/courses']);
+      });
   }
 
 }

@@ -12,6 +12,8 @@ namespace EMS.Business
 
         public Guid StudentId { get; set; }
 
+        public string StudentName { get; set; }
+
         public Boolean IsConfirmed { get; set; }
     }
 }

@@ -121,5 +121,7 @@ namespace EMS.Business
             });
 
         public Task<StudentDetailsModel> FindByUserId(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.UserId == id);
+
+        public Task<StudentDetailsModel> FindbyName(string name) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.Name == name);
     }
 }

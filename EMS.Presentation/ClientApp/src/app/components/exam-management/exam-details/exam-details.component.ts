@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Exam } from '../../../models/exam';
-import { ExamService } from '../../../services/exam.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { Location } from '@angular/common';
+import {Component, OnInit, Input} from '@angular/core';
+import {Exam} from '../../../models/exam';
+import {ExamService} from '../../../services/exam.service';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {switchMap} from 'rxjs/operators';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-exam-details',
@@ -17,7 +17,8 @@ export class ExamDetailsComponent implements OnInit {
   constructor(
     private examService: ExamService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location) {
+  }
 
   ngOnInit() {
     this.getExam()
@@ -27,7 +28,7 @@ export class ExamDetailsComponent implements OnInit {
     this.location.back();
   }
 
-  getExam(){
+  getExam() {
     this.route.paramMap.pipe(
       switchMap((map: ParamMap) => this.examService.getExam(map.get('id')))
     ).subscribe(exam => this.exam = exam);

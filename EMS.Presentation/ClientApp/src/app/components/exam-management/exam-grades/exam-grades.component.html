@@ -1,0 +1,35 @@
+<h2> Toate notele materiei mele </h2>
+
+<a routerLink="/exams/{{examId}}/grades/create">
+  <button class="btn btn-secondary">
+    Adauga nota
+  </button>
+</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nume Student</th>
+    <th scope="col">Materie</th>
+    <th scope="col">Nota</th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let grade of grades; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ grade.studentName }}</td>
+    <td>{{ grade.examName  }}</td>
+    <td>{{ grade.value  }}</td>
+    <td>
+      <app-grade-update [grade]="grade"></app-grade-update>
+    </td>
+    <td>
+      <!--<a routerLink="">-->
+      <button class="btn btn-success btn-sm">Confirma</button>
+      <!--</a>-->
+    </td>
+  </tr>
+  </tbody>
+</table>

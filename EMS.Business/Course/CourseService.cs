@@ -50,6 +50,7 @@ namespace EMS.Business
                 //Exams = BuildExams(c.Exams),
                 StudentYear = c.StudentYear,
                 Semester = c.Semester,
+                       
             });
 
         private List<ExamDetailsModel> BuildExams(List<Exam> exams)
@@ -103,5 +104,18 @@ namespace EMS.Business
                 Title = c.Professor.Title,                
             }).SingleOrDefaultAsync();
 
+        public Task<List<GradeDetailsModel>> GetCourseGrades(Guid id) => repository.GetAll<Grade>()
+            .Where(g => g.Exam.CourseId == id)
+            //.Include(g => g.Exam)
+            //.Include(g => g.Student)
+            .Select(g => new GradeDetailsModel
+            {
+                Value = g.Value,
+                ExamName = g.Exam.Course.Title,
+                ExamId = g.ExamId,
+                StudentName = g.Student.Name,
+                StudentId = g.StudentId,
+                Id = g.Id
+            }).ToListAsync();
     }
 }

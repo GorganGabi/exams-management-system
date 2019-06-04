@@ -14,6 +14,8 @@ namespace EMS.Business
 
         Task<StudentDetailsModel> FindByUserId(Guid id);
 
+        Task<StudentDetailsModel> FindbyName(string name);
+
         Task<Guid> CreateNew(Guid userId);
 
         Task<Guid> CreateNew(Guid userId, string json);

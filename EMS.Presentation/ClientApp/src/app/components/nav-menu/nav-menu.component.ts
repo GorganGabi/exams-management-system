@@ -17,10 +17,7 @@ export class NavMenuComponent {
   }
 
   hideLogin() {
-    if (localStorage.getItem('userID')) {
-      return true;
-    }
-    return false;
+    return !!localStorage.getItem('userID');
   }
 
   logout() {
