@@ -47,6 +47,19 @@ namespace exams_management_system.Controllers
             return Ok(course);
         }
 
+        [HttpGet("{id:guid}/grades", Name = "GetCourseGrades")]
+        public async Task<IActionResult> GetCourseGrades(Guid id)
+        {
+            var courses = await courseService.GetCourseGrades(id);
+
+            if (courses == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(courses);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateCourse([FromBody] CreatingCourseModel model)
         {

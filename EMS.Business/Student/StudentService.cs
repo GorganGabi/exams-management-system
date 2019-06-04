@@ -75,28 +75,53 @@ namespace EMS.Business
 
 
         private IQueryable<StudentDetailsModel> GetAllStudentDetails() => repository.GetAll<Student>()
-                .Select(c => new StudentDetailsModel
+                .Select(s => new StudentDetailsModel
                 {
-                    Id = c.Id,
-                    UserId = c.UserId,
-                    FatherInitial = c.FatherInitial,
-                    Name = c.Name,
-                    Group = c.Group,
-                    RegistrationNumber = c.RegistrationNumber,
-                    Courses = Mapper.Map<List<Course>, List<CourseDetailsModel>>(c.StudentCourses.Select(sc => sc.Course).ToList()),
-                    Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.StudentExams.Select(sc => sc.Exam).ToList()),
+                    Id = s.Id,
+                    UserId = s.UserId,
+                    FatherInitial = s.FatherInitial,
+                    Name = s.Name,
+                    Group = s.Group,
+                    RegistrationNumber = s.RegistrationNumber,
+                    Courses = Mapper.Map<List<Course>, List<CourseDetailsModel>>(s.StudentCourses.Where(sc => sc.StudentId == s.Id)
+                                                                                                 .Select(sc => sc.Course)
+                                                                                                 .ToList()),
+                    Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(s.StudentExams.Where(sc => sc.StudentId == s.Id)
+                                                                                         .Select(sc => sc.Exam)
+                                                                                         .ToList()),
                 });
 
         public IQueryable<ExamDetailsModel> FindExamsByStudentId(Guid studId) => repository.GetAll<Exam>()
+            .Where(e => e.StudentExams.Any(se => se.StudentId == studId))
             .Include(e => e.Course)
-                .ThenInclude(s => s.StudentCourses)
+                .ThenInclude(c => c.Professor)
             .Select(e => new ExamDetailsModel
             {
                 Id = e.Id,
                 Type = e.Type,
-                CourseName = e.Course.StudentCourses.SingleOrDefault(sc => sc.StudentId == studId).Course.Title,
+                //CourseName = e.Course.Title,
+                //CourseId = e.CourseId,
+                Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
                 Date = e.Date,
-                Room = e.Room
+                Room = e.Room,           
             });
+
+        public IQueryable<CourseDetailsModel> FindCoursesByStudentId(Guid studId) => repository.GetAll<Course>()
+            .Where(c => c.StudentCourses.Any(cs => cs.StudentId == studId))
+            .Include(c => c.Exams)
+            .Select(c => new CourseDetailsModel
+            {
+                Id = c.Id,
+                Title = c.Title,
+                StudentYear = c.StudentYear,
+                UniversityYear = c.UniversityYear,
+                Semester = c.Semester,
+                Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
+                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.Professor)
+            });
+
+        public Task<StudentDetailsModel> FindByUserId(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.UserId == id);
+
+        public Task<StudentDetailsModel> FindbyName(string name) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.Name == name);
     }
 }

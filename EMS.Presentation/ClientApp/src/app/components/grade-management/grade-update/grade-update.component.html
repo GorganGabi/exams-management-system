@@ -1,0 +1,26 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Introdu o noua nota</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form>
+      <div class="form-group">
+        <label for="value">Nota</label>
+        <input type="text" class="form-control" id="value"
+               [(ngModel)]="grade.value" name="value">
+      </div>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close(); update()">Save</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-sm btn-primary" (click)="open(content)">Schimba nota</button>
+
+<hr>

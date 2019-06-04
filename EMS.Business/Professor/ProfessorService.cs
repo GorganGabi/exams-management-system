@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EMS.Domain;
 using EMS.Domain.Entities;
+using AutoMapper;
 
 namespace EMS.Business
 {
@@ -43,14 +44,46 @@ namespace EMS.Business
 
         public Task<ProfessorDetailsModel> FindById(Guid id) => GetAllProfessorDetails().SingleOrDefaultAsync(p => p.Id == id);
 
+        public Task<List<CourseDetailsModel>> GetCourseByProfId(Guid id) => repository.GetAll<Course>()
+            .Where(c => c.ProfessorId == id)
+            .Include(c => c.Exams)
+            .Include(c => c.Professor)
+            .Select(c => new CourseDetailsModel
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Semester = c.Semester,
+                StudentYear = c.StudentYear,
+                UniversityYear = c.UniversityYear,
+                Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
+                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.Professor)
+            }).ToListAsync();
+
+        public Task<List<ExamDetailsModel>> GetExamByProfId(Guid id) => repository.GetAll<Exam>()
+           .Where(e=> e.Course.Professor.Id == id)
+           .Include(e => e.Course)
+           .ThenInclude(c => c.Professor)
+           .Select(e => new ExamDetailsModel
+           {
+               Room = e.Room,
+               Id = e.Id,
+               //CourseName = e.Course.Title,
+               //CourseId = e.CourseId,
+               Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
+               Date = e.Date,
+               Type = e.Type
+           }).ToListAsync();
+
 
         private IQueryable<ProfessorDetailsModel> GetAllProfessorDetails() => repository.GetAll<Professor>()
             .Select(p => new ProfessorDetailsModel
             {
                 Id = p.Id,
-                UserId = p.UserId, 
+                UserId = p.UserId,
                 Title = p.Title,
                 Name = p.Name
             });
+
+        public Task<ProfessorDetailsModel> FindByUserId(Guid id) => GetAllProfessorDetails().SingleOrDefaultAsync(p => p.UserId == id);
     }
 }

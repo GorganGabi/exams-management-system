@@ -1,0 +1,20 @@
+<h2> Toate notele materiei mele </h2>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nume Student</th>
+    <th scope="col">Materie</th>
+    <th scope="col">Nota</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let grade of grades; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ grade.studentName }}</td>
+    <td>{{ grade.examName  }}</td>
+    <td>{{ grade.value  }}</td>
+  </tr>
+  </tbody>
+</table>
