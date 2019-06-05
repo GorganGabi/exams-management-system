@@ -123,5 +123,14 @@ namespace EMS.Business
         public Task<StudentDetailsModel> FindByUserId(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.UserId == id);
 
         public Task<StudentDetailsModel> FindbyName(string name) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.Name == name);
+
+        public Task<List<StudentDetailsModel>> FindStudentsbyName(string name) => repository.GetAll<Student>()
+            .Where(s => s.Name.StartsWith(name))          
+            .Select(s => new StudentDetailsModel
+            {
+                Name = s.Name,
+                Id = s.Id
+            }).ToListAsync();
+                    
     }
 }

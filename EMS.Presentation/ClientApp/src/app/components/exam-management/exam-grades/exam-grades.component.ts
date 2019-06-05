@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Grade} from '../../../models/grade';
 import {ExamService} from '../../../services/exam.service';
 import {ActivatedRoute} from '@angular/router';
+import {GradeService} from "../../../services/grade.service";
 
 @Component({
   selector: 'app-exam-grades',
@@ -13,6 +14,7 @@ export class ExamGradesComponent implements OnInit {
   examId: string;
 
   constructor(private examService: ExamService,
+              private gradeService: GradeService,
               private route: ActivatedRoute) {
   }
 
@@ -26,7 +28,11 @@ export class ExamGradesComponent implements OnInit {
     this.examService.getExamGrades(this.examId)
       .subscribe(grades => {
         this.grades = grades;
-        console.log(this.grades);
       });
+  }
+
+  deleteGrade(grade: Grade) {
+    this.gradeService.deleteGrade(grade)
+      .subscribe(() => location.reload());
   }
 }

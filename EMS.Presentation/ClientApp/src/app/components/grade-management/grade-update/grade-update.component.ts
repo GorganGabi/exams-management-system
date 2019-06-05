@@ -1,9 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {GradeService} from "../../../services/grade.service";
-import {Location} from "@angular/common";
-import {Grade} from "../../../models/grade";
-import * as G from "glob";
+import {GradeService} from '../../../services/grade.service';
+import {Grade} from '../../../models/grade';
 
 @Component({
   selector: 'app-grade-update',
@@ -11,7 +9,6 @@ import * as G from "glob";
   styleUrls: ['./grade-update.component.css']
 })
 export class GradeUpdateComponent implements OnInit {
-  closeResult: string;
   @Input() grade: Grade;
 
   constructor(private modalService: NgbModal,

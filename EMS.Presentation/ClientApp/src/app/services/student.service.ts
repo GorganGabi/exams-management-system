@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpHeaders, HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Course} from '../models/course';
 import {Exam} from '../models/exam';
 import {Student} from '../models/student';
@@ -31,9 +31,13 @@ export class StudentService {
     return this.http.get<Exam[]>(this.url);
   }
 
-  getStudentByName(name: string): Observable<Student> {
+  getStudentsByName(name: string): Observable<Student[]> {
+    if (!name.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
     this.url = `http://localhost:11111/api/v1/students/${name}`;
-    return this.http.get<Student>(this.url);
+    return this.http.get<Student[]>(this.url);
   }
 
 

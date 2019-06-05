@@ -2,9 +2,10 @@
   <form>
     <h2>Adauga Nota</h2>
     <div class="form-group">
-      <label for="studentName">Nume Student</label>
-      <input type="text" class="form-control" id="studentName" [(ngModel)]="studentName" name="studentName">
+      <label>Nume Student</label>
+      <app-student-search (OnStudentName)="setName($event)"></app-student-search>
     </div>
+
     <div class="form-group">
       <label for="value">Valoare</label>
       <input type="text" class="form-control" id="value" [(ngModel)]="value" name="value">

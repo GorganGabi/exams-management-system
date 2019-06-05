@@ -53,13 +53,11 @@ export class ExamService {
       professorId: localStorage.getItem('userID'),
       room: exam.room
     };
-    console.log(examCreateModel);
     return this.http.post<Exam>(this.url, examCreateModel, httpOptions);
   }
 
   getExamGrades(id: string): Observable<Grade[]> {
     const newUrl = `${this.url}/${id}/grades`;
-    console.log(newUrl)
     return this.http.get<Grade[]>(newUrl);
   }
 }

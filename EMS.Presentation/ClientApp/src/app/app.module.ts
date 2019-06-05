@@ -21,6 +21,8 @@ import { AddGradeComponent } from './components/grade-management/add-grade/add-g
 import {Course} from './models/course';
 import { ExamGradesComponent } from './components/exam-management/exam-grades/exam-grades.component';
 import { GradeUpdateComponent } from './components/grade-management/grade-update/grade-update.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { StudentSearchComponent } from './components/student-management/student-search/student-search.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { GradeUpdateComponent } from './components/grade-management/grade-update
     CourseDetailComponent,
     AddGradeComponent,
     ExamGradesComponent,
-    GradeUpdateComponent
+    GradeUpdateComponent,
+    StatisticsComponent,
+    StudentSearchComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -59,7 +63,8 @@ import { GradeUpdateComponent } from './components/grade-management/grade-update
       {path: 'exams/:id/grades', component: ExamGradesComponent},
       {path: 'exams/:id/grades/create', component: AddGradeComponent},
       {path: 'grades', component: GradesComponent},
-      {path: 'login', component: LoginComponent}
+      {path: 'login', component: LoginComponent},
+      {path: 'statistics', component: StatisticsComponent}
     ])
   ],
   exports: [RouterModule],

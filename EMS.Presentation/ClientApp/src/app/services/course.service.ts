@@ -48,7 +48,6 @@ export class CourseService {
       semester: course.semester,
       professorId: localStorage.getItem('userID')
     };
-    console.log(courseCreateModel);
     return this.http.post<Course>(this.coursesUrl, courseCreateModel, httpOptions);
   }
 
