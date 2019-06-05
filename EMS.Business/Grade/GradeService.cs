@@ -18,7 +18,7 @@ namespace EMS.Business
         {
             var student = await repository.FindByIdAsync<Student>(newGrade.StudentId);
             var exam = await repository.FindByIdAsync<Exam>(newGrade.ExamId);
-            var tmpGrade = repository.GetAll<Grade>().FirstOrDefault();
+            var tmpGrade = repository.GetAll<Grade>().Where(e => e.StudentId == student.Id).FirstOrDefault();
 
             if (tmpGrade != null)
             {

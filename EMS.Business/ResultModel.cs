@@ -12,5 +12,8 @@ namespace EMS.Business
 
         [JsonProperty("role")]
         public string Role { get; set; }
+
+        [JsonProperty]
+        public string Email { get; set; }
     }
 }

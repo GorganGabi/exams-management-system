@@ -4,8 +4,10 @@ namespace EMS.Business
 {
     public class UpdateStudentModel
     {
-        [Required]
         [MaxLength(2)]
         public string FatherInitial { get; set; }
+
+        [MaxLength(100)]
+        public string Name { get; set; }
     }
 }

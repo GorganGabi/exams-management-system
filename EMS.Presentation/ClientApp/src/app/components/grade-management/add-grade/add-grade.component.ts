@@ -27,15 +27,17 @@ export class AddGradeComponent implements OnInit {
     this.grade = new Grade();
     this.grade.value = this.value;
     this.grade.examId = this.route.snapshot.paramMap.get('id');
-    this.studentService.getStudentByName(this.studentName)
-      .subscribe(student => {
-        this.grade.studentId = student.id;
+    this.studentService.getStudentsByName(this.studentName)
+      .subscribe(students => {
+        this.grade.studentId = students[0].id;
         this.gradeService.createGrade(this.grade)
           .subscribe(() => {
-            this.router.navigate([`/exam/${this.grade.examId}/grades/`]);
+            this.router.navigate([`/exams/${this.grade.examId}/grades/`]);
           });
       });
+  }
 
-    console.log(this.grade);
+  setName(name: string) {
+    this.studentName = name;
   }
 }

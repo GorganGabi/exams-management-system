@@ -11,6 +11,8 @@ namespace EMS.Business
 
         public string Name { get; set; }
 
+        public string Email { get; set; }
+
         public string Group { get; set; }
 
         public string RegistrationNumber { get; set; }

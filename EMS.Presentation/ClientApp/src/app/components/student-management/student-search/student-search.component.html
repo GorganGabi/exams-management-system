@@ -1,0 +1,10 @@
+<div id="search-component">
+  <input #searchBox id="search-box" value="{{name}}" (input)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let student of students$ | async" (click)="setInputValue(student.name)">
+        {{student.name}}
+    </li>
+  </ul>
+
+</div>

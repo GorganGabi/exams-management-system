@@ -39,7 +39,8 @@ namespace EMS.Business
                 fInitial: fInitial,
                 group: group,
                 year: year,
-                rnumber: rNumber
+                rnumber: rNumber,
+                email: email
                 );
 
             await repository.AddNewAsync(student);
@@ -81,6 +82,7 @@ namespace EMS.Business
                     UserId = s.UserId,
                     FatherInitial = s.FatherInitial,
                     Name = s.Name,
+                    Email = s.Email,
                     Group = s.Group,
                     RegistrationNumber = s.RegistrationNumber,
                     Courses = Mapper.Map<List<Course>, List<CourseDetailsModel>>(s.StudentCourses.Where(sc => sc.StudentId == s.Id)
@@ -123,5 +125,14 @@ namespace EMS.Business
         public Task<StudentDetailsModel> FindByUserId(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.UserId == id);
 
         public Task<StudentDetailsModel> FindbyName(string name) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.Name == name);
+
+        public Task<List<StudentDetailsModel>> FindStudentsbyName(string name) => repository.GetAll<Student>()
+            .Where(s => s.Name.StartsWith(name))          
+            .Select(s => new StudentDetailsModel
+            {
+                Name = s.Name,
+                Id = s.Id
+            }).ToListAsync();
+                    
     }
 }

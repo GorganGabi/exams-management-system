@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using AutoMapper;
+using EMS.Domain.Entities;
 
 namespace exams_management_system.Controllers
 {
@@ -85,7 +87,7 @@ namespace exams_management_system.Controllers
             return Ok(student);
         }
 
-        [HttpGet("{name}", Name = "GetStudentByName")]
+        /*[HttpGet("{name}", Name = "GetStudentByName")]
         public async Task<IActionResult> GetStudentByName(string name)
         {
             var student = await studentService.FindbyName(name);
@@ -96,6 +98,19 @@ namespace exams_management_system.Controllers
             }
 
             return Ok(student);
+        }*/
+
+        [HttpGet("{name}", Name = "GetStudentsByName")]
+        public async Task<IActionResult> GetStudentsByName(string name)
+        {
+            var students = await studentService.FindStudentsbyName(name);
+
+            if (students == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(students);
         }
 
         [HttpPut("{id:guid}/exams/{examId:guid}", Name = "CheckExam")]
@@ -128,26 +143,22 @@ namespace exams_management_system.Controllers
             return Ok();
         }
         
-        //update student
-        /*
+        
         [HttpPut("{id:guid}", Name = "UpdateStudent")]
-        public async Task<IActionResult> UpdateStudent([FromBody] UpdateStudentModel createStudentModel, Guid id)
+        public async Task<IActionResult> UpdateStudent([FromBody] UpdateStudentModel updateStudentModel, Guid id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var studentModel = Mapper.Map<UpdateStudentModel, Student>(createStudentModel);
+            var studentModel = Mapper.Map<UpdateStudentModel, Student>(updateStudentModel);
 
-            var response = await this.studentService.UpdateAsync(id, studentModel);
-            if (response)
-            {
-                return Ok("User updated");
-            }
+            await this.studentService.UpdateAsync(id, studentModel);
+
             return NoContent();
         }
-        */
+        
     }
     
 }

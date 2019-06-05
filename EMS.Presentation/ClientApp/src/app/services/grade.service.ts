@@ -22,6 +22,7 @@ export class GradeService {
   }
 
   createGrade(grade: Grade): Observable<Grade> {
+    console.log(grade);
     return this.http.post<Grade>(this.url, grade);
   }
 
@@ -33,5 +34,10 @@ export class GradeService {
       studentId: grade.studentId
     };
     return this.http.put<Grade>(gradeUrl, updateGradeModel);
+  }
+
+  deleteGrade(grade: Grade): Observable<Grade> {
+    const gradeUrl = `${this.url}/${grade.id}`;
+    return this.http.delete<Grade>(gradeUrl);
   }
 }

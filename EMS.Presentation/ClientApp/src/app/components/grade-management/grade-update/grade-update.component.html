@@ -9,6 +9,14 @@
 
     <form>
       <div class="form-group">
+        <label for="name">Nume</label>
+        <input type="text" class="form-control" id="name"
+               [(ngModel)]="grade.studentName" name="name">
+      </div>
+    </form>
+
+    <form>
+      <div class="form-group">
         <label for="value">Nota</label>
         <input type="text" class="form-control" id="value"
                [(ngModel)]="grade.value" name="value">
@@ -21,6 +29,4 @@
   </div>
 </ng-template>
 
-<button class="btn btn-sm btn-primary" (click)="open(content)">Schimba nota</button>
-
-<hr>
+<button class="btn btn-sm btn-primary" (click)="open(content)">Editeaza</button>

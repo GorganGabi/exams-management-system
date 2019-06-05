@@ -11,6 +11,8 @@ namespace EMS.Domain.Entities
 
         public string Name { get; private set; }
 
+        public string Email { get; set; }
+
         public string RegistrationNumber { get; private set; }
 
         public string FatherInitial { get; private set; }
@@ -28,13 +30,14 @@ namespace EMS.Domain.Entities
             UserId = userId
         };
 
-        public static Student Create (Guid userId, string fInitial, string group, int year, string rnumber) => new Student
+        public static Student Create (Guid userId, string fInitial, string group, int year, string rnumber, string email) => new Student
         {
             UserId = userId,
             RegistrationNumber = rnumber,
             FatherInitial = fInitial,
             Group = group,
-            Year = year
+            Year = year,
+            Email = email
         };
 
         public void Update(Student updatedEntity)
@@ -43,6 +46,7 @@ namespace EMS.Domain.Entities
             Name = updatedEntity.Name == null ? Name : updatedEntity.Name;
             Group = updatedEntity.Group == null ? Group : updatedEntity.Group;
             RegistrationNumber = updatedEntity.RegistrationNumber == null ? RegistrationNumber : updatedEntity.RegistrationNumber;
+            Email = updatedEntity.Email == null ? Email : updatedEntity.Email;
         }
     }
 }

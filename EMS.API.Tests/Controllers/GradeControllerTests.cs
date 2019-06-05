@@ -25,7 +25,7 @@ namespace EMS.API.Tests
             createGradeModel = new CreatingGradeModel();
             updateGradeModel = new UpdateGradeModel();
             mockRepo = new Mock<IGradeService>();
-            controller = new GradesController(mockRepo.Object);
+            //controller = new GradesController(mockRepo.Object);
         }
 
         [Fact]

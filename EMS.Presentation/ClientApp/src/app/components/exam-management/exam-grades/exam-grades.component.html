@@ -12,6 +12,7 @@
     <th scope="col">Nume Student</th>
     <th scope="col">Materie</th>
     <th scope="col">Nota</th>
+    <th scope="col">Status</th>
     <th scope="col"></th>
     <th scope="col"></th>
   </tr>
@@ -23,12 +24,13 @@
     <td>{{ grade.examName  }}</td>
     <td>{{ grade.value  }}</td>
     <td>
+      Neconfirmata
+    </td>
+    <td>
       <app-grade-update [grade]="grade"></app-grade-update>
     </td>
     <td>
-      <!--<a routerLink="">-->
-      <button class="btn btn-success btn-sm">Confirma</button>
-      <!--</a>-->
+      <button class="btn btn-danger btn-sm" id="delete-button" (click)="deleteGrade(grade)">x</button>
     </td>
   </tr>
   </tbody>

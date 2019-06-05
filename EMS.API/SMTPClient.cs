@@ -7,8 +7,6 @@ namespace exams_management_system
 {
     public class SMTPClient
     {
-        private static object oMail;
-
         public static void StudentSendMail(StudentDetailsModel studentDetailsModel)
         {
             var message = new MimeMessage();
@@ -42,11 +40,11 @@ namespace exams_management_system
             }
         }
 
-        public static void ProfessorSendMail(GradeDetailsModel gradeDetailsModel)
+        public static void ProfessorSendMail(GradeDetailsModel gradeDetailsModel, StudentDetailsModel student)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Random professor", "ergfdfgsgasdfasd@gmail.com"));
-            message.To.Add(new MailboxAddress("Gorgan Gabriel", "gabigorgan@gmail.com"));
+            message.To.Add(new MailboxAddress(student.Name, student.Email));
             message.Subject = "[" + gradeDetailsModel.ExamName + "]" + " Nota Examen";
 
             var attachment = new MimePart("image", "gif")
@@ -59,7 +57,7 @@ namespace exams_management_system
 
             var body = new TextPart("plain")
             {
-                Text = "Buna ziua, " + 
+                Text = "Buna ziua, " + student.Name +  
                         @"
                         Va anunt ca lucrarea dumneavoastra la materia " + gradeDetailsModel.ExamName +
                         " a fost corectata si nota este " + gradeDetailsModel.Value +
