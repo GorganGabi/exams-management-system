@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Exam } from '../../../models/exam';
-import { ExamService } from '../../../services/exam.service';
-import { Router } from '@angular/router';
-import { ProfessorService } from 'src/app/services/professor.service';
-import { Course } from 'src/app/models/course';
+import {Component, OnInit} from '@angular/core';
+import {Exam} from '../../../models/exam';
+import {ExamService} from '../../../services/exam.service';
+import {Router} from '@angular/router';
+import {ProfessorService} from 'src/app/services/professor.service';
+import {Course} from 'src/app/models/course';
 
 @Component({
   selector: 'app-add-exam',
@@ -20,7 +20,8 @@ export class AddExamComponent implements OnInit {
   constructor(
     private examService: ExamService,
     private professorService: ProfessorService,
-    private route: Router) { }
+    private route: Router) {
+  }
 
   ngOnInit() {
   }
@@ -32,11 +33,11 @@ export class AddExamComponent implements OnInit {
     this.exam.date = this.date;
     this.professorService.getProfessorCourses(localStorage.getItem('userID'))
       .subscribe(courses => {
-          this.exam.course.id = courses[0].id,
+        this.exam.course.id = courses[0].id,
           this.examService.createExam(this.exam)
             .subscribe(exam => {
-              this.exam = exam,
-                this.route.navigate(['/exams']);
+              this.exam = exam;
+              this.route.navigate(['/exams']);
             });
       });
   }

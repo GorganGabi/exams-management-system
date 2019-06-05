@@ -38,5 +38,6 @@ export class StudentSearchComponent implements OnInit {
   public setInputValue(name: string): void {
     this.name = name;
     this.OnStudentName.emit(name);
+    this.students$ = null;
   }
 }

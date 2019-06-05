@@ -13,8 +13,13 @@ namespace exams_management_system.Controllers
     public class GradesController : ControllerBase
     {
         private readonly IGradeService gradeService;
+        private readonly IStudentService studentService;
 
-        public GradesController(IGradeService gradeService) => this.gradeService = gradeService;
+        public GradesController(IGradeService gradeService, IStudentService studentService)
+        {
+            this.gradeService = gradeService;
+            this.studentService = studentService;
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetGrades()
@@ -40,7 +45,9 @@ namespace exams_management_system.Controllers
             }
 
             var gradeModel = await gradeService.FindById(gradeId);
-            SMTPClient.ProfessorSendMail(gradeModel);
+            var student = await studentService.FindById(gradeModel.StudentId);
+
+            SMTPClient.ProfessorSendMail(gradeModel, student);
             return StatusCode(StatusCodes.Status201Created);
 
         }
@@ -76,7 +83,9 @@ namespace exams_management_system.Controllers
 
             await gradeService.Update(id, gradeModel);
             var updatedGrade = await gradeService.FindById(id);
-            SMTPClient.ProfessorSendMail(updatedGrade);
+            var student = await studentService.FindById(updatedGrade.StudentId);
+        
+            SMTPClient.ProfessorSendMail(updatedGrade, student);
 
             return NoContent();
         }

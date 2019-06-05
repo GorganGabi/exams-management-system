@@ -1,9 +1,9 @@
 .search-result li{
-  border: 1px solid green;
+  border: 1px solid black;
   padding: 0.5%;
   display: block;
   list-style-type: none;
-  width: 195px;
+  width: 181px;
   height: 30px;
 }
 

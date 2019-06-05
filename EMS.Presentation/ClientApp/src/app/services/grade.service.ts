@@ -22,7 +22,7 @@ export class GradeService {
   }
 
   createGrade(grade: Grade): Observable<Grade> {
-    console.log(grade)
+    console.log(grade);
     return this.http.post<Grade>(this.url, grade);
   }
 

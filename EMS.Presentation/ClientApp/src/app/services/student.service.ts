@@ -40,5 +40,9 @@ export class StudentService {
     return this.http.get<Student[]>(this.url);
   }
 
+  updateStudent(student: Student): Observable<Student> {
+    this.url = `http://localhost:11111/api/v1/students/${student.id}/`;
+    return this.http.put<Student>(this.url, student);
+  }
 
 }
