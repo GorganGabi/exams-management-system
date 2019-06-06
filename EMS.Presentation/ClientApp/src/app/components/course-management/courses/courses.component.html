@@ -15,6 +15,7 @@
     <th scope="col">Semestru</th>
     <th *ngIf="professor" scope="col"></th>
     <th *ngIf="professor" scope="col"></th>
+    <th *ngIf="!professor" scope="col"></th>
   </tr>
   </thead>
   <tbody>
@@ -26,11 +27,14 @@
     <td>{{ course.semester }}</td>
     <td *ngIf="professor">
       <a routerLink="/courses/{{course.id}}">
-        <button class="btn btn-primary btn-sm">Details</button>
+        <button class="btn btn-info btn-sm">Details</button>
       </a>
     </td>
     <td *ngIf="professor && professor.id == course.professor.id">
-      <button class="btn btn-primary btn-sm" (click)="deleteCourse(course)">Delete</button>
+      <button class="btn btn-danger btn-sm" id="delete-button" (click)="deleteCourse(course)">x</button>
+    </td>
+    <td *ngIf="!(professor && professor.id == course.professor.id)">
+      <button hidden></button>
     </td>
   </tr>
   </tbody>

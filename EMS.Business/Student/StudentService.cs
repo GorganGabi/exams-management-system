@@ -133,6 +133,16 @@ namespace EMS.Business
                 Name = s.Name,
                 Id = s.Id
             }).ToListAsync();
-                    
+
+        public Task<List<StudentDetailsModel>> FindStudentsbyNameAndCourse(string studentName, string courseName) => repository.GetAll<Student>()
+            .Include(s => s.StudentCourses)
+            .Where(s => s.Name.StartsWith(studentName) && s.StudentCourses.Any(sc => sc.Course.Title == courseName))
+            .Select(s => new StudentDetailsModel
+            {
+                Name = s.Name,
+                Id = s.Id
+            }).ToListAsync();
+
+
     }
 }

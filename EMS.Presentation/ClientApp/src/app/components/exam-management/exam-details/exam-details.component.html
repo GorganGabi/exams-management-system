@@ -1,17 +1,20 @@
 <div *ngIf="exam">
   <h2> {{exam.course.title}}</h2>
 
-  <a class="nav-link text-dark" routerLink="/exams/{{exam.id}}/grades">
-    <button class="btn btn-primary btn-sm">Vezi note</button>
+  <a *ngIf="!isEditable && role === exam.professorId" class="nav-link text-dark" routerLink="/exams/{{exam.id}}/grades">
+    <button class="btn btn-sm btn-primary" id="">Vezi note</button>
   </a>
 
   <div *ngIf="isEditable == false">
-    <h6>Data</h6> {{exam.date}}
+    <h6>Data</h6> {{formatDate(exam.date)}}
+    <hr>
+    <h6>Ora</h6> {{formatTime(exam.date)}}
     <hr>
     <h6>Sala</h6> {{exam.room}}
     <hr>
     <h6>Tip</h6> {{exam.type}}
     <hr>
+
     <h6>Barem</h6> {{imageName}}
     <hr>
   </div>
@@ -48,9 +51,9 @@
   </div>
 
   <div *ngIf="isEditable == false">
-    <button (click)="edit()"> Edit</button>
+    <button class="btn btn-primary btn-sm" (click)="edit()"> Editeaza</button>
   </div>
   <div *ngIf="isEditable == true">
-    <button class="btn btn-success" type="submit" (click)="saveChanges()"> Save changes</button>
+    <button class="btn btn-success btn-sm" type="submit" (click)="saveChanges()"> Save changes</button>
   </div>
 </div>

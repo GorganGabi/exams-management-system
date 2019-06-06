@@ -23,7 +23,7 @@ namespace exams_management_system.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetStudents()
+        /*public async Task<IActionResult> GetStudents()
         {
             var students = await studentService.GetAll();
 
@@ -33,7 +33,7 @@ namespace exams_management_system.Controllers
             }
 
             return Ok(students);
-        }
+        }*/
 
         [HttpGet("{id:guid}/grades", Name = "GetGradeByStudentId")]
         public async Task<IActionResult> GetGradeByStudentId(Guid id)
@@ -112,6 +112,20 @@ namespace exams_management_system.Controllers
 
             return Ok(students);
         }
+
+        [HttpGet("{studentName}/{courseName}", Name = "GetStudentsByNameAndCourse")]
+        public async Task<IActionResult> GetStudentsByNameAndCourse(string studentName, string courseName)
+        {
+            var students = await studentService.FindStudentsbyNameAndCourse(studentName, courseName);
+
+            if (students == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(students);
+        }
+
 
         [HttpPut("{id:guid}/exams/{examId:guid}", Name = "CheckExam")]
         public async Task<IActionResult> CheckExam(Guid id, Guid examId)

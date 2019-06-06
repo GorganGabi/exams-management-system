@@ -36,7 +36,7 @@
   </div>
 
   <div *ngIf="isEditable == false">
-    <button (click)="edit()"> Edit</button>
+    <button class="btn btn-primary btn-sm" (click)="edit()"> Editeaza</button>
   </div>
   <div *ngIf="isEditable == true">
     <button class="btn btn-success" type="submit" (click)="saveChanges()"> Save changes</button>

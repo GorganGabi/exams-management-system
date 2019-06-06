@@ -2,9 +2,10 @@
 
 export class Exam {
     course: Course;
-    date: string;
+    date: Date;
     id: string;
     room: string;
     type: string;
     imagePath: string;
+    professorId: string;
 }

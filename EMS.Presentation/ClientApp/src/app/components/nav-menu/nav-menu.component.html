@@ -1,24 +1,33 @@
 <header>
-  <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
+  <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3' style="background-color: white;">
     <div class="container">
-      <a class="navbar-brand" [routerLink]='["/"]'><img src="../../../assets/logo150AniUaic.png" id="logo" alt="logo uaic"></a>
+      <a class="navbar-brand" [routerLink]='["/"]'><img src="../../../assets/logo150AniUaic.png" id="logo"
+                                                        alt="logo uaic"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-        aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+              aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-            <a class="nav-link text-dark" [routerLink]='["/"]'>Acasa</a>
+            <a class="nav-link text-dark" [routerLink]='["/"]'>
+              <p>Acasa</p>
+            </a>
           </li>
           <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/courses"]'>Cursuri</a>
+            <a class="nav-link text-dark" [routerLink]='["/courses"]'>
+              <p>Cursuri</p>
+            </a>
           </li>
           <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/exams"]'>Examene</a>
+            <a class="nav-link text-dark" [routerLink]='["/exams"]'>
+              <p>Examene</p>
+            </a>
           </li>
           <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/statistics"]'>Statistics</a>
+            <a class="nav-link text-dark" [routerLink]='["/statistics"]'>
+              <p>Statistics</p>
+            </a>
           </li>
           <li class="nav-item" [routerLinkActive]='["link-active"]' [hidden]="hideLogin()">
             <a class="nav-link text-dark" [routerLink]='["/login"]'>

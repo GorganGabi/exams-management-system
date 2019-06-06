@@ -31,9 +31,16 @@ export class StudentService {
     return this.http.get<Exam[]>(this.url);
   }
 
+  getStudentsByNameAndCourse(name: string, course: string): Observable<Student[]> {
+    if (!name.trim()) {
+      return of([]);
+    }
+    this.url = `http://localhost:11111/api/v1/students/${name}/${course}`;
+    return this.http.get<Student[]>(this.url);
+  }
+
   getStudentsByName(name: string): Observable<Student[]> {
     if (!name.trim()) {
-      // if not search term, return empty hero array.
       return of([]);
     }
     this.url = `http://localhost:11111/api/v1/students/${name}`;

@@ -15,5 +15,7 @@ namespace EMS.Business
         public Guid Id { get; internal set; }
 
         public string imagePath { get; set; }
+
+        public Guid ProfessorId { get; set; }
     }
 }

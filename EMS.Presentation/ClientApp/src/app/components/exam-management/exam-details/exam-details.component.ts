@@ -3,7 +3,6 @@ import {Exam} from '../../../models/exam';
 import {ExamService} from '../../../services/exam.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-exam-details',
@@ -15,19 +14,16 @@ export class ExamDetailsComponent implements OnInit {
   isEditable = false;
   selectedFile = null;
   imageName: string;
+  role: string;
 
   constructor(
     private examService: ExamService,
-    private route: ActivatedRoute,
-    private location: Location) {
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.getExam();
-  }
-
-  goBack() {
-    this.location.back();
+    this.role = localStorage.getItem('userID');
   }
 
   getExam() {
@@ -42,7 +38,7 @@ export class ExamDetailsComponent implements OnInit {
 
   updateExam(): void {
     this.examService.updateExam(this.exam)
-      .subscribe(() => this.goBack());
+      .subscribe(() => this.isEditable = false);
   }
 
   edit(): void {
@@ -56,5 +52,28 @@ export class ExamDetailsComponent implements OnInit {
   uploadFile(event) {
     this.selectedFile = event.target.files[0];
     this.exam.imagePath = `../../../../assets/${this.exam.course.title}/${this.selectedFile.name}`;
+  }
+
+  formatDate(date: Date): string {
+    date = new Date(date);
+    const monthNames = [
+      'Ianuarie', 'Februarie', 'Martie',
+      'Aprilie', 'Mai', 'Iunie', 'Iulie',
+      'August', 'Septembrie', 'Octombrie',
+      'Noiembrie', 'Decembrie'
+    ];
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+
+  formatTime(date: Date): string {
+    date = new Date(date);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    return (hours < 10 ? '0' + hours : hours) + ':' + ((minutes.toString()) === '0' ? '00' : minutes);
   }
 }

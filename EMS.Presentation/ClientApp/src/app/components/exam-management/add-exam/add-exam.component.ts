@@ -13,7 +13,7 @@ import {Course} from 'src/app/models/course';
 export class AddExamComponent implements OnInit {
   type: string;
   room: string;
-  date: string;
+  date: Date;
   exam: Exam;
   course: Course;
 
@@ -31,14 +31,16 @@ export class AddExamComponent implements OnInit {
     this.exam.type = this.type;
     this.exam.room = this.room;
     this.exam.date = this.date;
+    this.exam.course = new Course();
     this.professorService.getProfessorCourses(localStorage.getItem('userID'))
       .subscribe(courses => {
-        this.exam.course.id = courses[0].id,
-          this.examService.createExam(this.exam)
-            .subscribe(exam => {
-              this.exam = exam;
-              this.route.navigate(['/exams']);
-            });
+        console.log(courses)
+        this.exam.course.id = courses[0].id;
+        this.examService.createExam(this.exam)
+          .subscribe(exam => {
+            this.exam = exam;
+            this.route.navigate(['/exams']);
+          });
       });
   }
 }

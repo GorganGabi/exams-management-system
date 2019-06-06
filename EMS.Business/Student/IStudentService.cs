@@ -29,5 +29,7 @@ namespace EMS.Business
         IQueryable<CourseDetailsModel> FindCoursesByStudentId(Guid studId);
 
         Task<List<StudentDetailsModel>> FindStudentsbyName(string name);
+
+        Task<List<StudentDetailsModel>> FindStudentsbyNameAndCourse(string studentName, string courseName);
     }
 }
