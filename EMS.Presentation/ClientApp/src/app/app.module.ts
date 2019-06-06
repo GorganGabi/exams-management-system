@@ -17,12 +17,12 @@ import {ExamDetailsComponent} from './components/exam-management/exam-details/ex
 import {AddCourseComponent} from './components/course-management/add-course/add-course.component';
 import {GradesComponent} from './components/grade-management/grades/grades.component';
 import {CourseGradesComponent} from './components/course-management/course-grades/course-grades.component';
-import { AddGradeComponent } from './components/grade-management/add-grade/add-grade.component';
+import {AddGradeComponent} from './components/grade-management/add-grade/add-grade.component';
 import {Course} from './models/course';
-import { ExamGradesComponent } from './components/exam-management/exam-grades/exam-grades.component';
-import { GradeUpdateComponent } from './components/grade-management/grade-update/grade-update.component';
-import { StatisticsComponent } from './components/statistics/statistics.component';
-import { StudentSearchComponent } from './components/student-management/student-search/student-search.component';
+import {ExamGradesComponent} from './components/exam-management/exam-grades/exam-grades.component';
+import {GradeUpdateComponent} from './components/grade-management/grade-update/grade-update.component';
+import {StatisticsComponent} from './components/statistics/statistics.component';
+import {StudentSearchComponent} from './components/student-management/student-search/student-search.component';
 
 @NgModule({
   declarations: [
@@ -56,9 +56,10 @@ import { StudentSearchComponent } from './components/student-management/student-
       {path: 'courses', component: CoursesComponent},
       {path: 'courses/create', component: AddCourseComponent},
       {path: 'courses/:id', component: CourseDetailComponent},
-      {path: 'courses/:id/grades', component: CourseGradesComponent, data : {course: Course}},
+      {path: 'courses/:id/grades', component: CourseGradesComponent, data: {course: Course}},
       {path: 'exams', component: ExamsComponent},
       {path: 'exams/create', component: AddExamComponent},
+      {path: 'exams/grades', component: ExamGradesComponent},
       {path: 'exams/:id', component: ExamDetailsComponent},
       {path: 'exams/:id/grades', component: ExamGradesComponent},
       {path: 'exams/:id/grades/create', component: AddGradeComponent},

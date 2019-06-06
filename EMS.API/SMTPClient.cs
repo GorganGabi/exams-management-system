@@ -49,10 +49,10 @@ namespace exams_management_system
 
             var attachment = new MimePart("image", "gif")
             {
-                Content = new MimeContent(File.OpenRead("C:\\Users\\Gabi\\Downloads\\poza.jpg")),
+                Content = new MimeContent(File.OpenRead($"..\\EMS.Presentation\\ClientApp\\src\\assets\\{gradeDetailsModel.ExamName}\\barem.png")),
                 ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
                 ContentTransferEncoding = ContentEncoding.Base64,
-                FileName = Path.GetFileName("C:\\Users\\Gabi\\Downloads\\poza.jpg")
+                FileName = Path.GetFileName($"..\\EMS.Presentation\\ClientApp\\src\\assets\\{gradeDetailsModel.ExamName}\\barem.png")
             };
 
             var body = new TextPart("plain")

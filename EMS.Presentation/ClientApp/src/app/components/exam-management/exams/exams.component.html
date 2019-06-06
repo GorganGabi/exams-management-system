@@ -2,35 +2,38 @@
   <h2> Toate Examenele </h2>
 
   <button *ngIf="role" type="button" class="btn btn-primary btn-sm" (click)="getExamsByUserId()">Examenele mele</button>
+  <a *ngIf="!professor && role" routerLink='/exams/grades'>
+    <button  type="button" class="btn btn-secondary btn-sm">Notele mele</button>
+  </a>
   <a *ngIf="professor" routerLink='/exams/create'>
     <button class="btn btn-secondary btn-sm">Adauga examen</button>
   </a>
 
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nume</th>
-        <th scope="col">Data</th>
-        <th scope="col">Sala</th>
-        <th scope="col">Tip examen</th>
-        <th *ngIf="professor" scope="col"></th>
-        <th *ngIf="professor" scope="col"></th>
-      </tr>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nume</th>
+      <th scope="col">Data</th>
+      <th scope="col">Sala</th>
+      <th scope="col">Tip examen</th>
+      <th *ngIf="professor" scope="col"></th>
+      <th *ngIf="professor" scope="col"></th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let exam of exams; index as i">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ exam.course.title }}</td>
-        <td>{{ exam.date }}</td>
-        <td>{{ exam.room }}</td>
-        <td>{{ exam.type }}</td>
-        <td *ngIf="professor">
-          <a routerLink="/exams/{{exam.id}}">
-            <button class="btn btn-primary btn-sm">Details</button>
-          </a>
-        </td>
-      </tr>
+    <tr *ngFor="let exam of exams; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ exam.course.title }}</td>
+      <td>{{ exam.date }}</td>
+      <td>{{ exam.room }}</td>
+      <td>{{ exam.type }}</td>
+      <td *ngIf="professor">
+        <a routerLink="/exams/{{exam.id}}">
+          <button class="btn btn-primary btn-sm">Details</button>
+        </a>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Exam} from '../models/exam';
-import {Grade} from "../models/grade";
+import {Grade} from '../models/grade';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -34,9 +34,10 @@ export class ExamService {
       type: exam.type,
       date: exam.date,
       courseId: exam.course.id,
-      room: exam.room
+      room: exam.room,
+      imagePath: exam.imagePath
     };
-
+    console.log(exam);
     return this.http.put<Exam>(url, body, httpOptions);
   }
 

@@ -61,7 +61,8 @@ namespace EMS.Business
               Type = e.Type,
               Date = e.Date,
               Room = e.Room,
-              Course = Mapper.Map<Course, CourseDetailsModel>(e.Course)
+              Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
+              imagePath = e.ImagePath
           });
 
         public Task<List<ExamDetailsModel>> GetAll() => repository.GetAll<Exam>()
@@ -74,6 +75,7 @@ namespace EMS.Business
               Date = e.Date,
               Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
               Room = e.Room,
+              imagePath = e.ImagePath
           }).ToListAsync();
        
 

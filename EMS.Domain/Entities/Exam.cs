@@ -17,6 +17,8 @@ namespace EMS.Domain
 
         public string Room { get; private set; }
 
+        public string ImagePath { get; set; }
+
         public List<Grade> Grades { get; private set; }
 
         public List<StudentExam> StudentExams { get; private set; }
@@ -40,6 +42,7 @@ namespace EMS.Domain
             Date = updatedEntity.Date == null ? Date : updatedEntity.Date;
             CourseId = updatedEntity.CourseId == null ? CourseId : updatedEntity.CourseId;
             Room = updatedEntity.Room == null ? Room : updatedEntity.Room;
+            ImagePath = updatedEntity.ImagePath == null ? ImagePath : updatedEntity.ImagePath;
         }
     }
 }

@@ -5,4 +5,5 @@
   studentName: string;
   studentId: string;
   id: string;
+  isConfirmed: boolean;
 }

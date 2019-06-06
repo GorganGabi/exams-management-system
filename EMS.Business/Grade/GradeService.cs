@@ -18,7 +18,7 @@ namespace EMS.Business
         {
             var student = await repository.FindByIdAsync<Student>(newGrade.StudentId);
             var exam = await repository.FindByIdAsync<Exam>(newGrade.ExamId);
-            var tmpGrade = repository.GetAll<Grade>().Where(e => e.StudentId == student.Id).FirstOrDefault();
+            var tmpGrade = repository.GetAll<Grade>().Where(e => e.StudentId == student.Id && e.ExamId == exam.Id).FirstOrDefault();
 
             if (tmpGrade != null)
             {
@@ -28,7 +28,9 @@ namespace EMS.Business
             var grade = Grade.Create(
                 value: newGrade.Value,
                 examId: newGrade.ExamId,
-                studentId: newGrade.StudentId);
+                studentId: newGrade.StudentId
+                );
+                
 
             await repository.AddNewAsync(grade);
             await repository.SaveAsync();
@@ -53,7 +55,8 @@ namespace EMS.Business
                     StudentName = eg.Student.Name,
                     Value = eg.Value,
                     ExamId = eg.ExamId,
-                    StudentId = eg.StudentId
+                    StudentId = eg.StudentId,
+                    IsConfirmed = eg.IsConfirmed
                 }).ToListAsync();
 
         public Task<List<GradeDetailsModel>> FindByStudentId(Guid studentId) => repository.GetAll<Grade>()
@@ -68,7 +71,8 @@ namespace EMS.Business
                     StudentName = eg.Student.Name,
                     Value = eg.Value,
                     ExamId = eg.ExamId,
-                    StudentId = eg.StudentId
+                    StudentId = eg.StudentId,
+                    IsConfirmed = eg.IsConfirmed
                 }).ToListAsync();
 
 
@@ -98,7 +102,8 @@ namespace EMS.Business
               ExamName = g.Exam.Course.Title,
               StudentName = g.Student.Name,
               ExamId = g.ExamId,
-              StudentId = g.StudentId
+              StudentId = g.StudentId,
+              IsConfirmed = g.IsConfirmed
           });
 
 
