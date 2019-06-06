@@ -6,4 +6,5 @@ export class Exam {
     id: string;
     room: string;
     type: string;
+    imagePath: string;
 }

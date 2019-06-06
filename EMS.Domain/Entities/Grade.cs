@@ -24,7 +24,7 @@ namespace EMS.Domain
             Value = value,
             ExamId = examId,
             StudentId = studentId,
-            IsConfirmed = true
+            IsConfirmed = false
         };
 
         public void Update(Grade updatedEntity)

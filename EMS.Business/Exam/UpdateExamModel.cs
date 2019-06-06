@@ -13,5 +13,7 @@ namespace EMS.Business
         public Guid CourseId { get; set; }     
 
         public string Room { get; set; }
+
+        public string ImagePath { get; set; }
     }
 }

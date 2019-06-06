@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Exam} from '../../../models/exam';
 import {ExamService} from '../../../services/exam.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
@@ -12,7 +12,9 @@ import {Location} from '@angular/common';
 })
 export class ExamDetailsComponent implements OnInit {
   exam: Exam;
-  isEditable: boolean = false;
+  isEditable = false;
+  selectedFile = null;
+  imageName: string;
 
   constructor(
     private examService: ExamService,
@@ -21,7 +23,7 @@ export class ExamDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getExam()
+    this.getExam();
   }
 
   goBack() {
@@ -31,7 +33,11 @@ export class ExamDetailsComponent implements OnInit {
   getExam() {
     this.route.paramMap.pipe(
       switchMap((map: ParamMap) => this.examService.getExam(map.get('id')))
-    ).subscribe(exam => this.exam = exam);
+    ).subscribe(exam => {
+      this.exam = exam;
+      const imagePathSplit = this.exam.imagePath.split('/');
+      this.imageName = imagePathSplit[imagePathSplit.length - 1];
+    });
   }
 
   updateExam(): void {
@@ -47,4 +53,8 @@ export class ExamDetailsComponent implements OnInit {
     this.updateExam();
   }
 
+  uploadFile(event) {
+    this.selectedFile = event.target.files[0];
+    this.exam.imagePath = `../../../../assets/${this.exam.course.title}/${this.selectedFile.name}`;
+  }
 }
