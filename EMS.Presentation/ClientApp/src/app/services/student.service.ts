@@ -52,4 +52,9 @@ export class StudentService {
     return this.http.put<Student>(this.url, student);
   }
 
+  checkIn(studentId: string, examId: string): Observable<any> {
+    this.url = `http://localhost:11111/api/v1/students/${studentId}/exams/${examId}`;
+    return this.http.put<any>(this.url, null);
+  }
+
 }

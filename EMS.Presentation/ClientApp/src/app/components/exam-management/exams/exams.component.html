@@ -18,7 +18,7 @@
       <th scope="col">Ora</th>
       <th scope="col">Sala</th>
       <th scope="col">Tip examen</th>
-      <th *ngIf="professor" scope="col"></th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -32,6 +32,11 @@
       <td *ngIf="professor">
         <a routerLink="/exams/{{exam.id}}">
           <button class="btn btn-info btn-sm">Details</button>
+        </a>
+      </td>
+      <td *ngIf="!professor">
+        <a routerLink="/exams/{{exam.id}}/scan">
+          <button class="btn btn-info btn-sm">Scaneaza cod QR</button>
         </a>
       </td>
     </tr>

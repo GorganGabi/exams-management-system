@@ -24,10 +24,6 @@ export class CourseDetailComponent implements OnInit {
     this.getCourse();
   }
 
-  goBack() {
-    this.location.back();
-  }
-
   getCourse(): void {
     this.route.paramMap.pipe(
       switchMap((map: ParamMap) => this.courseService.getCourse(map.get('id')))
@@ -36,7 +32,7 @@ export class CourseDetailComponent implements OnInit {
 
   updateCourse(): void {
     this.courseService.updateCourse(this.course)
-      .subscribe(() => this.goBack());
+      .subscribe(() => this.location.back());
   }
 
   edit(): void {

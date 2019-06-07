@@ -5,6 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DatePipe} from '@angular/common'
+import {ZXingScannerModule} from '@zxing/ngx-scanner';
 
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './components/nav-menu/nav-menu.component';
@@ -24,6 +25,7 @@ import {ExamGradesComponent} from './components/exam-management/exam-grades/exam
 import {GradeUpdateComponent} from './components/grade-management/grade-update/grade-update.component';
 import {StatisticsComponent} from './components/statistics/statistics.component';
 import {StudentSearchComponent} from './components/student-management/student-search/student-search.component';
+import { ZxingScannerComponent } from './components/zxing-scanner/zxing-scanner.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import {StudentSearchComponent} from './components/student-management/student-se
     ExamGradesComponent,
     GradeUpdateComponent,
     StatisticsComponent,
-    StudentSearchComponent
+    StudentSearchComponent,
+    ZxingScannerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -52,13 +55,15 @@ import {StudentSearchComponent} from './components/student-management/student-se
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    ZXingScannerModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'courses', component: CoursesComponent},
       {path: 'courses/create', component: AddCourseComponent},
       {path: 'courses/:id', component: CourseDetailComponent},
-      {path: 'courses/:id/grades', component: CourseGradesComponent, data: {course: Course}},
+      {path: 'courses/:id/grades', component: CourseGradesComponent},
       {path: 'exams', component: ExamsComponent},
+      {path: 'exams/:id/scan', component: ZxingScannerComponent},
       {path: 'exams/create', component: AddExamComponent},
       {path: 'exams/grades', component: ExamGradesComponent},
       {path: 'exams/:id', component: ExamDetailsComponent},

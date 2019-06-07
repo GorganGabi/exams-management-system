@@ -22,19 +22,6 @@ namespace exams_management_system.Controllers
             this.gradeService = gradeService;
         }
 
-        [HttpGet]
-        /*public async Task<IActionResult> GetStudents()
-        {
-            var students = await studentService.GetAll();
-
-            if (students.Count == 0)
-            {
-                return Ok(new List<StudentDetailsModel>());
-            }
-
-            return Ok(students);
-        }*/
-
         [HttpGet("{id:guid}/grades", Name = "GetGradeByStudentId")]
         public async Task<IActionResult> GetGradeByStudentId(Guid id)
         {
@@ -87,19 +74,6 @@ namespace exams_management_system.Controllers
             return Ok(student);
         }
 
-        /*[HttpGet("{name}", Name = "GetStudentByName")]
-        public async Task<IActionResult> GetStudentByName(string name)
-        {
-            var student = await studentService.FindbyName(name);
-
-            if (student == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(student);
-        }*/
-
         [HttpGet("{name}", Name = "GetStudentsByName")]
         public async Task<IActionResult> GetStudentsByName(string name)
         {
@@ -134,7 +108,7 @@ namespace exams_management_system.Controllers
 
             if (result)
             {
-                return Ok();
+                return NoContent();
             }
             else
             {
