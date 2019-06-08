@@ -15,6 +15,7 @@ export class ExamDetailsComponent implements OnInit {
   selectedFile = null;
   imageName: string;
   role: string;
+  url: string;
 
   constructor(
     private examService: ExamService,
@@ -33,6 +34,7 @@ export class ExamDetailsComponent implements OnInit {
       this.exam = exam;
       const imagePathSplit = this.exam.imagePath.split('/');
       this.imageName = imagePathSplit[imagePathSplit.length - 1];
+      this.url = `http://localhost:11111/api/v1/students//exams/${this.exam.id}`;
     });
   }
 

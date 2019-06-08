@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 import {Course} from '../models/course';
 import {Exam} from '../models/exam';
 import {Student} from '../models/student';
-
+import {catchError} from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -53,7 +53,6 @@ export class StudentService {
   }
 
   checkIn(studentId: string, examId: string, url: string): Observable<any> {
-    url = `http://localhost:11111/api/v1/students/${studentId}/exams/${examId}`;
     return this.http.put<any>(url, null);
   }
 

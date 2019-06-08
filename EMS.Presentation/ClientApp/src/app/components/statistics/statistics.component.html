@@ -1,7 +1,23 @@
-<p>
-  You can't see it but here it is a big graph...
-</p>
+<h1>Statistici</h1>
+<div id="combo-box">
+  <h4>Selecteaza materia</h4>
+  <select [ngModel]="selectedType" (change)="onSelectType($event.target.value)">
+    <option *ngFor="let type of types" [value]="type">
+      {{type}}
+    </option>
+  </select>
+  <select [ngModel]="selectedExamTitle" (change)="onSelectExamTitle($event.target.value)">
+    <option *ngFor="let exam of exams" [value]="exam.course.title">
+      {{exam.course.title}}
+    </option>
+  </select>
+  {{selectedType}} {{selectedExamTitle}}
+</div>
 
-<p>
-  Here it's the same one but using Gauss curve
-</p>
+
+<div class="chart">
+  <app-gauss></app-gauss>
+</div>
+<div class="chart">
+  <app-attendance></app-attendance>
+</div>

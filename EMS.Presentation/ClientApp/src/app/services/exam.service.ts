@@ -47,7 +47,7 @@ export class ExamService {
   }
 
   createExam(exam: Exam): Observable<Exam> {
-    console.log(exam)
+    console.log(exam);
     const examCreateModel = {
       type: exam.type,
       date: exam.date,

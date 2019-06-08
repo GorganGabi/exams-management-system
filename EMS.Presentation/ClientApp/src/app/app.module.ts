@@ -6,11 +6,13 @@ import {RouterModule} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DatePipe} from '@angular/common';
 import {ZXingScannerModule} from '@zxing/ngx-scanner';
+import {NgxQRCodeModule} from 'ngx-qrcode2';
+import {ChartsModule} from 'ng2-charts';
 
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './components/nav-menu/nav-menu.component';
 import {HomeComponent} from './components/home/home.component';
-import {CoursesComponent} from './components/course-management/courses/courses.component'
+import {CoursesComponent} from './components/course-management/courses/courses.component';
 import {ExamsComponent} from './components/exam-management/exams/exams.component';
 import {CourseDetailComponent} from './components/course-management/course-detail/course-detail.component';
 import {LoginComponent} from './components/login/login.component';
@@ -25,6 +27,8 @@ import {GradeUpdateComponent} from './components/grade-management/grade-update/g
 import {StatisticsComponent} from './components/statistics/statistics.component';
 import {StudentSearchComponent} from './components/student-management/student-search/student-search.component';
 import {ZxingScannerComponent} from './components/zxing-scanner/zxing-scanner.component';
+import {GaussComponent} from './components/statistics/gauss/gauss.component';
+import {AttendanceComponent} from './components/statistics/attendance/attendance.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,9 @@ import {ZxingScannerComponent} from './components/zxing-scanner/zxing-scanner.co
     GradeUpdateComponent,
     StatisticsComponent,
     StudentSearchComponent,
-    ZxingScannerComponent
+    ZxingScannerComponent,
+    GaussComponent,
+    AttendanceComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -54,6 +60,8 @@ import {ZxingScannerComponent} from './components/zxing-scanner/zxing-scanner.co
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    NgxQRCodeModule,
+    ChartsModule,
     ZXingScannerModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},

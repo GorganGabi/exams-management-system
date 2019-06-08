@@ -1,0 +1,10 @@
+.chart {
+  width: 50%;
+  height: 50%;
+  float: left;
+}
+
+#combo-box{
+  display:block;
+  margin-bottom: 10%;
+}

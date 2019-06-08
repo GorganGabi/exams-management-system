@@ -14,8 +14,9 @@
     <hr>
     <h6>Tip</h6> {{exam.type}}
     <hr>
-
     <h6>Barem</h6> {{imageName}}
+    <hr>
+    <h6>Cod QR</h6>
     <hr>
   </div>
   <div *ngIf="isEditable == true">
@@ -45,6 +46,10 @@
           <label for="scale">Barem</label>
           <input [(ngModel)]="imageName" name="name" disabled>
           <input type="file" (change)="uploadFile($event)" id="scale" name="scale" placeholder="Upload file" accept=".png">
+        </div>
+        <div class="form-group">
+          <label for="qr">Cod QR</label>
+        <ngx-qrcode id="qr" qrc-element-type="url" [qrc-value]="url"></ngx-qrcode>
         </div>
       </form>
     </div>

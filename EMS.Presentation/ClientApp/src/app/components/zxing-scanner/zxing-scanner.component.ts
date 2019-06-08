@@ -19,14 +19,16 @@ export class ZxingScannerComponent implements OnInit {
   }
 
   scanSuccessHandler($event: string) {
-    console.log($event);
-    console.log(typeof $event);
-
     const studentId = localStorage.getItem('userID');
     const examId = this.route.snapshot.paramMap.get('id');
-    $event = `http://localhost:11111/api/v1/students/${studentId}/exams/${examId}`;
+    let url = $event.split('/');
+    url[6] = studentId;
+    $event = url.join('/');
 
     this.studentService.checkIn(studentId, examId, $event)
-      .subscribe(() => this.location.back());
+      .subscribe(() => this.location.back(),
+        err => {
+          alert('Cod QR invalid');
+        });
   }
 }
