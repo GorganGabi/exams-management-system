@@ -34,9 +34,9 @@
           <button class="btn btn-info btn-sm">Details</button>
         </a>
       </td>
-      <td *ngIf="!professor">
+      <td *ngIf="!professor && role && areMyExams">
         <a routerLink="/exams/{{exam.id}}/scan">
-          <button class="btn btn-info btn-sm">Scaneaza cod QR</button>
+          <button class="btn btn-info btn-sm" [disabled]="isChecked(exam)">Scaneaza cod QR</button>
         </a>
       </td>
     </tr>

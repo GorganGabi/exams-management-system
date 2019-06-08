@@ -4,14 +4,16 @@ using EMS.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EMS.Persistence.Migrations
 {
     [DbContext(typeof(EMSContext))]
-    partial class EMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190607160628_StudentExamEntity")]
+    partial class StudentExamEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +38,8 @@ namespace EMS.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfessorId");
+                    b.HasIndex("ProfessorId")
+                        .IsUnique();
 
                     b.ToTable("Courses");
                 });
@@ -158,8 +161,8 @@ namespace EMS.Persistence.Migrations
             modelBuilder.Entity("EMS.Domain.Course", b =>
                 {
                     b.HasOne("EMS.Domain.Entities.Professor", "Professor")
-                        .WithMany("Course")
-                        .HasForeignKey("ProfessorId")
+                        .WithOne("Course")
+                        .HasForeignKey("EMS.Domain.Course", "ProfessorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

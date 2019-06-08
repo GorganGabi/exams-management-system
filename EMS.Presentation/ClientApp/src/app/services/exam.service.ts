@@ -63,4 +63,10 @@ export class ExamService {
     const newUrl = `${this.url}/${id}/grades`;
     return this.http.get<Grade[]>(newUrl);
   }
+
+  getCheckedInExams(studentId: string): Observable<Exam[]> {
+    const newUrl = `http://localhost:11111/api/v1/students/${studentId}/exams/checkin`;
+    console.log(newUrl);
+    return this.http.get<Exam[]>(newUrl);
+  }
 }

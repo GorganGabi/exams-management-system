@@ -17,5 +17,7 @@ namespace EMS.Business
         Task Update(Guid id, Domain.Exam examModel);
 
         Task Delete(Guid id);
+
+        Task<List<ExamDetailsModel>> GetAllCheckedExams();
     }
  }

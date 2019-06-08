@@ -19,8 +19,14 @@ export class ZxingScannerComponent implements OnInit {
   }
 
   scanSuccessHandler($event: string) {
-    // console.log($event);
-    this.studentService.checkIn(localStorage.getItem('userID'), this.route.snapshot.paramMap.get('id'))
+    console.log($event);
+    console.log(typeof $event);
+
+    const studentId = localStorage.getItem('userID');
+    const examId = this.route.snapshot.paramMap.get('id');
+    $event = `http://localhost:11111/api/v1/students/${studentId}/exams/${examId}`;
+
+    this.studentService.checkIn(studentId, examId, $event)
       .subscribe(() => this.location.back());
   }
 }

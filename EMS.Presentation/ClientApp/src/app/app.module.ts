@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {DatePipe} from '@angular/common'
+import {DatePipe} from '@angular/common';
 import {ZXingScannerModule} from '@zxing/ngx-scanner';
 
 import {AppComponent} from './app.component';
@@ -20,12 +20,11 @@ import {AddCourseComponent} from './components/course-management/add-course/add-
 import {GradesComponent} from './components/grade-management/grades/grades.component';
 import {CourseGradesComponent} from './components/course-management/course-grades/course-grades.component';
 import {AddGradeComponent} from './components/grade-management/add-grade/add-grade.component';
-import {Course} from './models/course';
 import {ExamGradesComponent} from './components/exam-management/exam-grades/exam-grades.component';
 import {GradeUpdateComponent} from './components/grade-management/grade-update/grade-update.component';
 import {StatisticsComponent} from './components/statistics/statistics.component';
 import {StudentSearchComponent} from './components/student-management/student-search/student-search.component';
-import { ZxingScannerComponent } from './components/zxing-scanner/zxing-scanner.component';
+import {ZxingScannerComponent} from './components/zxing-scanner/zxing-scanner.component';
 
 @NgModule({
   declarations: [

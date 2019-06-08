@@ -82,6 +82,13 @@ namespace EMS.Business
               ProfessorId = e.Course.ProfessorId
           }).ToListAsync();
 
-
+        public Task<List<ExamDetailsModel>> GetAllCheckedExams() => repository.GetAll<Exam>()
+            .Where(e => e.StudentExams.Any(se => se.ExamId == e.Id))
+            .Select(e => new ExamDetailsModel
+            {
+                Id = e.Id
+            })
+            .Distinct()
+            .ToListAsync();
     }
 }

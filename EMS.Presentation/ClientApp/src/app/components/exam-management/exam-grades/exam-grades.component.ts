@@ -4,7 +4,7 @@ import {ExamService} from '../../../services/exam.service';
 import {ActivatedRoute} from '@angular/router';
 import {GradeService} from '../../../services/grade.service';
 import {Professor} from '../../../models/professor';
-import {ProfessorService} from "../../../services/professor.service";
+import {ProfessorService} from '../../../services/professor.service';
 
 @Component({
   selector: 'app-exam-grades',

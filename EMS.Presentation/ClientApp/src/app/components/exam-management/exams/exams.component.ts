@@ -12,8 +12,10 @@ import {Professor} from 'src/app/models/professor';
 })
 export class ExamsComponent implements OnInit {
   exams: Exam[];
+  checkedExams: Exam[];
   role: string;
   professor: Professor;
+  areMyExams = false;
 
   constructor(
     private examService: ExamService,
@@ -30,6 +32,8 @@ export class ExamsComponent implements OnInit {
           this.professor = professor;
         });
     }
+    this.examService.getCheckedInExams(this.role)
+      .subscribe(exams => this.checkedExams = exams);
   }
 
   getExams() {
@@ -51,6 +55,7 @@ export class ExamsComponent implements OnInit {
           this.exams = exams;
         });
     }
+    this.areMyExams = true;
   }
 
   delete(exam: Exam) {
@@ -78,5 +83,14 @@ export class ExamsComponent implements OnInit {
     const minutes = date.getMinutes();
 
     return (hours < 10 ? '0' + hours : hours) + ':' + ((minutes.toString()) === '0' ? '00' : minutes);
+  }
+
+  isChecked(exam: Exam) {
+    for (let i = 0; i < this.checkedExams.length; i++) {
+      if (this.checkedExams[i].id === exam.id) {
+        return true;
+      }
+    }
+    return false;
   }
 }

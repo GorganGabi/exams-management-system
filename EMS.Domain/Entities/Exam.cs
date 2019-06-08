@@ -11,7 +11,7 @@ namespace EMS.Domain
 
         public DateTime Date { get; private set; }
 
-        public Course Course { get; private set; } //this is for code-first approach
+        public Course Course { get; private set; }
 
         public Guid CourseId { get; private set; }
 

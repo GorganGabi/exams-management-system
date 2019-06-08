@@ -49,7 +49,7 @@ namespace EMS.Business
             return student.Id;
         }
 
-        public async Task<bool> CheckExam(Guid id, Guid examId)
+        public async Task<bool> AssignStudentExam(Guid id, Guid examId)
         {
 
             var student = await repository.FindByIdAsync<Student>(id);
@@ -61,6 +61,24 @@ namespace EMS.Business
             await repository.SaveAsync();
             return true;
         }
+
+        public async Task<bool> CheckExam(Guid id, Guid examId)
+        {
+
+            //var student = await repository.FindByIdAsync<Student>(id);
+            //var exam = repository.GetAll<Exam>().Include(e => e.StudentExams).SingleOrDefault(e => e.Id == examId);
+
+            var studentExam = repository.GetAll<StudentExam>().SingleOrDefault(se => se.ExamId == examId && se.StudentId == id);
+
+            var updatedStudentExam = await repository.FindByIdAsync<StudentExam>(studentExam.Id);
+            updatedStudentExam.Checked = "yes";
+
+            await repository.TryUpdateModelAsync(studentExam, updatedStudentExam);
+            await repository.SaveAsync();
+
+            return true;
+        }
+
         public async Task UpdateAsync(Guid id, Student studentUpdated)
         {
             var studentToUpdate = await repository.FindByIdAsync<Student>(id);
@@ -101,8 +119,6 @@ namespace EMS.Business
             {
                 Id = e.Id,
                 Type = e.Type,
-                //CourseName = e.Course.Title,
-                //CourseId = e.CourseId,
                 Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
                 Date = e.Date,
                 Room = e.Room,           
@@ -143,6 +159,11 @@ namespace EMS.Business
                 Id = s.Id
             }).ToListAsync();
 
-
+        public Task<List<ExamDetailsModel>> FindCheckInExamsByStudentId(Guid id) => repository.GetAll<Exam>()
+            .Where(e => e.StudentExams.Any(se => se.StudentId == id && se.Checked.Equals("yes")))
+            .Select(e => new ExamDetailsModel
+            {
+                Id = e.Id
+            }).ToListAsync();
     }
 }

@@ -29,6 +29,14 @@ namespace exams_management_system.Controllers
             return Ok(exams);
         }
 
+        [HttpGet("checkIn", Name = "GetCheckedExams")]
+        public async Task<IActionResult> GetCheckedExams()
+        {
+            var exams = await examService.GetAllCheckedExams();
+
+            return Ok(exams);
+        }
+
         [HttpGet("{id:guid}/grades", Name = "GetGradeByExamId")]
         public async Task<IActionResult> GetGradeByExamId(Guid id)
         {

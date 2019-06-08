@@ -48,6 +48,19 @@ namespace exams_management_system.Controllers
             return Ok(exam);
         }
 
+        [HttpGet("{id:guid}/exams/checkin", Name = "GetCheckInExamsByStudentId")]
+        public async Task<IActionResult> GetCheckInExamsByStudentId(Guid id)
+        {
+            var exams = await studentService.FindCheckInExamsByStudentId(id);
+
+            if (exams == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+
+            return Ok(exams);
+        }
+
         [HttpGet("{id:guid}/courses", Name = "GetCoursesByStudentId")]
         public async Task<IActionResult> GetCoursesByStudentId(Guid id)
         {
@@ -100,15 +113,29 @@ namespace exams_management_system.Controllers
             return Ok(students);
         }
 
+        [HttpPost("{id:guid}/exams/{examId:guid}", Name = "AssignStudentToExam")]
+        public async Task<IActionResult> AssignStudentToExam(Guid id, Guid examId)
+        {
+            var result = await studentService.AssignStudentExam(id,examId);
+
+            if (result)
+            {
+                return StatusCode(StatusCodes.Status201Created);
+            }
+            else
+            {
+                return UnprocessableEntity();
+            }
+        }
 
         [HttpPut("{id:guid}/exams/{examId:guid}", Name = "CheckExam")]
         public async Task<IActionResult> CheckExam(Guid id, Guid examId)
         {
-            var result = await studentService.CheckExam(id,examId);
+            var result = await studentService.CheckExam(id, examId);
 
             if (result)
             {
-                return NoContent();
+                return StatusCode(StatusCodes.Status204NoContent);
             }
             else
             {

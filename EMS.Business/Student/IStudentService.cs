@@ -22,6 +22,8 @@ namespace EMS.Business
 
         Task UpdateAsync(Guid id, Student studentUpdated);
 
+        Task<bool> AssignStudentExam(Guid id, Guid examId);
+
         Task<bool> CheckExam(Guid id, Guid examId);
 
         IQueryable<ExamDetailsModel> FindExamsByStudentId(Guid studId);
@@ -31,5 +33,7 @@ namespace EMS.Business
         Task<List<StudentDetailsModel>> FindStudentsbyName(string name);
 
         Task<List<StudentDetailsModel>> FindStudentsbyNameAndCourse(string studentName, string courseName);
+
+        Task<List<ExamDetailsModel>> FindCheckInExamsByStudentId(Guid id);
     }
 }
