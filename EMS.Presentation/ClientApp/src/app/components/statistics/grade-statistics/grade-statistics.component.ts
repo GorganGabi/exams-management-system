@@ -52,14 +52,21 @@ export class GradeStatisticsComponent implements OnInit {
   setGrades() {
     this.examService.getExamGrades(this._exam.id)
       .subscribe(grades => {
-        const gradesA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        const gradesB = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const gradesA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const gradesB = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        // todo: create specialty dynamically
         for (let i = 0; i < grades.length; i++) {
-          gradesA[grades[i].value]++;
+          if (grades[i].student.specialty === 'Semian A') {
+            gradesA[grades[i].value]++;
+          } else {
+            gradesB[grades[i].value]++;
+          }
         }
+        console.log(gradesA, gradesB);
         this.barChartData = [
-          {data: gradesA.reverse(), label: 'Semianul A'},
-          {data: gradesA.reverse(), label: 'Semianul B'}
+          {data: gradesA.reverse(), label: 'Semian A'},
+          {data: gradesB.reverse(), label: 'Semian B'}
         ];
       });
   }

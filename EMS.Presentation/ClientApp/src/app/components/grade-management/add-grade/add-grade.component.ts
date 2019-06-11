@@ -29,7 +29,7 @@ export class AddGradeComponent implements OnInit {
     this.grade.examId = this.route.snapshot.paramMap.get('id');
     this.studentService.getStudentsByName(this.studentName)
       .subscribe(students => {
-        this.grade.studentId = students[0].id;
+        this.grade.student.id = students[0].id;
         this.gradeService.createGrade(this.grade)
           .subscribe(() => {
             this.router.navigate([`/exams/${this.grade.examId}/grades/`]);

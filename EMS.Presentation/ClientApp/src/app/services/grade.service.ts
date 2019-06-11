@@ -31,7 +31,7 @@ export class GradeService {
     const updateGradeModel = {
       value: grade.value,
       examId: grade.examId,
-      studentId: grade.studentId,
+      studentId: grade.student.id,
       isConfirmed: grade.isConfirmed
     };
     console.log(gradeUrl);

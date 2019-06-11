@@ -21,6 +21,11 @@ export class StudentService {
   constructor(private http: HttpClient) {
   }
 
+  getStudents(): Observable<Student[]> {
+    this.url = `http://localhost:11111/api/v1/students/`;
+    return this.http.get<Student[]>(this.url);
+  }
+
   getStudentCourses(id: string): Observable<Course[]> {
     this.url = `http://localhost:11111/api/v1/students/${id}/courses`;
     return this.http.get<Course[]>(this.url);
@@ -48,8 +53,12 @@ export class StudentService {
   }
 
   updateStudent(student: Student): Observable<Student> {
-    this.url = `http://localhost:11111/api/v1/students/${student.id}/`;
-    return this.http.put<Student>(this.url, student);
+    const updateStudent = {
+      id: student.id,
+      name: student.name,
+    };
+    this.url = `http://localhost:11111/api/v1/students/${updateStudent.id}/`;
+    return this.http.put<Student>(this.url, updateStudent);
   }
 
   checkIn(studentId: string, examId: string, url: string): Observable<any> {

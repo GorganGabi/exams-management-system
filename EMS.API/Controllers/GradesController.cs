@@ -45,7 +45,7 @@ namespace exams_management_system.Controllers
             }
 
             var gradeModel = await gradeService.FindById(gradeId);
-            var student = await studentService.FindById(gradeModel.StudentId);
+            var student = await studentService.FindById(gradeModel.Student.Id);
 
             SMTPClient.ProfessorSendMail(gradeModel, student);
             return StatusCode(StatusCodes.Status201Created);
@@ -83,7 +83,7 @@ namespace exams_management_system.Controllers
 
             await gradeService.Update(id, gradeModel);
             var updatedGrade = await gradeService.FindById(id);
-            var student = await studentService.FindById(updatedGrade.StudentId);
+            var student = await studentService.FindById(updatedGrade.Student.Id);
         
             SMTPClient.ProfessorSendMail(updatedGrade, student);
 

@@ -33,6 +33,7 @@ namespace Booking.Business
                 cfg.CreateMap<Professor, ProfessorDetailsModel>();
                 cfg.CreateMap<Exam, ExamDetailsModel>();
                 cfg.CreateMap<Course, CourseDetailsModel>();
+                cfg.CreateMap<Student, StudentDetailsModel>();
             });
             return services;
         }

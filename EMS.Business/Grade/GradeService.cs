@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using EMS.Domain;
 using EMS.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -52,10 +53,9 @@ namespace EMS.Business
                 {
                     Id = eg.Id,
                     ExamName = eg.Exam.Course.Title,
-                    StudentName = eg.Student.Name,
+                    Student = Mapper.Map<Student, StudentDetailsModel>(eg.Student),                 
                     Value = eg.Value,
                     ExamId = eg.ExamId,
-                    StudentId = eg.StudentId,
                     IsConfirmed = eg.IsConfirmed
                 }).ToListAsync();
 
@@ -68,10 +68,9 @@ namespace EMS.Business
                 {
                     Id = eg.Id,
                     ExamName = eg.Exam.Course.Title,
-                    StudentName = eg.Student.Name,
+                    Student = Mapper.Map<Student, StudentDetailsModel>(eg.Student),
                     Value = eg.Value,
                     ExamId = eg.ExamId,
-                    StudentId = eg.StudentId,
                     IsConfirmed = eg.IsConfirmed
                 }).ToListAsync();
 
@@ -100,9 +99,8 @@ namespace EMS.Business
               Id = g.Id,
               Value = g.Value,
               ExamName = g.Exam.Course.Title,
-              StudentName = g.Student.Name,
+              Student = Mapper.Map<Student, StudentDetailsModel>(g.Student),
               ExamId = g.ExamId,
-              StudentId = g.StudentId,
               IsConfirmed = g.IsConfirmed
           });
 

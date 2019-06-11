@@ -10,9 +10,7 @@ namespace EMS.Business
 
         public Guid ExamId { get; set; }
 
-        public string StudentName { get; set; }
-
-        public Guid StudentId { get; set; }
+        public StudentDetailsModel Student { get; set; }
 
         public Guid Id { get; internal set; }
 

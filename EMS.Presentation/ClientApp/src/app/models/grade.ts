@@ -1,9 +1,10 @@
-﻿export class Grade {
+﻿import {Student} from './student';
+
+export class Grade {
   value: number;
   examName: string;
   examId: string;
-  studentName: string;
-  studentId: string;
+  student: Student;
   id: string;
   isConfirmed: boolean;
 }

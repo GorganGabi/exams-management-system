@@ -29,11 +29,13 @@ export class GradeUpdateComponent implements OnInit {
     this.gradeService.updateGrade(this.grade)
       .subscribe();
 
-    const updateStudent: Student = {
-      id: this.grade.studentId,
-      name: this.grade.studentName
+    const student: Student = {
+      id: this.grade.student.id,
+      name: this.grade.student.name,
+      specialty: ''
     };
-    this.studentService.updateStudent(updateStudent)
+
+    this.studentService.updateStudent(student)
       .subscribe();
-}
+  }
 }

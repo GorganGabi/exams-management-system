@@ -113,8 +113,7 @@ namespace EMS.Business
                 Value = g.Value,
                 ExamName = g.Exam.Course.Title,
                 ExamId = g.ExamId,
-                StudentName = g.Student.Name,
-                StudentId = g.StudentId,
+                Student = Mapper.Map<Student, StudentDetailsModel>(g.Student),
                 Id = g.Id
             }).ToListAsync();
     }

@@ -46,7 +46,7 @@ export class ExamGradesComponent implements OnInit {
         .subscribe(grades => {
           const id = localStorage.getItem('userID');
           this.grades = grades.filter((grade) => {
-            return grade.studentId === id;
+            return grade.student.id === id;
           });
         });
     }
