@@ -158,7 +158,6 @@ namespace exams_management_system.Controllers
             return Ok();
         }
         
-        
         [HttpPut("{id:guid}", Name = "UpdateStudent")]
         public async Task<IActionResult> UpdateStudent([FromBody] UpdateStudentModel updateStudentModel, Guid id)
         {

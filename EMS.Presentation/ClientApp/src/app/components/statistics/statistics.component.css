@@ -1,10 +1,8 @@
-.chart {
-  width: 50%;
-  height: 50%;
-  float: left;
+.card{
+  margin: 5% 20% 5% 25%;
 }
 
-#combo-box{
-  display:block;
-  margin-bottom: 10%;
+h1{
+  display: inline;
 }
+

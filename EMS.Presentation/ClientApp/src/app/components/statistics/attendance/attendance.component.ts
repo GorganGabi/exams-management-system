@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
+import {Exam} from "../../../models/exam";
 
 @Component({
   selector: 'app-attendance',
@@ -8,6 +9,7 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./attendance.component.css']
 })
 export class AttendanceComponent implements OnInit {
+  @Input() selectedExam: Exam;
 
   public barChartOptions: ChartOptions = {
     responsive: true,

@@ -21,6 +21,8 @@ namespace EMS.Domain.Entities
 
         public int Year { get; set; }
 
+        public string Specialty { get; set; }
+
         public List<StudentCourse> StudentCourses { get; private set; }
 
         public List<StudentExam> StudentExams { get; private set; }

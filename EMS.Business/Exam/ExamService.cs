@@ -90,5 +90,12 @@ namespace EMS.Business
             })
             .Distinct()
             .ToListAsync();
+
+        public Task<List<GradeDetailsModel>> GetAllExamsGrades(Guid id) => repository.GetAll<Grade>()
+            .Where(g => g.ExamId == id)
+            .Select(g => new GradeDetailsModel
+            {
+                Value = g.Value
+            }).ToListAsync();
     }
 }

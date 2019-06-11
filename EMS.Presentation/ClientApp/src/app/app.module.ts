@@ -29,6 +29,7 @@ import {StudentSearchComponent} from './components/student-management/student-se
 import {ZxingScannerComponent} from './components/zxing-scanner/zxing-scanner.component';
 import {GaussComponent} from './components/statistics/gauss/gauss.component';
 import {AttendanceComponent} from './components/statistics/attendance/attendance.component';
+import { GradeStatisticsComponent } from './components/statistics/grade-statistics/grade-statistics.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {AttendanceComponent} from './components/statistics/attendance/attendance
     StudentSearchComponent,
     ZxingScannerComponent,
     GaussComponent,
-    AttendanceComponent
+    AttendanceComponent,
+    GradeStatisticsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

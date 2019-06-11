@@ -19,5 +19,8 @@ namespace EMS.Business
         Task Delete(Guid id);
 
         Task<List<ExamDetailsModel>> GetAllCheckedExams();
+
+        Task<List<GradeDetailsModel>> GetAllExamsGrades(Guid id);
+
     }
  }

@@ -83,6 +83,19 @@ namespace exams_management_system.Controllers
             return Ok(exam);
         }
 
+        /*[HttpGet("{id:guid}/grades", Name = "GetExamGrades")]
+        public async Task<IActionResult> GetExamGrades(Guid id)
+        {
+            var grades = await examService.GetAllExamsGrades(id);
+
+            if (grades == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(grades);
+        }*/
+
         [HttpPut("{id:guid}", Name = "UpdateExam")]
         public async Task<IActionResult> UpdateExam([FromBody] UpdateExamModel updateExamModel, Guid id)
         {
