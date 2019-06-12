@@ -22,6 +22,10 @@ namespace EMS.Domain
 
         public int Semester { get; private set; }
 
+        public string Description { get; set; }
+
+        public string Url { get; set; }
+
         public Course()
         {
             StudentCourses = new List<StudentCourse>();

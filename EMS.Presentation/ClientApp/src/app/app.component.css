@@ -5,6 +5,15 @@
   }
 }
 
-.body-content{
-  background-color: red;
+.container{
+  background-color: white;
+  box-shadow: 3px 3px 5px 6px #ccc;
+  height: 875px;
 }
+
+body{
+  background-image: url("../assets/bg.jpg");
+  height: 950px;
+}
+
+

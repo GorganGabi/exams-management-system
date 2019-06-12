@@ -26,7 +26,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    // (document.querySelector('.navbar') as HTMLElement).style.backgroundColor = 'red';
+    (document.querySelector('.navbar') as HTMLElement).style.backgroundColor = '#e0ebff';
     // (document.querySelector('.navbar') as HTMLElement).style.backgroundColor = 'red';
   }
 }

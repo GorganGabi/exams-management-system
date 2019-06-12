@@ -57,6 +57,7 @@ export class GradeStatisticsComponent implements OnInit {
 
         // todo: create specialty dynamically
         for (let i = 0; i < grades.length; i++) {
+          console.log(grades[i].student.specialty);
           if (grades[i].student.specialty === 'Semian A') {
             gradesA[grades[i].value]++;
           } else {

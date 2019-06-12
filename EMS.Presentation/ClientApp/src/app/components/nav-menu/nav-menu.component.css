@@ -1,6 +1,5 @@
 a.navbar-brand {
   white-space: normal;
-  text-align: left;
   word-break: break-all;
 }
 
@@ -13,18 +12,26 @@ html {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-#logo{
-  width: 30%;
-  height: 50%;
-}
-
-p{
+p {
   margin: 6% 0;
+  font-weight: bolder;
+  color: steelblue;
 }
 
 li a:hover {
-  background-color: lightgray;
+  background-color: lightsteelblue;
   border-radius: 10px;
+}
+
+#logout {
+  width: 12%;
+  height: 12%;
+  padding: 0;
+  margin:0;
+}
+
+#logout-li a:hover{
+  background-color: transparent;
 }
 
 @media (min-width: 768px) {

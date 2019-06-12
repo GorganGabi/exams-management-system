@@ -1,8 +1,10 @@
 <header>
-  <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 navbar-custom' style="background-color: white;">
+  <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 navbar-custom'
+       style="background-color: white;">
     <div class="container">
-      <a class="navbar-brand" [routerLink]='["/"]'><img src="../../../assets/logo150AniUaic.png" id="logo"
-                                                        alt="logo uaic"></a>
+      <a class="navbar-brand" [routerLink]='["/"]'>
+        <img src="../../../assets/logo_small.png" id="logo" alt="logo uaic">
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
               aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
@@ -31,12 +33,12 @@
           </li>
           <li class="nav-item" [routerLinkActive]='["link-active"]' [hidden]="hideLogin()">
             <a class="nav-link text-dark" [routerLink]='["/login"]'>
-              <button type="button" class="btn btn-light btn-sm ">Login</button>
+              <p>Login</p>
             </a>
           </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]' [hidden]="!hideLogin()">
-            <a class="nav-link text-dark" [routerLink]='["/"]'>
-              <button type="button" class="btn btn-light btn-sm " (click)="logout() ">Logout</button>
+          <li id="logout-li" class="nav-item" [routerLinkActive]='["link-active"]' [hidden]="!hideLogin()">
+            <a class="nav-link text-dark" [routerLink]='["/"]' (click)="logout()">
+              <p>Logout</p>
             </a>
           </li>
         </ul>

@@ -8,4 +8,6 @@ export class Course {
   universityYear: string;
   studentYear: number;
   semester: number;
+  description: string;
+  url: string;
 }

@@ -1,8 +1,11 @@
-.card{
-  margin: 5% 20% 5% 25%;
+.card {
+  box-shadow: 1px 1px 4px 4px #ccc;
 }
 
-h1{
+.card-group {
+  margin-top: 5%;
+}
+h1 {
   display: inline;
 }
 

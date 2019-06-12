@@ -50,6 +50,8 @@ namespace EMS.Business
                 //Exams = BuildExams(c.Exams),
                 StudentYear = c.StudentYear,
                 Semester = c.Semester,
+                Description = c.Description,
+                Url = c.Url 
                        
             });
 

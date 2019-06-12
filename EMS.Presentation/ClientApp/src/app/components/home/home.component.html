@@ -1,1 +1,35 @@
-<p>Homepage</p>
+<div class="card-columns" *ngFor="let course of courses; let i = index">
+  <div class="card text-center" *ngIf="i % 3 === 0 && courses[i]">
+    <div class="card-header">
+      {{courses[i].title}}
+    </div>
+    <div class="card-body">
+      {{courses[i].description}}
+    </div>
+    <div class="card-footer bg-light">
+      <button class="btn btn-info btn-sm" (click)="click(courses[i].url)"> Intră</button>
+    </div>
+  </div>
+  <div class="card text-center" *ngIf="i % 3 === 0 && courses[i+1]">
+    <div class="card-header">
+      {{courses[i + 1].title}}
+    </div>
+    <div class="card-body">
+      {{courses[i + 1].description}}
+    </div>
+    <div class="card-footer bg-light">
+      <button class="btn btn-info btn-sm" (click)="click(courses[i + 1].url)"> Intră</button>
+    </div>
+  </div>
+  <div class="card text-center" *ngIf="i % 3 === 0 && courses[i+2]">
+    <div class="card-header">
+      {{courses[i + 2].title}}
+    </div>
+    <div class="card-body">
+      {{courses[i + 2].description}}
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-info btn-sm" (click)="click(courses[i + 2].url)"> Intră</button>
+    </div>
+  </div>
+</div>

@@ -19,6 +19,8 @@ namespace EMS.Business
 
         public string FatherInitial { get; set; }
 
+        public string Specialty { get; set; }
+
         public List<CourseDetailsModel> Courses { get; set; }
 
         public List<ExamDetailsModel> Exams { get; set; }
