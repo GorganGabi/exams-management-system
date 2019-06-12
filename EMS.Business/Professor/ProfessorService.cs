@@ -45,9 +45,8 @@ namespace EMS.Business
         public Task<ProfessorDetailsModel> FindById(Guid id) => GetAllProfessorDetails().SingleOrDefaultAsync(p => p.Id == id);
 
         public Task<List<CourseDetailsModel>> GetCourseByProfId(Guid id) => repository.GetAll<Course>()
-            .Where(c => c.ProfessorId == id)
+            .Where(c => c.ProfessorCourses.Any(pc => pc.ProfessorId == id))
             .Include(c => c.Exams)
-            .Include(c => c.Professor)
             .Select(c => new CourseDetailsModel
             {
                 Id = c.Id,
@@ -56,13 +55,13 @@ namespace EMS.Business
                 StudentYear = c.StudentYear,
                 UniversityYear = c.UniversityYear,
                 Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
-                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.Professor)
+                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.ProfessorCourses.FirstOrDefault(pc => pc.ProfessorId == id).Professor)
             }).ToListAsync();
 
         public Task<List<ExamDetailsModel>> GetExamByProfId(Guid id) => repository.GetAll<Exam>()
-           .Where(e=> e.Course.Professor.Id == id)
+           .Where(e => e.Course.ProfessorCourses.Any(pc => pc.ProfessorId == id))
            .Include(e => e.Course)
-           .ThenInclude(c => c.Professor)
+           //.ThenInclude(c => c.Professor)
            .Select(e => new ExamDetailsModel
            {
                Room = e.Room,

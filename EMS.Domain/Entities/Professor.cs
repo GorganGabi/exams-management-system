@@ -13,7 +13,7 @@ namespace EMS.Domain.Entities
 
         public string Title { get; private set; }
 
-        public List<Course> Course { get; private set; }
+        public List<ProfessorCourse> ProfessorCourses { get; private set; }
 
         public static Professor Create(Guid userId) => new Professor
         {

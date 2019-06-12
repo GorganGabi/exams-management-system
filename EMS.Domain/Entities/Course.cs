@@ -8,9 +8,7 @@ namespace EMS.Domain
     {
         public string Title { get; private set; }
 
-        public Professor Professor { get; private set; }
-
-        public Guid ProfessorId { get; set; }
+        public List<ProfessorCourse> ProfessorCourses { get; private set; }
 
         public List<StudentCourse> StudentCourses { get; private set; }
 
@@ -31,13 +29,12 @@ namespace EMS.Domain
             StudentCourses = new List<StudentCourse>();
         }
 
-        public static Course Create(string title, string universityYear, int studentYear, int semester, Guid professorId) => new Course
+        public static Course Create(string title, string universityYear, int studentYear, int semester) => new Course
         {
             Title = title,
             UniversityYear = universityYear,
             StudentYear = studentYear,
-            Semester = semester,
-            ProfessorId = professorId
+            Semester = semester
         };
 
         public void Update(Course updatedEntity)

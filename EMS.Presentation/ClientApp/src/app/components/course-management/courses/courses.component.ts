@@ -42,7 +42,10 @@ export class CoursesComponent implements OnInit {
   getCoursesByUserId(): void {
     if (this.professor) {
       this.professorService.getProfessorCourses(this.role)
-        .subscribe(courses => this.courses = courses);
+        .subscribe(courses => {
+          this.courses = courses;
+          console.log(courses);
+        });
     } else {
       this.studentService.getStudentCourses(this.role)
         .subscribe(courses => this.courses = courses);

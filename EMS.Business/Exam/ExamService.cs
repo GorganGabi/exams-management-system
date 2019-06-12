@@ -56,7 +56,7 @@ namespace EMS.Business
 
         private IQueryable<ExamDetailsModel> AllExamDetails => repository.GetAll<Exam>()
             .Include(e => e.Course)
-                .ThenInclude(c => c.Professor)
+                //.ThenInclude(c => c.Professor)
           .Select(e => new ExamDetailsModel
           {
               Id = e.Id,
@@ -65,12 +65,12 @@ namespace EMS.Business
               Room = e.Room,
               Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
               imagePath = e.ImagePath,
-              ProfessorId = e.Course.ProfessorId
+              //ProfessorId = e.Course.ProfessorId
           });
 
         public Task<List<ExamDetailsModel>> GetAll() => repository.GetAll<Exam>()
           .Include(e => e.Course)
-            .ThenInclude(c => c.Professor)
+            //.ThenInclude(c => c.Professor)
           .Select(e => new ExamDetailsModel
           {
               Id = e.Id,
@@ -79,7 +79,7 @@ namespace EMS.Business
               Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
               Room = e.Room,
               imagePath = e.ImagePath,
-              ProfessorId = e.Course.ProfessorId
+              //ProfessorId = e.Course.ProfessorId
           }).ToListAsync();
 
         public Task<List<ExamDetailsModel>> GetAllCheckedExams() => repository.GetAll<Exam>()

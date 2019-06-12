@@ -68,12 +68,12 @@ namespace exams_management_system.Controllers
                 return BadRequest(ModelState);
             }
 
-            var professor = await courseService.GetProfessorCourse(model.ProfessorId);
+            /*var professor = await courseService.GetProfessorCourse(model.ProfessorId);
 
             if (professor != null)
             {
                 return Conflict();
-            }
+            }*/
 
             var courseId = await courseService.CreateNew(model);
             return StatusCode(StatusCodes.Status201Created, courseId);

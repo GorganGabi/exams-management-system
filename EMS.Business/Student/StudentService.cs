@@ -114,7 +114,7 @@ namespace EMS.Business
         public IQueryable<ExamDetailsModel> FindExamsByStudentId(Guid studId) => repository.GetAll<Exam>()
             .Where(e => e.StudentExams.Any(se => se.StudentId == studId))
             .Include(e => e.Course)
-                .ThenInclude(c => c.Professor)
+                //.ThenInclude(c => c.Professor)
             .Select(e => new ExamDetailsModel
             {
                 Id = e.Id,
@@ -135,7 +135,7 @@ namespace EMS.Business
                 UniversityYear = c.UniversityYear,
                 Semester = c.Semester,
                 Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
-                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.Professor)
+               // Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.Professor)
             });
 
         public Task<StudentDetailsModel> FindByUserId(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.UserId == id);

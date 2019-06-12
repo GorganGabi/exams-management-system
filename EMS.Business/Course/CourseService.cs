@@ -23,8 +23,8 @@ namespace EMS.Business
                 title: newCourse.Title,
                 universityYear: newCourse.UniversityYear,
                 studentYear: newCourse.StudentYear,
-                semester: newCourse.Semester,
-                professorId: newCourse.ProfessorId);
+                semester: newCourse.Semester);//,
+                //professorId: newCourse.ProfessorId);
 
             await repository.AddNewAsync(course);
             await repository.SaveAsync();
@@ -45,7 +45,7 @@ namespace EMS.Business
                 Id = c.Id,
                 Title = c.Title,
                 UniversityYear = c.UniversityYear,
-                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.Professor),
+                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.ProfessorCourses.FirstOrDefault(pc => pc.CourseId == c.Id).Professor),
                 Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
                 //Exams = BuildExams(c.Exams),
                 StudentYear = c.StudentYear,
@@ -99,11 +99,12 @@ namespace EMS.Business
         }
 
         public Task<ProfessorDetailsModel> GetProfessorCourse(Guid id) => repository.GetAll<Course>()
-            .Where(c => c.ProfessorId == id)
+            .Include(c => c.ProfessorCourses)
+            .Where(c => c.ProfessorCourses.Any(pc => pc.ProfessorId == id))
             .Select(c => new ProfessorDetailsModel
             {
-                Name = c.Professor.Name,
-                Title = c.Professor.Title,                
+                Name = c.ProfessorCourses.FirstOrDefault(pc => pc.ProfessorId == id).Professor.Name,
+                Title = c.ProfessorCourses.FirstOrDefault(pc => pc.ProfessorId == id).Professor.Title,
             }).SingleOrDefaultAsync();
 
         public Task<List<GradeDetailsModel>> GetCourseGrades(Guid id) => repository.GetAll<Grade>()

@@ -11,3 +11,10 @@
   background-color: #ccdefc;
 }
 
+.table{
+  box-shadow: 1px 1px 4px 4px #ccc;
+}
+
+button{
+  margin-bottom: 10px;
+}
