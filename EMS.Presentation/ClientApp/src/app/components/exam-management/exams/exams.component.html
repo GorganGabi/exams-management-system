@@ -18,7 +18,7 @@
       <th scope="col">Ora</th>
       <th scope="col">Sala</th>
       <th scope="col">Tip examen</th>
-      <th scope="col"></th>
+      <th *ngIf="!professor && role && areMyExams" scope="col"></th>
     </tr>
     </thead>
     <tbody>

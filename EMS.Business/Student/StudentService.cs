@@ -135,7 +135,7 @@ namespace EMS.Business
                 UniversityYear = c.UniversityYear,
                 Semester = c.Semester,
                 Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
-               // Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.Professor)
+                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.ProfessorCourses.FirstOrDefault(pc => pc.CourseId == c.Id).Professor)
             });
 
         public Task<StudentDetailsModel> FindByUserId(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.UserId == id);

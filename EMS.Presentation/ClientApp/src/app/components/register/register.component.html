@@ -1,6 +1,6 @@
-<div id="login-body">
+<div id="register-body">
   <div class="container">
-    <h3>Autentificare</h3>
+    <h3>Înregistrare</h3>
     <form>
       <div class="form-group">
         <label for="email">E-mail</label>
@@ -13,6 +13,11 @@
                [(ngModel)]="password" name="password">
       </div>
       <div class="form-group">
+        <label for="confirmPassword">Parola</label>
+        <input type="password" class="form-control" id="confirmPassword"
+               [(ngModel)]="confirmPassword" name="confirmPassword">
+      </div>
+      <div class="form-group">
         <label for="role">Rol</label>
         <select class="form-control" id="role"
                 [(ngModel)]="role" name="role">
@@ -20,7 +25,7 @@
           <option>Professor</option>
         </select>
       </div>
-      <button class="btn btn-outline-light" (click)="login()">Intră în cont</button>
+      <button class="btn btn-outline-light" (click)="register()">Creează cont</button>
     </form>
   </div>
 </div>

@@ -30,6 +30,7 @@ import {ZxingScannerComponent} from './components/zxing-scanner/zxing-scanner.co
 import {GaussComponent} from './components/statistics/gauss/gauss.component';
 import {AttendanceComponent} from './components/statistics/attendance/attendance.component';
 import { GradeStatisticsComponent } from './components/statistics/grade-statistics/grade-statistics.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { GradeStatisticsComponent } from './components/statistics/grade-statisti
     ZxingScannerComponent,
     GaussComponent,
     AttendanceComponent,
-    GradeStatisticsComponent
+    GradeStatisticsComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -80,6 +82,7 @@ import { GradeStatisticsComponent } from './components/statistics/grade-statisti
       {path: 'exams/:id/grades/create', component: AddGradeComponent},
       {path: 'grades', component: GradesComponent},
       {path: 'login', component: LoginComponent},
+      {path: 'register', component: RegisterComponent},
       {path: 'statistics', component: StatisticsComponent}
     ])
   ],

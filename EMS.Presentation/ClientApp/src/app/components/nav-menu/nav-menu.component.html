@@ -36,6 +36,11 @@
               <p>Login</p>
             </a>
           </li>
+          <li class="nav-item" [routerLinkActive]='["link-active"]' [hidden]="hideLogin()">
+            <a class="nav-link text-dark" [routerLink]='["/register"]'>
+              <p>Register</p>
+            </a>
+          </li>
           <li id="logout-li" class="nav-item" [routerLinkActive]='["link-active"]' [hidden]="!hideLogin()">
             <a class="nav-link text-dark" [routerLink]='["/"]' (click)="logout()">
               <p>Logout</p>

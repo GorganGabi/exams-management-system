@@ -44,7 +44,6 @@ export class CoursesComponent implements OnInit {
       this.professorService.getProfessorCourses(this.role)
         .subscribe(courses => {
           this.courses = courses;
-          console.log(courses);
         });
     } else {
       this.studentService.getStudentCourses(this.role)
