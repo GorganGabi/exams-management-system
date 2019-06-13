@@ -16,6 +16,7 @@ export class ExamDetailsComponent implements OnInit {
   imageName: string;
   role: string;
   url: string;
+  myExam = false;
 
   constructor(
     private examService: ExamService,
@@ -23,8 +24,8 @@ export class ExamDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getExam();
     this.role = localStorage.getItem('userID');
+    this.getExam();
   }
 
   getExam() {
@@ -35,6 +36,13 @@ export class ExamDetailsComponent implements OnInit {
       const imagePathSplit = this.exam.imagePath.split('/');
       this.imageName = imagePathSplit[imagePathSplit.length - 1];
       this.url = `http://localhost:11111/api/v1/students//exams/${this.exam.id}`;
+      console.log(exam);
+      for (let i = 0; i < this.exam.professorIds.length; i++) {
+        if (this.exam.professorIds[i] === this.role) {
+          this.myExam = true;
+          break;
+        }
+      }
     });
   }
 

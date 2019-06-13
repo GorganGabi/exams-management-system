@@ -55,7 +55,7 @@ namespace EMS.Business
                 StudentYear = c.StudentYear,
                 UniversityYear = c.UniversityYear,
                 Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
-                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.ProfessorCourses.FirstOrDefault(pc => pc.ProfessorId == id).Professor)
+                Professors = Mapper.Map<List<Professor>, List<ProfessorDetailsModel>>(c.ProfessorCourses.Where(pc => pc.ProfessorId == id).Select(pc => pc.Professor).ToList())
             }).ToListAsync();
 
         public Task<List<ExamDetailsModel>> GetExamByProfId(Guid id) => repository.GetAll<Exam>()

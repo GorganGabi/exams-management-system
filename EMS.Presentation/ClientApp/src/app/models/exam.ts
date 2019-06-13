@@ -7,5 +7,5 @@ export class Exam {
     room: string;
     type: string;
     imagePath: string;
-    professorId: string;
+  professorIds: string[];
 }

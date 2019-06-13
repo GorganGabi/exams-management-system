@@ -3,7 +3,7 @@ import {Professor} from './professor';
 export class Course {
   id: string;
   title: string;
-  professor: Professor;
+  professors: Professor[];
   exams: object;
   universityYear: string;
   studentYear: number;

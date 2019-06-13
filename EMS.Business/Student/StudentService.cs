@@ -29,18 +29,23 @@ namespace EMS.Business
         public async Task<Guid> CreateNew(Guid userId, string json)
         {
             JObject response = JObject.Parse(json);
-            string email = response["response"]["Email"].ToString();
-            string rNumber = response["response"]["NrMatricol"].ToString();
-            string group = response["response"]["Grupa"].ToString();
-            string fInitial = response["response"]["FatherInitial"].ToString();
-            int year = Int32.Parse(response["response"]["year"].ToString());
+            var email = response["response"]["Email"].ToString();
+            var rNumber = response["response"]["RegistrationNumber"].ToString();
+            var group = response["response"]["Group"].ToString();
+            var fInitial = response["response"]["FatherInitial"].ToString();
+            var year = int.Parse(response["response"]["Year"].ToString());
+            var name = response["response"]["Name"].ToString();
+            var specialty = response["response"]["Specialty"].ToString();
+
             var student = Student.Create(
                 userId: userId,
                 fInitial: fInitial,
                 group: group,
                 year: year,
                 rnumber: rNumber,
-                email: email
+                email: email,
+                name: name,
+                specialty: specialty
                 );
 
             await repository.AddNewAsync(student);
@@ -135,7 +140,7 @@ namespace EMS.Business
                 UniversityYear = c.UniversityYear,
                 Semester = c.Semester,
                 Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
-                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.ProfessorCourses.FirstOrDefault(pc => pc.CourseId == c.Id).Professor)
+                Professors = Mapper.Map<List<Professor>, List<ProfessorDetailsModel>>(c.ProfessorCourses.Where(pc => pc.CourseId == c.Id).Select(pc => pc.Professor).ToList())
             });
 
         public Task<StudentDetailsModel> FindByUserId(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(s => s.UserId == id);

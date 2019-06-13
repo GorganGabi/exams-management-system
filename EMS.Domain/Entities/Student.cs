@@ -32,13 +32,15 @@ namespace EMS.Domain.Entities
             UserId = userId
         };
 
-        public static Student Create (Guid userId, string fInitial, string group, int year, string rnumber, string email) => new Student
+        public static Student Create (Guid userId, string name, string fInitial, string group, int year, string specialty, string rnumber, string email) => new Student
         {
             UserId = userId,
+            Name = name,
             RegistrationNumber = rnumber,
             FatherInitial = fInitial,
-            Group = group,
+            Group = group,  
             Year = year,
+            Specialty = specialty,
             Email = email
         };
 

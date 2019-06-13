@@ -3,7 +3,7 @@
 
   <button *ngIf="role" type="button" class="btn btn-primary btn-sm" (click)="getExamsByUserId()">Examenele mele</button>
   <a *ngIf="!professor && role" routerLink='/exams/grades'>
-    <button  type="button" class="btn btn-secondary btn-sm">Notele mele</button>
+    <button class="btn btn-secondary btn-sm" type="button">Notele mele</button>
   </a>
   <a *ngIf="professor" routerLink='/exams/create'>
     <button class="btn btn-secondary btn-sm">Adauga examen</button>
@@ -18,7 +18,8 @@
       <th scope="col">Ora</th>
       <th scope="col">Sala</th>
       <th scope="col">Tip examen</th>
-      <th *ngIf="!professor && role && areMyExams" scope="col"></th>
+      <th *ngIf="!professor && role && areMyExams && !hide" scope="col"></th>
+      <th *ngIf="professor" scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -34,7 +35,7 @@
           <button class="btn btn-info btn-sm">Details</button>
         </a>
       </td>
-      <td *ngIf="!professor && role && areMyExams">
+      <td *ngIf="!professor && role && areMyExams && isTime(exam)">
         <a routerLink="/exams/{{exam.id}}/scan">
           <button class="btn btn-info btn-sm" [disabled]="isChecked(exam)">Scaneaza cod QR</button>
         </a>

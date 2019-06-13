@@ -24,7 +24,7 @@ namespace EMS.Business
                 universityYear: newCourse.UniversityYear,
                 studentYear: newCourse.StudentYear,
                 semester: newCourse.Semester);//,
-                //professorId: newCourse.ProfessorId);
+                                              //professorId: newCourse.ProfessorId);
 
             await repository.AddNewAsync(course);
             await repository.SaveAsync();
@@ -45,30 +45,14 @@ namespace EMS.Business
                 Id = c.Id,
                 Title = c.Title,
                 UniversityYear = c.UniversityYear,
-                Professor = Mapper.Map<Professor, ProfessorDetailsModel>(c.ProfessorCourses.FirstOrDefault(pc => pc.CourseId == c.Id).Professor),
+                Professors = Mapper.Map<List<Professor>, List<ProfessorDetailsModel>>(c.ProfessorCourses.Where(pc => pc.CourseId == c.Id).Select(pc => pc.Professor).ToList()),
                 Exams = Mapper.Map<List<Exam>, List<ExamDetailsModel>>(c.Exams),
-                //Exams = BuildExams(c.Exams),
                 StudentYear = c.StudentYear,
                 Semester = c.Semester,
                 Description = c.Description,
-                Url = c.Url 
-                       
+                Url = c.Url
+
             });
-
-        private List<ExamDetailsModel> BuildExams(List<Exam> exams)
-        {
-            List<ExamDetailsModel> result = new List<ExamDetailsModel>();
-            foreach (var exam in exams)
-            {
-                result.Add(new ExamDetailsModel
-                {
-                    Room = exam.Room,
-                    Id = exam.Id
-                });
-            }
-
-            return result;
-        }
 
         public async Task Update(Guid id, Course updatedCourse)
         {

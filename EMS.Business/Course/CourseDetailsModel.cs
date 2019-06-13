@@ -9,7 +9,7 @@ namespace EMS.Business
 
         public string Title { get; set; }
 
-        public ProfessorDetailsModel Professor { get; set; }
+        public List<ProfessorDetailsModel> Professors { get; set; }
 
         public List<ExamDetailsModel> Exams { get; set; }
 

@@ -25,7 +25,10 @@
     <tr *ngFor="let course of courses; index as i">
       <td scope="row">{{ i + 1 }}</td>
       <td>{{ course.title }}</td>
-      <td>{{ course.professor.name }}</td>
+      <td>
+        <p *ngFor="let prof of course.professors">{{ prof.name }}
+        </p>
+      </td>
       <td>{{ course.studentYear }}</td>
       <td>{{ course.semester }}</td>
       <td *ngIf="professor">
@@ -33,12 +36,16 @@
           <button class="btn btn-info btn-sm">Details</button>
         </a>
       </td>
-      <td *ngIf="professor && professor.id == course.professor.id">
-        <button class="btn btn-danger btn-sm" id="delete-button" (click)="deleteCourse(course)">x</button>
+      <td>
+        <p *ngFor="let prof of course.professors">
+          <button (click)="deleteCourse(course)" *ngIf="professor && professor.id == prof.id"
+                  class="btn btn-danger btn-sm" id="delete-button">x
+          </button>
+        </p>
       </td>
-      <td *ngIf="!(professor && professor.id == course.professor.id)">
-        <button hidden></button>
-      </td>
+      <!--<td *ngIf="!(professor && professor.id == course.professor[i].id)">-->
+      <!--<button hidden></button>-->
+      <!--</td>-->
     </tr>
     </tbody>
   </table>

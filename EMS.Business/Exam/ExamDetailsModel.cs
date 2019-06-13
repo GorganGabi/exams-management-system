@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EMS.Business
 {
@@ -16,6 +17,6 @@ namespace EMS.Business
 
         public string imagePath { get; set; }
 
-        public Guid ProfessorId { get; set; }
+        public List<Guid> ProfessorIds { get; set; }
     }
 }

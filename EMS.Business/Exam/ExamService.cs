@@ -65,7 +65,7 @@ namespace EMS.Business
               Room = e.Room,
               Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
               imagePath = e.ImagePath,
-              //ProfessorId = e.Course.ProfessorId
+              ProfessorIds = e.Course.ProfessorCourses.Where(pc => pc.CourseId == e.CourseId).Select(pc => pc.ProfessorId).ToList()
           });
 
         public Task<List<ExamDetailsModel>> GetAll() => repository.GetAll<Exam>()
@@ -79,7 +79,7 @@ namespace EMS.Business
               Course = Mapper.Map<Course, CourseDetailsModel>(e.Course),
               Room = e.Room,
               imagePath = e.ImagePath,
-              //ProfessorId = e.Course.ProfessorId
+              ProfessorIds = e.Course.ProfessorCourses.Where(pc => pc.CourseId == e.CourseId).Select(pc => pc.ProfessorId).ToList()
           }).ToListAsync();
 
         public Task<List<ExamDetailsModel>> GetAllCheckedExams() => repository.GetAll<Exam>()

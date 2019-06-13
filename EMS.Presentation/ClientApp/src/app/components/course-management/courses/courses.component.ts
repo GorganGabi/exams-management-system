@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Course} from '../../../models/course'
+import {Course} from '../../../models/course';
 import {CourseService} from '../../../services/course.service';
 import {StudentService} from '../../../services/student.service';
 import {ProfessorService} from '../../../services/professor.service';
@@ -36,6 +36,7 @@ export class CoursesComponent implements OnInit {
     this.courseService.getCourses()
       .subscribe(courses => {
         this.courses = courses;
+        console.log(courses);
       }, error => console.log(error));
   }
 
