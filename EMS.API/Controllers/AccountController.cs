@@ -46,7 +46,7 @@ namespace EMS.API.Controllers
 
             if (result.StatusCode == StatusCodes.Status201Created)
             {
-                var response = await client.GetAsync($"http://localhost:3000?email={result.ResultModel.Email}");
+                var response = await client.GetAsync($"http://localhost:3000?type=student&&email={result.ResultModel.Email}");
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 if (result.ResultModel.Role == "Student")

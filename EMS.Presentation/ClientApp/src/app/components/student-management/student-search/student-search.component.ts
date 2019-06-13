@@ -29,7 +29,9 @@ export class StudentSearchComponent implements OnInit {
 
   ngOnInit() {
     this.examService.getExam(this.route.snapshot.paramMap.get('id'))
-      .subscribe(exam => this.courseName = exam.course.title);
+      .subscribe(exam => {
+        this.courseName = exam.course.title;
+      });
 
     this.students$ = this.searchTerms.pipe(
       debounceTime(300),
@@ -42,7 +44,6 @@ export class StudentSearchComponent implements OnInit {
 
   public setInputValue(name: string): void {
     this.name = name;
-
     this.OnStudentName.emit(name);
     this.students$ = null;
   }
