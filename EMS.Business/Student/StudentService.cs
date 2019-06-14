@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EMS.Domain.Entities;
 using EMS.Domain;
-using Newtonsoft.Json.Linq;
 using AutoMapper;
+using Newtonsoft.Json.Linq;
 
 namespace EMS.Business
 {
@@ -54,6 +54,25 @@ namespace EMS.Business
             return student.Id;
         }
 
+        public async Task<Guid> CreateNew(Guid userId, StudentExcelDetailsModel studentDetails)
+        {
+            var student = Student.Create(
+                userId: userId,
+                fInitial: studentDetails.FatherInitial,
+                group: studentDetails.Group,
+                year: studentDetails.Year,
+                rnumber: studentDetails.RegistrationNumber,
+                email: studentDetails.Email,
+                name: studentDetails.Name,
+                specialty: studentDetails.Specialty
+                );
+
+            await repository.AddNewAsync(student);
+            await repository.SaveAsync();
+
+            return student.Id;
+        }
+
         public async Task<bool> AssignStudentExam(Guid id, Guid examId)
         {
 
@@ -62,6 +81,19 @@ namespace EMS.Business
             var studentExam = new StudentExam(student, exam);
 
             exam.StudentExams.Add(studentExam);
+
+            await repository.SaveAsync();
+            return true;
+        }
+
+        public async Task<bool> AssignStudentCourse(Guid id, Guid courseId)
+        {
+
+            var student = await repository.FindByIdAsync<Student>(id);
+            var course = await repository.FindByIdAsync<Course>(courseId);
+            var studentCourse = new StudentCourse(student, course);
+
+            course.StudentCourses.Add(studentCourse);
 
             await repository.SaveAsync();
             return true;

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using EMS.Domain;
 using EMS.Domain.Entities;
 using AutoMapper;
+using Newtonsoft.Json.Linq;
 
 namespace EMS.Business
 {
@@ -19,6 +20,27 @@ namespace EMS.Business
         {
             var professor = Professor.Create(
                 userId: userId
+                );
+
+            await repository.AddNewAsync(professor);
+            await repository.SaveAsync();
+
+            return professor.Id;
+        }
+
+        public async Task<Guid> CreateNew(Guid userId, string json)
+        {
+            JObject response = JObject.Parse(json);
+            var name = response["response"]["Name"].ToString();
+            var title = response["response"]["Title"].ToString();
+            var email = response["response"]["Email"].ToString();
+            var courses = response["response"]["Courses"].ToString();
+
+            var professor = Professor.Create(
+                userId: userId,
+                email: email,
+                name: name,
+                title: title                
                 );
 
             await repository.AddNewAsync(professor);

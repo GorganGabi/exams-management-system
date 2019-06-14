@@ -3,7 +3,6 @@ using EMS.Business;
 using EMS.Domain;
 using EMS.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 
 namespace Booking.Business
 {

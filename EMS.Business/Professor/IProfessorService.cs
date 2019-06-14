@@ -1,7 +1,6 @@
 ﻿using EMS.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EMS.Business
@@ -21,6 +20,8 @@ namespace EMS.Business
         Task<ProfessorDetailsModel> FindByUserId(Guid id);
 
         Task<Guid> CreateNew(Guid userId);
+
+        Task<Guid> CreateNew(Guid userId, string json);
 
         Task UpdateAsync(Guid id, Professor professorUpdated);
     }

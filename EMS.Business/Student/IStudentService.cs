@@ -20,9 +20,13 @@ namespace EMS.Business
 
         Task<Guid> CreateNew(Guid userId, string json);
 
+        Task<Guid> CreateNew(Guid userId, StudentExcelDetailsModel studentDetails);
+
         Task UpdateAsync(Guid id, Student studentUpdated);
 
         Task<bool> AssignStudentExam(Guid id, Guid examId);
+
+        Task<bool> AssignStudentCourse(Guid id, Guid courseId);
 
         Task<bool> CheckExam(Guid id, Guid examId);
 

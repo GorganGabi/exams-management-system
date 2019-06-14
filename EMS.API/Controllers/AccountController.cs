@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace EMS.API.Controllers
 {
@@ -19,11 +20,13 @@ namespace EMS.API.Controllers
         private Guid entityId = new Guid();
         private readonly IStudentService studentService;
         private readonly IProfessorService professorService;
+        private readonly ICourseService courseService;
 
-        public AccountController(IStudentService studentService, IProfessorService professorService)
+        public AccountController(IStudentService studentService, IProfessorService professorService, ICourseService courseService)
         {
             this.studentService = studentService;
             this.professorService = professorService;
+            this.courseService = courseService;
         }
 
         [HttpGet]
@@ -45,17 +48,21 @@ namespace EMS.API.Controllers
             var result = await SendHttpRequest("http://localhost:8080/api/account/register", json);
 
             if (result.StatusCode == StatusCodes.Status201Created)
-            {
-                var response = await client.GetAsync($"http://localhost:3000?type=student&&email={result.ResultModel.Email}");
-                var responseString = await response.Content.ReadAsStringAsync();
-
+            {               
                 if (result.ResultModel.Role == "Student")
                 {
+                    var response = await client.GetAsync($"http://localhost:3000?type=student&&email={result.ResultModel.Email}");
+                    var responseString = await response.Content.ReadAsStringAsync();
                     entityId = await studentService.CreateNew(Guid.Parse(result.ResultModel.Id), responseString);
+                    await assignStudentToCourse(responseString);
                 }
                 else
                 {
-                    entityId = await professorService.CreateNew(Guid.Parse(result.ResultModel.Id));
+                    var response = await client.GetAsync($"http://localhost:3000?type=professor&&email={result.ResultModel.Email}");
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    entityId = await professorService.CreateNew(Guid.Parse(result.ResultModel.Id), responseString);
+                    await createCourse(responseString);
+                    
                 }
                 return StatusCode(StatusCodes.Status201Created, entityId);
             }
@@ -65,6 +72,57 @@ namespace EMS.API.Controllers
             }
 
             return BadRequest();
+        }
+
+        private async Task assignStudentToCourse(string _responseString)
+        {
+            //todo: refactor the code
+            JObject json = JObject.Parse(_responseString);
+            var coursesString = json["response"]["Courses"].ToString();
+            var courses = coursesString.Split(", ");
+            foreach (var course in courses)
+            {
+                var response = await client.GetAsync($"http://localhost:3000?type=course&&email={course}");
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                json = JObject.Parse(responseString);
+                var title = json["response"]["Title"].ToString();
+                var courseDetailsModel = await courseService.FindByTitle(title);
+
+                await studentService.AssignStudentCourse(entityId, courseDetailsModel.Id);
+            }
+        }
+
+        private async Task createCourse(string _responseString)
+        {
+            //todo: refactor the code
+            JObject json = JObject.Parse(_responseString);
+            var coursesString = json["response"]["Courses"].ToString();
+            var courses = coursesString.Split(", ");
+            foreach (var course in courses)
+            {
+                var response = await client.GetAsync($"http://localhost:3000?type=course&&email={course}");
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                json = JObject.Parse(responseString);
+                var title = json["response"]["Title"].ToString();
+                var universityYear = json["response"]["UniversityYear"].ToString();
+                var studentYear = int.Parse(json["response"]["StudentYear"].ToString());
+                var semester = int.Parse(json["response"]["Semester"].ToString());
+                var description = json["response"]["Description"].ToString();
+                var url = json["response"]["URL"].ToString();
+
+                await courseService.CreateNew(new CreatingCourseModel
+                {
+                    ProfessorId = entityId,
+                    Semester = semester,
+                    StudentYear = studentYear,
+                    Title = title,
+                    UniversityYear = universityYear,
+                    Description = description,
+                    Url = url
+                });
+            }
         }
 
         [HttpPost]

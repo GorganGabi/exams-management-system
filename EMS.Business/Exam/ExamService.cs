@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EMS.Domain;
-using EMS.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EMS.Business

@@ -3,7 +3,6 @@ using EMS.Business;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using AutoMapper;
 using EMS.Domain.Entities;
 

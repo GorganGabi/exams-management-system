@@ -17,16 +17,20 @@ namespace EMS.Business
 
         public async Task<Guid> CreateNew(CreatingCourseModel newCourse)
         {
-            var professor = await repository.FindByIdAsync<Professor>(newCourse.ProfessorId);
 
             var course = Course.Create(
                 title: newCourse.Title,
                 universityYear: newCourse.UniversityYear,
                 studentYear: newCourse.StudentYear,
-                semester: newCourse.Semester);//,
-                                              //professorId: newCourse.ProfessorId);
-
+                semester: newCourse.Semester,
+                description: newCourse.Description,
+                url: newCourse.Url);
+         
             await repository.AddNewAsync(course);
+
+            ProfessorCourse professorCourse = new ProfessorCourse(newCourse.ProfessorId, course.Id);
+            course.ProfessorCourses.Add(professorCourse);       
+
             await repository.SaveAsync();
 
             return course.Id;

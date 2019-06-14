@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EMS.Business
+﻿namespace EMS.Business
 {
     public class UserDetailsModel
     {
