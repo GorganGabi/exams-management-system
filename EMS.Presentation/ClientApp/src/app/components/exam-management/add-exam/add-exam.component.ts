@@ -34,7 +34,6 @@ export class AddExamComponent implements OnInit {
     this.exam.course = new Course();
     this.professorService.getProfessorCourses(localStorage.getItem('userID'))
       .subscribe(courses => {
-        console.log(courses)
         this.exam.course.id = courses[0].id;
         this.examService.createExam(this.exam)
           .subscribe(exam => {

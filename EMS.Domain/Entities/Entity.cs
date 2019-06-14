@@ -4,6 +4,6 @@ namespace EMS.Domain
 {
     public abstract class Entity
     {
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
     }
 }

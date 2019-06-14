@@ -1,4 +1,5 @@
 ﻿using EMS.Domain;
+using EMS.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,5 +25,7 @@ namespace EMS.Business
         Task<bool> AssignStudentToCourse(Guid courseId, Guid studentId);
 
         Task<ProfessorDetailsModel> GetProfessorCourse(Guid id);
+
+        Task<List<Guid>> getAllStudentsByCourse(Guid courseId);
     }
 }

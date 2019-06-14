@@ -27,7 +27,7 @@ namespace EMS.API.Tests
             updateExamModel = new UpdateExamModel();
             mockRepo = new Mock<IExamService>();
             mockRepoGrade = new Mock<IGradeService>();
-            controller = new ExamsController(mockRepo.Object,mockRepoGrade.Object);
+            //controller = new ExamsController(mockRepo.Object,mockRepoGrade.Object);
         }
 
         [Fact]

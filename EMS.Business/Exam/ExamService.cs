@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EMS.Domain;
+using EMS.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EMS.Business
@@ -55,7 +56,7 @@ namespace EMS.Business
 
         private IQueryable<ExamDetailsModel> AllExamDetails => repository.GetAll<Exam>()
             .Include(e => e.Course)
-                //.ThenInclude(c => c.Professor)
+          //.ThenInclude(c => c.Professor)
           .Select(e => new ExamDetailsModel
           {
               Id = e.Id,
@@ -69,7 +70,7 @@ namespace EMS.Business
 
         public Task<List<ExamDetailsModel>> GetAll() => repository.GetAll<Exam>()
           .Include(e => e.Course)
-            //.ThenInclude(c => c.Professor)
+          //.ThenInclude(c => c.Professor)
           .Select(e => new ExamDetailsModel
           {
               Id = e.Id,
@@ -96,5 +97,17 @@ namespace EMS.Business
             {
                 Value = g.Value
             }).ToListAsync();
+
+        public async Task AssignStudentsToExam(Guid id, List<Guid> studentsId)
+        {
+            var exam = await repository.FindByIdAsync<Exam>(id);
+            foreach (var studentId in studentsId)
+            {
+                var student = await repository.FindByIdAsync<Student>(studentId);
+                var studentExams = new StudentExam(student, exam);
+                exam.StudentExams.Add(studentExams);
+            }
+            await repository.SaveAsync();
+        }
     }
 }

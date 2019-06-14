@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
   }
 
   click(url: string) {
-    console.log('?');
     window.location.href = url;
 
   }

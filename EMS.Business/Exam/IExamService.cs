@@ -22,5 +22,6 @@ namespace EMS.Business
 
         Task<List<GradeDetailsModel>> GetAllExamsGrades(Guid id);
 
+        Task AssignStudentsToExam(Guid id, List<Guid> studentsId);
     }
  }

@@ -37,7 +37,7 @@ export class ExamService {
       room: exam.room,
       imagePath: exam.imagePath
     };
-    console.log(exam);
+
     return this.http.put<Exam>(url, body, httpOptions);
   }
 
@@ -47,7 +47,7 @@ export class ExamService {
   }
 
   createExam(exam: Exam): Observable<Exam> {
-    console.log(exam);
+
     const examCreateModel = {
       type: exam.type,
       date: exam.date,
@@ -55,7 +55,7 @@ export class ExamService {
       professorId: localStorage.getItem('userID'),
       room: exam.room
     };
-    console.log(examCreateModel);
+
     return this.http.post<Exam>(this.url, examCreateModel, httpOptions);
   }
 
@@ -66,7 +66,7 @@ export class ExamService {
 
   getCheckedInExams(studentId: string): Observable<Exam[]> {
     const newUrl = `http://localhost:11111/api/v1/students/${studentId}/exams/checkin`;
-    console.log(newUrl);
+
     return this.http.get<Exam[]>(newUrl);
   }
 }

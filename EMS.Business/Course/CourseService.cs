@@ -107,5 +107,10 @@ namespace EMS.Business
                 Student = Mapper.Map<Student, StudentDetailsModel>(g.Student),
                 Id = g.Id
             }).ToListAsync();
+
+        public Task<List<Guid>> getAllStudentsByCourse(Guid courseId) => repository.GetAll<Student>()
+            .Where(s => s.StudentCourses.Any(sc => sc.CourseId == courseId))
+            .Select(s => s.Id)
+            .ToListAsync();
     }
 }

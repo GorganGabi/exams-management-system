@@ -36,7 +36,6 @@ export class ExamDetailsComponent implements OnInit {
       const imagePathSplit = this.exam.imagePath.split('/');
       this.imageName = imagePathSplit[imagePathSplit.length - 1];
       this.url = `http://localhost:11111/api/v1/students//exams/${this.exam.id}`;
-      console.log(exam);
       for (let i = 0; i < this.exam.professorIds.length; i++) {
         if (this.exam.professorIds[i] === this.role) {
           this.myExam = true;

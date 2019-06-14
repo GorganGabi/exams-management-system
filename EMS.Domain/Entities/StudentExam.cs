@@ -24,6 +24,7 @@ namespace EMS.Domain.Entities
 
         public StudentExam(Student student, Exam exam)
         {
+            Id = Guid.NewGuid();
             StudentId = student.Id;
             Student = student;
             ExamId = exam.Id;

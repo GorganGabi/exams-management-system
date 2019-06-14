@@ -29,7 +29,6 @@ export class AddCourseComponent implements OnInit {
     this.course.universityYear = this.universityYear;
     this.course.studentYear = this.studentYear;
     this.course.semester = this.semester;
-    console.log(this.course);
     this.courseService.createCourse(this.course)
       .subscribe(() => {
         this.route.navigate(['/courses']);

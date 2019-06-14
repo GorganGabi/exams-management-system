@@ -55,7 +55,7 @@ export class StudentService {
   updateStudent(student: Student): Observable<Student> {
     const updateStudent = {
       id: student.id,
-      name: student.name,
+      name: student.name
     };
     this.url = `http://localhost:11111/api/v1/students/${updateStudent.id}/`;
     return this.http.put<Student>(this.url, updateStudent);

@@ -43,7 +43,6 @@ export class StatisticsComponent implements OnInit {
     for (let i = 0; i < this.examsByType.length; i++) {
       if (this.examsByType[i].course.title === title) {
         this.selectedExam = this.examsByType[i];
-        console.log(this.examsByType)
         break;
       }
     }

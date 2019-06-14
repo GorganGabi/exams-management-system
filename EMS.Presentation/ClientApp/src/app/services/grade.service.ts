@@ -22,7 +22,6 @@ export class GradeService {
   }
 
   createGrade(grade: Grade): Observable<Grade> {
-    console.log(grade);
     return this.http.post<Grade>(this.url, grade);
   }
 
@@ -34,8 +33,7 @@ export class GradeService {
       studentId: grade.student.id,
       isConfirmed: grade.isConfirmed
     };
-    console.log(gradeUrl);
-    console.log(updateGradeModel);
+
     return this.http.put<Grade>(gradeUrl, updateGradeModel);
   }
 

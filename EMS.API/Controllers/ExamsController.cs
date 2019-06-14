@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using EMS.Business;
@@ -14,11 +15,14 @@ namespace exams_management_system.Controllers
     {
         private readonly IExamService examService;
         private readonly IGradeService gradeService;
+        private readonly ICourseService courseService;
 
-        public ExamsController(IExamService examService, IGradeService gradeService)
+        public ExamsController(IExamService examService, IGradeService gradeService, ICourseService courseService)
         {
             this.examService = examService;
             this.gradeService = gradeService;
+            this.courseService = courseService;
+
         }
 
         [HttpGet]
@@ -57,17 +61,19 @@ namespace exams_management_system.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+
             // Todo: need to check all fields before entering a new one. 
             // Todo: Exams with the same date, but with different rooms, are two separate exams
-            var exam = examService.FindByTime(model.Date);
-            if (exam.Result == null)
-            {
-                var examId = await examService.CreateNew(model);
-                return StatusCode(StatusCodes.Status201Created, examId);
-            }
+            //var exam = examService.FindByTime(model.Date);
+            //if (exam.Result == null)
+            //{
+            var examId = await examService.CreateNew(model);
+            var students = await courseService.getAllStudentsByCourse(model.CourseId);
+            await examService.AssignStudentsToExam(examId, students);
+            return StatusCode(StatusCodes.Status201Created, examId);
+            //}
 
-            return Conflict();
+            //return Conflict();
         }
 
         [HttpGet("{id:guid}", Name = "GetExamById")]

@@ -104,8 +104,7 @@ export class ExamsComponent implements OnInit {
     const examDay = examDate.getDay();
     const currentMonth = new Date().getMonth() + 1;
     const examMonth = examDate.getMonth() + 1;
-    console.log(currentTime, exam.course.title);
-    console.log(examTime, exam.course.title);
+
     if (currentMonth === examMonth && currentDay === examDay) {
       if (currentTime >= examTime && currentTime <= examTime + 2) {
         this.hide = false;
