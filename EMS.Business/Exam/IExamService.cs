@@ -10,7 +10,7 @@ namespace EMS.Business
 
         Task<ExamDetailsModel> FindById(Guid id);
 
-        Task<ExamDetailsModel> FindByTime (DateTime date);
+        Task<ExamDetailsModel> FindByTimeAndRoomAndType (DateTime date, string room, string type);
 
         Task<Guid> CreateNew(CreatingExamModel newExam);
 

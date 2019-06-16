@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {throwError as observableThrowError, Observable} from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Exam} from '../models/exam';
 import {Grade} from '../models/grade';
+import {catchError} from 'rxjs/operators';
+import * as HTTPStatusCodes from 'http-status-codes';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -56,7 +58,9 @@ export class ExamService {
       room: exam.room
     };
 
-    return this.http.post<Exam>(this.url, examCreateModel, httpOptions);
+    return this.http.post<Exam>(this.url, examCreateModel, httpOptions).pipe(
+      catchError(ExamService.errorHandler)
+    );
   }
 
   getExamGrades(id: string): Observable<Grade[]> {
@@ -68,5 +72,12 @@ export class ExamService {
     const newUrl = `http://localhost:11111/api/v1/students/${studentId}/exams/checkin`;
 
     return this.http.get<Exam[]>(newUrl);
+  }
+
+  static errorHandler(error: HttpErrorResponse) {
+    if (error.status === HTTPStatusCodes.CONFLICT) {
+      alert('Cursul deja există');
+    }
+    return observableThrowError(error.message);
   }
 }

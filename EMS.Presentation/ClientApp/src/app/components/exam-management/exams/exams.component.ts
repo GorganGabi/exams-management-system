@@ -114,4 +114,9 @@ export class ExamsComponent implements OnInit {
 
     return false;
   }
+
+  deleteExam(exam: Exam) {
+    this.examService.deleteExam(exam.id)
+      .subscribe(() => location.reload());
+  }
 }

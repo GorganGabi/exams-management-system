@@ -21,7 +21,8 @@ export class GradeService {
     return this.http.get<Grade>(url);
   }
 
-  createGrade(grade: Grade): Observable<Grade> {
+  createGrade(grade: object): Observable<Grade> {
+    console.log(grade);
     return this.http.post<Grade>(this.url, grade);
   }
 

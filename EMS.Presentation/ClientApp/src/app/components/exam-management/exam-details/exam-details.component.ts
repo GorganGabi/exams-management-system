@@ -33,8 +33,10 @@ export class ExamDetailsComponent implements OnInit {
       switchMap((map: ParamMap) => this.examService.getExam(map.get('id')))
     ).subscribe(exam => {
       this.exam = exam;
-      const imagePathSplit = this.exam.imagePath.split('/');
-      this.imageName = imagePathSplit[imagePathSplit.length - 1];
+      if (this.exam.imagePath !== null) {
+        const imagePathSplit = this.exam.imagePath.split('/');
+        this.imageName = imagePathSplit[imagePathSplit.length - 1];
+      }
       this.url = `http://localhost:11111/api/v1/students//exams/${this.exam.id}`;
       for (let i = 0; i < this.exam.professorIds.length; i++) {
         if (this.exam.professorIds[i] === this.role) {

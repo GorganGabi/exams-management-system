@@ -24,15 +24,17 @@ export class AddGradeComponent implements OnInit {
   }
 
   createGrade() {
-    this.grade = new Grade();
-    this.grade.value = this.value;
-    this.grade.examId = this.route.snapshot.paramMap.get('id');
     this.studentService.getStudentsByName(this.studentName)
       .subscribe(students => {
-        this.grade.student.id = students[0].id;
-        this.gradeService.createGrade(this.grade)
+        const gradeCreatingModel = {
+          value: this.value,
+          examId: this.route.snapshot.paramMap.get('id'),
+          studentId: students[0].id
+        };
+        this.gradeService.createGrade(gradeCreatingModel)
           .subscribe(() => {
-            this.router.navigate([`/exams/${this.grade.examId}/grades/`]);
+            console.log('s-a creat nota')
+            this.router.navigate([`/exams/${this.route.snapshot.paramMap.get('id')}/grades/`]);
           });
       });
   }

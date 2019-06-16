@@ -21,6 +21,10 @@ export class AttendanceComponent implements OnInit {
     }
   }
 
+  get selectedExam() {
+    return this._exam;
+  }
+
   noOfStudents: number;
   noOfGrades: number;
 

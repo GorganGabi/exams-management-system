@@ -25,6 +25,7 @@ export class LoginService {
       'password': password,
       'role': role
     };
+    // todo: handle error angular 8's way
     const http$ = this.http.post<User>(this.loginUrl, body, httpOptions);
 
     http$.subscribe(

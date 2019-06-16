@@ -20,6 +20,7 @@
       <th scope="col">Tip examen</th>
       <th *ngIf="!professor && role && areMyExams && !hide" scope="col"></th>
       <th *ngIf="professor" scope="col"></th>
+      <th *ngIf="professor" scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -39,6 +40,13 @@
         <a routerLink="/exams/{{exam.id}}/scan">
           <button class="btn btn-info btn-sm" [disabled]="isChecked(exam)">Scaneaza cod QR</button>
         </a>
+      </td>
+      <td>
+        <p *ngFor="let profId of exam.professorIds">
+          <button (click)="deleteExam(exam)" *ngIf="professor && professor.id == profId"
+                  class="btn btn-danger btn-sm" id="delete-button">x
+          </button>
+        </p>
       </td>
     </tr>
     </tbody>
