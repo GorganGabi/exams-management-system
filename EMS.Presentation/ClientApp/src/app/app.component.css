@@ -5,16 +5,18 @@
   }
 }
 
+html {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}
+
 .container{
   background-color: white;
   box-shadow: 3px 3px 5px 6px #ccc;
-  height: 875px;
   padding: 4%;
-}
-
-body{
-  /*background-image: url("../assets/bg.jpg");*/
-  height: 950px;
+  height: 100vh;
+  overflow: auto;
 }
 
 

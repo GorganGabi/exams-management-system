@@ -8,7 +8,8 @@ import * as HTTPStatusCodes from 'http-status-codes';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
   })
 };
 
@@ -22,12 +23,12 @@ export class ExamService {
   }
 
   getExams(): Observable<Exam[]> {
-    return this.http.get<Exam[]>(this.url);
+    return this.http.get<Exam[]>(this.url, httpOptions);
   }
 
   getExam(id: string): Observable<Exam> {
     const url = `${this.url}/${id}`;
-    return this.http.get<Exam>(url);
+    return this.http.get<Exam>(url, httpOptions);
   }
 
   updateExam(exam: Exam): Observable<any> {
@@ -65,13 +66,13 @@ export class ExamService {
 
   getExamGrades(id: string): Observable<Grade[]> {
     const newUrl = `${this.url}/${id}/grades`;
-    return this.http.get<Grade[]>(newUrl);
+    return this.http.get<Grade[]>(newUrl, httpOptions);
   }
 
   getCheckedInExams(studentId: string): Observable<Exam[]> {
     const newUrl = `http://localhost:11111/api/v1/students/${studentId}/exams/checkin`;
 
-    return this.http.get<Exam[]>(newUrl);
+    return this.http.get<Exam[]>(newUrl, httpOptions);
   }
 
   static errorHandler(error: HttpErrorResponse) {

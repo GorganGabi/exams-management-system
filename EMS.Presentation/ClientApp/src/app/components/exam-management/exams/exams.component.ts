@@ -115,6 +115,11 @@ export class ExamsComponent implements OnInit {
     return false;
   }
 
+  setHide() {
+    console.log('==================')
+    this.hide = false;
+  }
+
   deleteExam(exam: Exam) {
     this.examService.deleteExam(exam.id)
       .subscribe(() => location.reload());

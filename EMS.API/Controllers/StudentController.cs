@@ -5,6 +5,7 @@ using System;
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using EMS.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace exams_management_system.Controllers
 {
@@ -21,6 +22,7 @@ namespace exams_management_system.Controllers
             this.gradeService = gradeService;
         }
 
+        [Authorize]
         [HttpGet("{id:guid}/grades", Name = "GetGradeByStudentId")]
         public async Task<IActionResult> GetGradeByStudentId(Guid id)
         {
@@ -34,6 +36,7 @@ namespace exams_management_system.Controllers
             return Ok(grade);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}/exams", Name = "GetExamsByStudentId")]
         public async Task<IActionResult> GetExamsByStudentId(Guid id)
         {
@@ -47,6 +50,7 @@ namespace exams_management_system.Controllers
             return Ok(exam);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}/exams/checkin", Name = "GetCheckInExamsByStudentId")]
         public async Task<IActionResult> GetCheckInExamsByStudentId(Guid id)
         {
@@ -60,6 +64,7 @@ namespace exams_management_system.Controllers
             return Ok(exams);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}/courses", Name = "GetCoursesByStudentId")]
         public async Task<IActionResult> GetCoursesByStudentId(Guid id)
         {
@@ -73,6 +78,7 @@ namespace exams_management_system.Controllers
             return Ok(courses);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}", Name = "GetStudentById")]
         public async Task<IActionResult> GetStudentById(Guid id)
         {
@@ -86,6 +92,7 @@ namespace exams_management_system.Controllers
             return Ok(student);
         }
 
+        [Authorize]
         [HttpGet("{name}", Name = "GetStudentsByName")]
         public async Task<IActionResult> GetStudentsByName(string name)
         {
@@ -99,6 +106,7 @@ namespace exams_management_system.Controllers
             return Ok(students);
         }
 
+        [Authorize]
         [HttpGet("{studentName}/{courseName}", Name = "GetStudentsByNameAndCourse")]
         public async Task<IActionResult> GetStudentsByNameAndCourse(string studentName, string courseName)
         {
@@ -112,6 +120,7 @@ namespace exams_management_system.Controllers
             return Ok(students);
         }
 
+        [Authorize]
         [HttpPost("{id:guid}/exams/{examId:guid}", Name = "AssignStudentToExam")]
         public async Task<IActionResult> AssignStudentToExam(Guid id, Guid examId)
         {
@@ -127,6 +136,7 @@ namespace exams_management_system.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("{id:guid}/exams/{examId:guid}", Name = "CheckExam")]
         public async Task<IActionResult> CheckExam(Guid id, Guid examId)
         {
@@ -156,7 +166,8 @@ namespace exams_management_system.Controllers
             SMTPClient.StudentSendMail(studentModelDetails);
             return Ok();
         }
-        
+
+        [Authorize]
         [HttpPut("{id:guid}", Name = "UpdateStudent")]
         public async Task<IActionResult> UpdateStudent([FromBody] UpdateStudentModel updateStudentModel, Guid id)
         {

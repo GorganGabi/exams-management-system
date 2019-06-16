@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EMS.Business;
 using EMS.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,14 +18,14 @@ namespace exams_management_system.Controllers
         private readonly IGradeService gradeService;
         private readonly ICourseService courseService;
 
-        public ExamsController(IExamService examService, IGradeService gradeServiaplice, ICourseService courseService)
+        public ExamsController(IExamService examService, IGradeService gradeService, ICourseService courseService)
         {
             this.examService = examService;
             this.gradeService = gradeService;
             this.courseService = courseService;
-
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetExams()
         {
@@ -33,6 +34,7 @@ namespace exams_management_system.Controllers
             return Ok(exams);
         }
 
+        [Authorize]
         [HttpGet("checkIn", Name = "GetCheckedExams")]
         public async Task<IActionResult> GetCheckedExams()
         {
@@ -41,6 +43,7 @@ namespace exams_management_system.Controllers
             return Ok(exams);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}/grades", Name = "GetGradeByExamId")]
         public async Task<IActionResult> GetGradeByExamId(Guid id)
         {
@@ -54,6 +57,7 @@ namespace exams_management_system.Controllers
             return Ok(grade);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateExam([FromBody] CreatingExamModel model)
         {
@@ -76,6 +80,7 @@ namespace exams_management_system.Controllers
             return Conflict();
         }
 
+        [Authorize]
         [HttpGet("{id:guid}", Name = "GetExamById")]
         public async Task<IActionResult> GetExamById(Guid id)
         {
@@ -102,6 +107,7 @@ namespace exams_management_system.Controllers
             return Ok(grades);
         }*/
 
+        [Authorize]
         [HttpPut("{id:guid}", Name = "UpdateExam")]
         public async Task<IActionResult> UpdateExam([FromBody] UpdateExamModel updateExamModel, Guid id)
         {
@@ -122,6 +128,7 @@ namespace exams_management_system.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id:guid}", Name = "DeleteExam")]
         public async Task<IActionResult> DeleteExam(Guid id)
         {

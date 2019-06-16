@@ -6,6 +6,7 @@ using AutoMapper;
 using EMS.Domain;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace exams_management_system.Controllers
 {
@@ -20,6 +21,7 @@ namespace exams_management_system.Controllers
             this.courseService = courseService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetCourses()
         {
@@ -33,6 +35,7 @@ namespace exams_management_system.Controllers
             return Ok(Courses);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}", Name = "GetCourseById")]
         public async Task<IActionResult> GetCourseById(Guid id)
         {
@@ -46,6 +49,7 @@ namespace exams_management_system.Controllers
             return Ok(course);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}/grades", Name = "GetCourseGrades")]
         public async Task<IActionResult> GetCourseGrades(Guid id)
         {
@@ -59,6 +63,7 @@ namespace exams_management_system.Controllers
             return Ok(courses);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateCourse([FromBody] CreatingCourseModel model)
         {
@@ -79,6 +84,7 @@ namespace exams_management_system.Controllers
 
         }
 
+        [Authorize]
         [HttpPut("{id:guid}", Name = "UpdateCourse")]
         public async Task<IActionResult> UpdateCourse([FromBody] UpdateCourseModel updateCourseModel, Guid id)
         {
@@ -99,6 +105,7 @@ namespace exams_management_system.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpGet("{courseId:guid}/students/{studentId:guid}", Name = "AssignStudentToCourse")]
         public async Task<IActionResult> AssignStudentToCourse(Guid courseId, Guid studentId)
         {
@@ -111,6 +118,7 @@ namespace exams_management_system.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete("{id:guid}", Name = "DeleteCourse")]
         public async Task<IActionResult> DeleteCourse(Guid id)
         {
