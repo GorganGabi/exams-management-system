@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EMS.Business;
 using EMS.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace exams_management_system.Controllers
             this.studentService = studentService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetGrades()
         {
@@ -29,6 +31,7 @@ namespace exams_management_system.Controllers
             return Ok(exams);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateGrade([FromBody] CreatingGradeModel model)
         {
@@ -52,6 +55,7 @@ namespace exams_management_system.Controllers
 
         }
 
+        [Authorize]
         [HttpGet("{id:guid}", Name = "GetGradeById")]
         public async Task<IActionResult> GetGradeById(Guid id)
         {
@@ -65,6 +69,7 @@ namespace exams_management_system.Controllers
             return Ok(grade);
         }
 
+        [Authorize]
         [HttpPut("{id:guid}", Name = "UpdateGrade")]
         public async Task<IActionResult> UpdateGrade([FromBody] UpdateGradeModel updateGradeModel, Guid id)
         {
@@ -90,6 +95,7 @@ namespace exams_management_system.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id:guid}", Name = "DeleteGrade")]
         public async Task<IActionResult> DeleteGrade(Guid id)
         {

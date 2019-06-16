@@ -9,6 +9,7 @@ import {catchError} from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
   })
 };
 
@@ -23,17 +24,17 @@ export class StudentService {
 
   getStudents(): Observable<Student[]> {
     this.url = `http://localhost:11111/api/v1/students/`;
-    return this.http.get<Student[]>(this.url);
+    return this.http.get<Student[]>(this.url, httpOptions);
   }
 
   getStudentCourses(id: string): Observable<Course[]> {
     this.url = `http://localhost:11111/api/v1/students/${id}/courses`;
-    return this.http.get<Course[]>(this.url);
+    return this.http.get<Course[]>(this.url, httpOptions);
   }
 
   getStudentExams(id: string): Observable<Exam[]> {
     this.url = `http://localhost:11111/api/v1/students/${id}/exams`;
-    return this.http.get<Exam[]>(this.url);
+    return this.http.get<Exam[]>(this.url, httpOptions);
   }
 
   getStudentsByNameAndCourse(name: string, course: string): Observable<Student[]> {
@@ -41,7 +42,7 @@ export class StudentService {
       return of([]);
     }
     this.url = `http://localhost:11111/api/v1/students/${name}/${course}`;
-    return this.http.get<Student[]>(this.url);
+    return this.http.get<Student[]>(this.url, httpOptions);
   }
 
   getStudentsByName(name: string): Observable<Student[]> {
@@ -49,7 +50,7 @@ export class StudentService {
       return of([]);
     }
     this.url = `http://localhost:11111/api/v1/students/${name}`;
-    return this.http.get<Student[]>(this.url);
+    return this.http.get<Student[]>(this.url, httpOptions);
   }
 
   updateStudent(student: Student): Observable<Student> {
@@ -58,11 +59,11 @@ export class StudentService {
       name: student.name
     };
     this.url = `http://localhost:11111/api/v1/students/${updateStudent.id}/`;
-    return this.http.put<Student>(this.url, updateStudent);
+    return this.http.put<Student>(this.url, updateStudent, httpOptions);
   }
 
   checkIn(studentId: string, examId: string, url: string): Observable<any> {
-    return this.http.put<any>(url, null);
+    return this.http.put<any>(url, null, httpOptions);
   }
 
 }

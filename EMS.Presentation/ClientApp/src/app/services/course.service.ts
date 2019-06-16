@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Course} from '../models/course';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Grade} from "../models/grade";
+import {Grade} from '../models/grade';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
   })
 };
 
@@ -20,12 +21,12 @@ export class CourseService {
   }
 
   getCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(this.coursesUrl);
+    return this.http.get<Course[]>(this.coursesUrl, httpOptions);
   }
 
   getCourse(id: string): Observable<Course> {
     const url = `${this.coursesUrl}/${id}`;
-    return this.http.get<Course>(url);
+    return this.http.get<Course>(url, httpOptions);
   }
 
   updateCourse(course: Course): Observable<any> {
@@ -35,7 +36,7 @@ export class CourseService {
       universityYear: course.universityYear,
       studentYear: course.studentYear,
       semester: course.semester
-    }
+    };
 
     return this.http.put<Course>(url, body, httpOptions);
   }
@@ -53,11 +54,11 @@ export class CourseService {
 
   deleteCourse(id: string): Observable<Course> {
     const url = `${this.coursesUrl}/${id}`;
-    return this.http.delete<Course>(url);
+    return this.http.delete<Course>(url, httpOptions);
   }
 
   getCourseGrades(id: string): Observable<Grade[]> {
     const url = `${this.coursesUrl}/${id}/grades`;
-    return this.http.get<Grade[]>(url);
+    return this.http.get<Grade[]>(url, httpOptions);
   }
 }

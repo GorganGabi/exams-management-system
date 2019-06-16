@@ -21,6 +21,7 @@
       <th *ngIf="!professor && role && areMyExams && !hide" scope="col"></th>
       <th *ngIf="professor" scope="col"></th>
       <th *ngIf="professor" scope="col"></th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -48,6 +49,7 @@
           </button>
         </p>
       </td>
+      <td *ngIf="professor"></td>
     </tr>
     </tbody>
   </table>

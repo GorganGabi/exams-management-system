@@ -5,6 +5,7 @@ using System;
 using AutoMapper;
 using EMS.Domain.Entities;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace exams_management_system.Controllers
 {
@@ -19,6 +20,7 @@ namespace exams_management_system.Controllers
             this.professorService = professorService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetProfessors()
         {
@@ -32,6 +34,7 @@ namespace exams_management_system.Controllers
             return Ok(Professors);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}", Name = "GetProfessorById")]
         public async Task<IActionResult> GetProfessorById(Guid id)
         {
@@ -45,6 +48,7 @@ namespace exams_management_system.Controllers
             return Ok(professor);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}/courses", Name = "GetCourseByProfId")]
         public async Task<IActionResult> GetCourseByProfId(Guid id)
         {
@@ -58,6 +62,7 @@ namespace exams_management_system.Controllers
             return Ok(course);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}/exams", Name = "GetExamByProfId")]
         public async Task<IActionResult> GetExamByProfId(Guid id)
         {
@@ -71,6 +76,7 @@ namespace exams_management_system.Controllers
             return Ok(exam);
         }
 
+        [Authorize]
         [HttpPut("{id:guid}", Name = "UpdateProfessor")]
         public async Task<IActionResult> UpdateProfessor([FromBody] UpdateProfessorModel createProfessorModel, Guid id)
         {

@@ -56,6 +56,7 @@ export class GradeStatisticsComponent implements OnInit {
         const gradesB = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         // todo: create specialty dynamically
+        // todo: consider refactoring
         for (let i = 0; i < grades.length; i++) {
           console.log(grades[i].student.specialty);
           if (grades[i].student.specialty === 'Semian A') {
@@ -64,7 +65,7 @@ export class GradeStatisticsComponent implements OnInit {
             gradesB[grades[i].value]++;
           }
         }
-        console.log(gradesA, gradesB);
+
         this.barChartData = [
           {data: gradesA.reverse(), label: 'Semian A'},
           {data: gradesB.reverse(), label: 'Semian B'}
