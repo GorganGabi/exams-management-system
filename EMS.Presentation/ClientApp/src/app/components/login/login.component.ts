@@ -27,6 +27,7 @@ export class LoginComponent {
   login(): void {
     this.loginService.getUser(this.email, this.password, this.role)
       .subscribe(user => {
+        console.log(user);
         this.user = user;
         localStorage.setItem('userID', this.user.id);
         localStorage.setItem('token', this.user.token);

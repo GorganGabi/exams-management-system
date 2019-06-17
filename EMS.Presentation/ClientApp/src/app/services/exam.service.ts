@@ -75,6 +75,7 @@ export class ExamService {
     return this.http.get<Exam[]>(newUrl, httpOptions);
   }
 
+  // todo: consider handling the errors at component level
   static errorHandler(error: HttpErrorResponse) {
     if (error.status === HTTPStatusCodes.CONFLICT) {
       alert('Cursul deja există');

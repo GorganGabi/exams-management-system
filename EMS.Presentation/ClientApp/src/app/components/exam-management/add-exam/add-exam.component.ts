@@ -15,7 +15,8 @@ export class AddExamComponent implements OnInit {
   room: string;
   date: Date;
   exam: Exam;
-  course: Course;
+  title: string;
+  courses: Course[];
 
   constructor(
     private examService: ExamService,
@@ -24,6 +25,8 @@ export class AddExamComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.professorService.getProfessorCourses(localStorage.getItem('userID'))
+      .subscribe(courses => this.courses = courses);
   }
 
   createExam() {
@@ -34,12 +37,22 @@ export class AddExamComponent implements OnInit {
     this.exam.course = new Course();
     this.professorService.getProfessorCourses(localStorage.getItem('userID'))
       .subscribe(courses => {
-        this.exam.course.id = courses[0].id;
+        for (let i = 0; i < courses.length; i++) {
+          if (courses[i].title === this.title) {
+            this.exam.course.id = courses[i].id;
+            break;
+          }
+        }
+
         this.examService.createExam(this.exam)
           .subscribe(exam => {
             this.exam = exam;
             this.route.navigate(['/exams']);
           });
       });
+  }
+
+  onSelectTitle(title: string) {
+    this.title = title;
   }
 }

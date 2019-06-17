@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {Observable, of, throwError as observableThrowError} from 'rxjs';
 import {User} from '../models/user';
-import {error} from '@angular/compiler/src/util';
+import {catchError} from 'rxjs/operators';
+import * as HTTPStatusCodes from 'http-status-codes';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,27 +20,22 @@ export class LoginService {
   constructor(private http: HttpClient) {
   }
 
+// todo: consider handling the errors at component level
+  static errorHandler(error: HttpErrorResponse) {
+    if (error.status === HTTPStatusCodes.UNPROCESSABLE_ENTITY) {
+      alert('Date invalide. Te rog să reintroduci credențialele');
+    }
+    return observableThrowError(error.message);
+  }
+
   getUser(email: string, password: string, role: string): Observable<User> {
     const body = {
       'email': email,
       'password': password,
       'role': role
     };
-    // todo: handle error angular 8's way
-    const http$ = this.http.post<User>(this.loginUrl, body, httpOptions);
-
-    http$.subscribe(
-      () => {
-      },
-      err => {
-        if (err.status === 422) {
-          alert('Username sau parola sau rol gresit');
-        }
-      },
-      () => {
-      }
+    return this.http.post<User>(this.loginUrl, body, httpOptions).pipe(
+      catchError(LoginService.errorHandler)
     );
-
-    return http$;
   }
 }

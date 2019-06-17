@@ -13,6 +13,10 @@ import {Location} from '@angular/common';
 export class CourseDetailComponent implements OnInit {
   course: Course;
   isEditable = false;
+  isMyCourse = false;
+  description: string;
+  url: string;
+  professors: string[];
 
   constructor(
     private courseService: CourseService,
@@ -27,7 +31,15 @@ export class CourseDetailComponent implements OnInit {
   getCourse(): void {
     this.route.paramMap.pipe(
       switchMap((map: ParamMap) => this.courseService.getCourse(map.get('id')))
-    ).subscribe(course => this.course = course);
+    ).subscribe(course => {
+      this.course = course;
+      for (let i = 0; i < course.professors.length; i++) {
+        if (course.professors[i].id === localStorage.getItem('userID')) {
+          this.isMyCourse = true;
+          break;
+        }
+      }
+    });
   }
 
   updateCourse(): void {

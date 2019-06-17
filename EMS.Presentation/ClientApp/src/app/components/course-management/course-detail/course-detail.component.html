@@ -12,6 +12,15 @@
     <hr>
     <h6>Semestru</h6> {{course.semester}}
     <hr>
+    <h6>Descriere</h6> {{course.description}}
+    <hr>
+    <h6>URL</h6> {{course.url}}
+    <hr>
+    <h6>Profesori</h6>
+    <p *ngFor="let professor of course.professors">
+      {{professor.name}}
+    </p>
+    <hr>
   </div>
   <div *ngIf="isEditable == true">
     <form>
@@ -30,13 +39,29 @@
         <input type="text" class="form-control" id="semester"
                [(ngModel)]="course.semester" name="semester">
       </div>
+      <div class="form-group">
+        <label for="description">Descriere</label>
+        <input [(ngModel)]="course.description" class="form-control" id="description"
+               name="description" type="text">
+      </div>
+      <div class="form-group">
+        <label for="url">URL</label>
+        <input [(ngModel)]="course.url" class="form-control" id="url"
+               name="url" type="text">
+      </div>
+      <div class="form-group">
+        <label for="professors">Profesori</label>
+        <input *ngFor="let professor of course.professors" [(ngModel)]="professor.name" class="form-control"
+               id="professors"
+               name="professors" type="text">
+      </div>
     </form>
   </div>
 
-  <div *ngIf="isEditable == false">
+  <div *ngIf="isEditable == false && isMyCourse">
     <button class="btn btn-primary btn-sm" (click)="edit()"> Editeaza</button>
   </div>
-  <div *ngIf="isEditable == true">
+  <div *ngIf="isEditable == true && isMyCourse">
     <button class="btn btn-success" type="submit" (click)="saveChanges()"> Save changes</button>
   </div>
 </div>

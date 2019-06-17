@@ -5,10 +5,11 @@
   list-style-type: none;
   width: 181px;
   height: 30px;
+  margin-top: 3px;
 }
 
 .search-result li:hover {
-  background-color: #607D8B;
+  background-color: lightgray;
 }
 
 .search-result {

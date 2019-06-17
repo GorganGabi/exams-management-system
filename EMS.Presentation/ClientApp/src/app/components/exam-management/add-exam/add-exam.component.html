@@ -2,6 +2,14 @@
 
 <form>
   <div class="form-group">
+    <label for="title">Titlu curs</label>
+    <select (change)="onSelectTitle($event.target.value)" id="title">
+      <option *ngFor="let course of courses" [value]="course.title">
+        {{course.title}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
     <label for="type">Tip</label>
     <input type="text" class="form-control" id="type" [(ngModel)]="type" name="type">
   </div>

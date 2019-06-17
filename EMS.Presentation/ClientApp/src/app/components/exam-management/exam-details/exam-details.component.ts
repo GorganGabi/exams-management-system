@@ -16,7 +16,7 @@ export class ExamDetailsComponent implements OnInit {
   imageName: string;
   role: string;
   url: string;
-  myExam = false;
+  isMyExam = false;
 
   constructor(
     private examService: ExamService,
@@ -40,7 +40,7 @@ export class ExamDetailsComponent implements OnInit {
       this.url = `http://localhost:11111/api/v1/students//exams/${this.exam.id}`;
       for (let i = 0; i < this.exam.professorIds.length; i++) {
         if (this.exam.professorIds[i] === this.role) {
-          this.myExam = true;
+          this.isMyExam = true;
           break;
         }
       }

@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {Observable, throwError as observableThrowError} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {catchError} from "rxjs/operators";
+import * as HTTPStatusCodes from "http-status-codes";
+import {Register} from "ts-node";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +14,14 @@ export class RegisterService {
   constructor(private http: HttpClient) {
   }
 
+// todo: consider handling the errors at component level
+  static errorHandler(error: HttpErrorResponse) {
+    if (error.status === HTTPStatusCodes.UNPROCESSABLE_ENTITY) {
+      alert('Email-ul nu este valid');
+    }
+    return observableThrowError(error.message);
+  }
+
   createUser(email: string, password: string, confirmPassword: string, role: string): Observable<any> {
     const data = {
       email: email,
@@ -18,6 +29,10 @@ export class RegisterService {
       confirmPassword: confirmPassword,
       role: role
     };
-    return this.http.post(this.url, data);
+
+    return this.http.post(this.url, data).pipe(
+      catchError(RegisterService.errorHandler)
+    );
   }
+
 }

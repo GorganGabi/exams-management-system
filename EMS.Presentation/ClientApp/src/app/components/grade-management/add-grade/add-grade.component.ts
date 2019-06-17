@@ -3,6 +3,10 @@ import {Grade} from '../../../models/grade';
 import {GradeService} from '../../../services/grade.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {StudentService} from '../../../services/student.service';
+import {catchError} from "rxjs/operators";
+import * as HTTPStatusCodes from "http-status-codes";
+import {throwError as observableThrowError} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-add-grade',
@@ -23,8 +27,21 @@ export class AddGradeComponent implements OnInit {
   ngOnInit() {
   }
 
+  static errorHandler(error: HttpErrorResponse) {
+    if (error.status === HTTPStatusCodes.UNPROCESSABLE_ENTITY) {
+      alert('Studentul are deja notă');
+    }
+    return observableThrowError(error.message);
+  }
+
+  setName(name: string) {
+    this.studentName = name;
+  }
+
   createGrade() {
-    this.studentService.getStudentsByName(this.studentName)
+    this.studentService.getStudentsByName(this.studentName).pipe(
+      catchError(AddGradeComponent.errorHandler)
+    )
       .subscribe(students => {
         const gradeCreatingModel = {
           value: this.value,
@@ -33,13 +50,14 @@ export class AddGradeComponent implements OnInit {
         };
         this.gradeService.createGrade(gradeCreatingModel)
           .subscribe(() => {
-            console.log('s-a creat nota')
-            this.router.navigate([`/exams/${this.route.snapshot.paramMap.get('id')}/grades/`]);
-          });
+              console.log('s-a creat nota');
+              this.router.navigate([`/exams/${this.route.snapshot.paramMap.get('id')}/grades/`]);
+            },
+            error => {
+              if (error.status === HTTPStatusCodes.UNPROCESSABLE_ENTITY) {
+                alert('Studentul are deja nota');
+              }
+            });
       });
-  }
-
-  setName(name: string) {
-    this.studentName = name;
   }
 }

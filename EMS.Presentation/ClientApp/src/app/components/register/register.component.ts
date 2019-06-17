@@ -21,6 +21,10 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    if (this.password !== this.confirmPassword) {
+      alert('Parolele nu se potrivesc');
+      return;
+    }
     this.registerService.createUser(this.email, this.password, this.confirmPassword, this.role)
       .subscribe(() => {
         this.route.navigate(['/login']);

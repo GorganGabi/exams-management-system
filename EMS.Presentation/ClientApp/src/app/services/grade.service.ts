@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, throwError as observableThrowError} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Grade} from '../models/grade';
+import {catchError} from "rxjs/operators";
+import * as HTTPStatusCodes from "http-status-codes";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -29,7 +31,6 @@ export class GradeService {
   }
 
   createGrade(grade: object): Observable<Grade> {
-    console.log(grade);
     return this.http.post<Grade>(this.url, grade, httpOptions);
   }
 
