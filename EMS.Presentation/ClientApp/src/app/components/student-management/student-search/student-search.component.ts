@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Observable, Subject, throwError as observableThrowError} from 'rxjs';
 import {Student} from '../../../models/student';
 import {StudentService} from '../../../services/student.service';
-import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {ExamService} from '../../../services/exam.service';
 
@@ -38,7 +38,12 @@ export class StudentSearchComponent implements OnInit {
 
       distinctUntilChanged(),
 
-      switchMap((term: string) => this.studentService.getStudentsByNameAndCourse(term, this.courseName))
+      switchMap((term: string) => this.studentService.getStudentsByNameAndCourse(term, this.courseName).pipe(
+        catchError(err => {
+          alert('Completati toate campurile!');
+          return observableThrowError(err.message);
+        })
+      )),
     );
   }
 

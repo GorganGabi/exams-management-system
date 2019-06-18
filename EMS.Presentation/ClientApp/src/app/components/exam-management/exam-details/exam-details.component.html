@@ -20,7 +20,6 @@
       <hr>
       <h6>Cod QR</h6>
       <ngx-qrcode [qrc-value]="url" qrc-element-type="url"></ngx-qrcode>
-      <hr>
     </div>
   </div>
   <div *ngIf="isEditable == true">
@@ -54,7 +53,9 @@
       </div>
       <div class="form-group">
         <label for="qr">Cod QR</label>
-        <ngx-qrcode id="qr" qrc-element-type="url" [qrc-value]="url"></ngx-qrcode>
+        <a download="qrcode" href="../../../../assets">
+          <ngx-qrcode [qrc-value]="url" id="qr" qrc-element-type="img"></ngx-qrcode>
+        </a>
       </div>
     </form>
   </div>

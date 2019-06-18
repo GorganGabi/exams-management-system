@@ -1,15 +1,14 @@
-<div *ngIf="grades">
-  <h2> Toate notele</h2>
+<h2> Toate notele</h2>
 
-  <a *ngIf="professor" routerLink="/exams/{{examId}}/grades/create">
-    <button class="btn btn-primary btn-sm">
-      Adauga nota
-    </button>
-  </a>
-  <button (click)="exportGrades()" class="btn btn-secondary btn-sm">
-    Exportă
+<a *ngIf="professor" routerLink="/exams/{{examId}}/grades/create">
+  <button class="btn btn-primary btn-sm">
+    Adauga nota
   </button>
-
+</a>
+<button (click)="exportGrades()" class="btn btn-secondary btn-sm">
+  Exportă
+</button>
+<div *ngIf="grades">
   <table class="table table-striped">
     <thead>
     <tr>
@@ -53,6 +52,7 @@
 </div>
 
 <div *ngIf="!grades">
+  <br>
   <p>
     Nu exista note
   </p>

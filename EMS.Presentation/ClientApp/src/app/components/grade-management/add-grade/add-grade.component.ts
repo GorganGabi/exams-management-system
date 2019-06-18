@@ -43,6 +43,10 @@ export class AddGradeComponent implements OnInit {
       catchError(AddGradeComponent.errorHandler)
     )
       .subscribe(students => {
+        if (!this.value) {
+          alert('Adauga nota');
+          return;
+        }
         const gradeCreatingModel = {
           value: this.value,
           examId: this.route.snapshot.paramMap.get('id'),

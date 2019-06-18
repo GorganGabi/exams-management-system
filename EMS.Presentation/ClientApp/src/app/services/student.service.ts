@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpHeaders, HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable, of, throwError as observableThrowError} from 'rxjs';
 import {Course} from '../models/course';
 import {Exam} from '../models/exam';
 import {Student} from '../models/student';
@@ -45,6 +45,9 @@ export class StudentService {
   }
 
   getStudentsByName(name: string): Observable<Student[]> {
+    if (!name) {
+      alert('Alege un student din lista');
+    }
     if (!name.trim()) {
       return of([]);
     }

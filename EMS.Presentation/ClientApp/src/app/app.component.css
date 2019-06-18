@@ -6,7 +6,7 @@
 }
 
 html {
-  min-height: 100vh;
+  min-height: 125vh;
   height: auto;
   margin: 0;
 }
@@ -15,7 +15,7 @@ html {
   background-color: white;
   box-shadow: 3px 3px 5px 6px #ccc;
   padding: 4%;
-  height: 100vh;
+  height: 125vh;
   overflow: auto;
 }
 
