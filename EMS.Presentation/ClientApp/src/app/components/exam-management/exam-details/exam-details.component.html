@@ -1,7 +1,7 @@
 <div *ngIf="exam">
   <h2> {{exam.course.title}}</h2>
 
-  <a *ngIf="!isEditable && isMyExam" class="nav-link text-dark" routerLink="/exams/{{exam.id}}/grades">
+  <a *ngIf="!isEditable" class="nav-link text-dark" routerLink="/exams/{{exam.id}}/grades">
     <button class="btn btn-sm btn-primary" id="">Vezi note</button>
   </a>
 
@@ -15,10 +15,13 @@
     <hr>
     <h6>Tip</h6> {{exam.type}}
     <hr>
-    <h6>Barem</h6> {{imageName}}
-    <hr>
-    <h6>Cod QR</h6>
-    <hr>
+    <div *ngIf="professor">
+      <h6>Barem</h6> {{imageName}}
+      <hr>
+      <h6>Cod QR</h6>
+      <ngx-qrcode [qrc-value]="url" qrc-element-type="url"></ngx-qrcode>
+      <hr>
+    </div>
   </div>
   <div *ngIf="isEditable == true">
 

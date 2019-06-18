@@ -4,7 +4,6 @@ import {Observable, of} from 'rxjs';
 import {Course} from '../models/course';
 import {Exam} from '../models/exam';
 import {Student} from '../models/student';
-import {catchError} from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({

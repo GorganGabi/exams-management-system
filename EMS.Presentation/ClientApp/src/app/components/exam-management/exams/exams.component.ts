@@ -97,6 +97,7 @@ export class ExamsComponent implements OnInit {
   }
 
   isTime(exam: Exam) {
+    console.log(exam);
     const examDate = new Date(exam.date);
     const currentTime = examDate.getHours() + 1;
     const examTime = new Date().getHours();
@@ -116,7 +117,7 @@ export class ExamsComponent implements OnInit {
   }
 
   setHide() {
-    console.log('==================')
+    console.log('==================');
     this.hide = false;
   }
 

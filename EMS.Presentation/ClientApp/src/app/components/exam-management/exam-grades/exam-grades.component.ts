@@ -5,6 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import {GradeService} from '../../../services/grade.service';
 import {Professor} from '../../../models/professor';
 import {ProfessorService} from '../../../services/professor.service';
+import * as XLSX from 'xlsx';
+import {Exam} from '../../../models/exam';
 
 @Component({
   selector: 'app-exam-grades',
@@ -16,6 +18,7 @@ export class ExamGradesComponent implements OnInit {
   examId: string;
   role: string;
   professor: Professor;
+  exam: Exam;
 
   constructor(private examService: ExamService,
               private gradeService: GradeService,
@@ -33,6 +36,8 @@ export class ExamGradesComponent implements OnInit {
           this.professor = professor;
         });
     }
+    this.examService.getExam(this.examId)
+      .subscribe(exam => this.exam = exam);
   }
 
   getGrades() {
@@ -68,5 +73,19 @@ export class ExamGradesComponent implements OnInit {
     grade.isConfirmed = true;
     this.gradeService.updateGrade(grade)
       .subscribe();
+  }
+
+  exportGrades() {
+    const examExcel = [];
+    for (let i = 0; i < this.grades.length; i++) {
+      examExcel.push({
+        Nume: this.grades[i].student.name,
+        Notă: this.grades[i].value
+      });
+    }
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(examExcel);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, worksheet, 'Note');
+    XLSX.writeFile(wb, `${this.exam.course.title}.xlsx`);
   }
 }

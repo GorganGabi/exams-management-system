@@ -1,45 +1,59 @@
-<h2> Toate notele mele </h2>
+<div *ngIf="grades">
+  <h2> Toate notele</h2>
 
-<a *ngIf="professor" routerLink="/exams/{{examId}}/grades/create">
-  <button class="btn btn-primary btn-sm">
-    Adauga nota
+  <a *ngIf="professor" routerLink="/exams/{{examId}}/grades/create">
+    <button class="btn btn-primary btn-sm">
+      Adauga nota
+    </button>
+  </a>
+  <button (click)="exportGrades()" class="btn btn-secondary btn-sm">
+    Exportă
   </button>
-</a>
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Nume Student</th>
-    <th scope="col">Materie</th>
-    <th scope="col">Nota</th>
-    <th scope="col">Status</th>
-    <th *ngIf="professor" scope="col"></th>
-    <th scope="col"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let grade of grades; index as i">
-    <td scope="row">{{ i + 1 }}</td>
-    <td>{{ grade.student.name }}</td>
-    <td>{{ grade.examName  }}</td>
-    <td>{{ grade.value  }}</td>
-    <td>
-      <p id="status" [ngClass]="{
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nume Student</th>
+      <th scope="col">Materie</th>
+      <th scope="col">Nota</th>
+      <th scope="col">Status</th>
+      <th *ngIf="professor" scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let grade of grades; index as i">
+      <td scope="row">{{ i + 1 }}</td>
+      <td>{{ grade.student.name }}</td>
+      <td>{{ grade.examName  }}</td>
+      <td>{{ grade.value  }}</td>
+      <td>
+        <p [ngClass]="{
        'red': grade.isConfirmed == false,
        'green': grade.isConfirmed == true
-      }">
-        {{getStatus(grade.isConfirmed)}}
-      </p>
-    </td>
-    <td *ngIf="professor">
-      <app-grade-update [grade]="grade"></app-grade-update>
-    </td>
-    <td *ngIf="professor">
-      <button class="btn btn-danger btn-sm" id="delete-button" (click)="deleteGrade(grade)">x</button>
-    </td>
-    <td *ngIf="!professor">
-      <button class="btn btn-success btn-sm" id="confirm-button" (click)="confirmGrade(grade)" [disabled]="grade.isConfirmed">Confirma nota</button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+      }" id="status">
+          {{getStatus(grade.isConfirmed)}}
+        </p>
+      </td>
+      <td *ngIf="professor">
+        <app-grade-update [grade]="grade"></app-grade-update>
+      </td>
+      <td *ngIf="professor">
+        <button (click)="deleteGrade(grade)" class="btn btn-danger btn-sm" id="delete-button">x</button>
+      </td>
+      <td *ngIf="!professor">
+        <button (click)="confirmGrade(grade)" [disabled]="grade.isConfirmed" class="btn btn-success btn-sm"
+                id="confirm-button">Confirma nota
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="!grades">
+  <p>
+    Nu exista note
+  </p>
+</div>

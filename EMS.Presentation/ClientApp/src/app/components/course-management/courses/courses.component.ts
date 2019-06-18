@@ -57,4 +57,7 @@ export class CoursesComponent implements OnInit {
       .subscribe(() => location.reload());
   }
 
+  something($event: Event) {
+    console.log(event);
+  }
 }

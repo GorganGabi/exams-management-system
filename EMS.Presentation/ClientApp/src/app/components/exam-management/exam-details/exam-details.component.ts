@@ -3,6 +3,8 @@ import {Exam} from '../../../models/exam';
 import {ExamService} from '../../../services/exam.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
+import {ProfessorService} from '../../../services/professor.service';
+import {Professor} from '../../../models/professor';
 
 @Component({
   selector: 'app-exam-details',
@@ -11,6 +13,7 @@ import {switchMap} from 'rxjs/operators';
 })
 export class ExamDetailsComponent implements OnInit {
   exam: Exam;
+  professor: Professor;
   isEditable = false;
   selectedFile = null;
   imageName: string;
@@ -20,11 +23,14 @@ export class ExamDetailsComponent implements OnInit {
 
   constructor(
     private examService: ExamService,
+    private professorService: ProfessorService,
     private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.role = localStorage.getItem('userID');
+    this.professorService.getProfessorById(this.role)
+      .subscribe(professor => this.professor = professor);
     this.getExam();
   }
 

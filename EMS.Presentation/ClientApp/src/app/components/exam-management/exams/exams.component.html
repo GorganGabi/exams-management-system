@@ -18,8 +18,8 @@
       <th scope="col">Ora</th>
       <th scope="col">Sala</th>
       <th scope="col">Tip examen</th>
+      <th scope="col"></th>
       <th *ngIf="!professor && role && areMyExams && !hide" scope="col"></th>
-      <th *ngIf="professor" scope="col"></th>
       <th *ngIf="professor" scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -32,9 +32,9 @@
       <td>{{ formatTime(exam.date)}}</td>
       <td>{{ exam.room }}</td>
       <td>{{ exam.type }}</td>
-      <td *ngIf="professor">
+      <td>
         <a routerLink="/exams/{{exam.id}}">
-          <button class="btn btn-info btn-sm">Details</button>
+          <button class="btn btn-info btn-sm">Detalii</button>
         </a>
       </td>
       <td *ngIf="!professor && role && areMyExams && isTime(exam)">
@@ -55,4 +55,6 @@
   </table>
 </div>
 
-<div *ngIf="!exams">Nu exista nici un examen</div>
+<div *ngIf="!exams">
+  <p>Nu există examene.</p>
+</div>
