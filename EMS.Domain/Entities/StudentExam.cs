@@ -38,6 +38,11 @@ namespace EMS.Domain.Entities
             ExamId = updatedEntity.ExamId == null ? ExamId : updatedEntity.ExamId;
             Checked = updatedEntity.Checked == null ? Checked : updatedEntity.Checked;
         }
+
+        public void CheckIn()
+        {
+            this.Checked = "yes";
+        }
     }
 
 

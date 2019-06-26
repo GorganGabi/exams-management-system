@@ -23,14 +23,14 @@ export class ZxingScannerComponent implements OnInit {
     const examId = this.route.snapshot.paramMap.get('id');
     const url = $event.split('/');
     url[6] = studentId;
+    url[8] = examId;
     $event = url.join('/');
 
-    this.studentService.checkIn(studentId, examId, $event)
+    this.studentService.checkIn($event)
       .subscribe(() => this.location.back(),
         err => {
-          console.log('-------');
-          console.log(err);
-          alert('Cod QR invalid');
+        // tratarea erorii
+
         });
   }
 }

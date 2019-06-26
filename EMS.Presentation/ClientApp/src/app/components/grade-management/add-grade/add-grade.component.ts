@@ -54,7 +54,6 @@ export class AddGradeComponent implements OnInit {
         };
         this.gradeService.createGrade(gradeCreatingModel)
           .subscribe(() => {
-              console.log('s-a creat nota');
               this.router.navigate([`/exams/${this.route.snapshot.paramMap.get('id')}/grades/`]);
             },
             error => {

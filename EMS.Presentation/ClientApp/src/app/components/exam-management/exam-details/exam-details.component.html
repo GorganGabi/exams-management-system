@@ -1,7 +1,7 @@
 <div *ngIf="exam">
   <h2> {{exam.course.title}}</h2>
 
-  <a *ngIf="!isEditable" class="nav-link text-dark" routerLink="/exams/{{exam.id}}/grades">
+  <a *ngIf="!isEditable && professor" class="nav-link text-dark" routerLink="/exams/{{exam.id}}/grades">
     <button class="btn btn-sm btn-primary" id="">Vezi note</button>
   </a>
 

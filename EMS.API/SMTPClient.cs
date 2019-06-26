@@ -43,7 +43,7 @@ namespace exams_management_system
         public static void ProfessorSendMail(GradeDetailsModel gradeDetailsModel, StudentDetailsModel student)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Random professor", "ergfdfgsgasdfasd@gmail.com"));
+            message.From.Add(new MailboxAddress("Florin Olariu", "ergfdfgsgasdfasd@gmail.com"));
             message.To.Add(new MailboxAddress(student.Name, student.Email));
             message.Subject = "[" + gradeDetailsModel.ExamName + "]" + " Nota Examen";
 

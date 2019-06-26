@@ -2,12 +2,12 @@
 
 <button *ngIf="role" type="button" class="btn btn-primary btn-sm" (click)="getExamsByUserId()">Examenele mele</button>
 <a *ngIf="!professor && role" routerLink='/exams/grades'>
-  <button class="btn btn-secondary btn-sm" type="button">Notele mele</button>
+  <button class="btn btn-primary btn-sm" type="button">Notele mele</button>
 </a>
 <a *ngIf="professor" routerLink='/exams/create'>
-  <button class="btn btn-secondary btn-sm">Adauga examen</button>
+  <button class="btn btn-primary btn-sm">Adauga examen</button>
 </a>
-<div *ngIf="exams">
+<div *ngIf="exams != []">
   <table class="table table-striped">
     <thead>
     <tr>
@@ -18,7 +18,6 @@
       <th scope="col">Sala</th>
       <th scope="col">Tip examen</th>
       <th scope="col"></th>
-      <th *ngIf="!professor && role && areMyExams && !hide" scope="col"></th>
       <th *ngIf="professor" scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -33,15 +32,15 @@
       <td>{{ exam.type }}</td>
       <td>
         <a routerLink="/exams/{{exam.id}}">
-          <button class="btn btn-info btn-sm">Detalii</button>
+          <button class="btn btn-primary btn-sm">Detalii</button>
         </a>
       </td>
       <td *ngIf="!professor && role && areMyExams && isTime(exam)">
         <a routerLink="/exams/{{exam.id}}/scan">
-          <button class="btn btn-info btn-sm" [disabled]="isChecked(exam)">Scaneaza cod QR</button>
+          <button class="btn btn-primary btn-sm" [disabled]="isChecked(exam)">Scaneaza cod QR</button>
         </a>
       </td>
-      <td>
+      <td *ngIf="!(!professor && role && areMyExams && isTime(exam))">
         <p *ngFor="let profId of exam.professorIds">
           <button (click)="deleteExam(exam)" *ngIf="professor && professor.id == profId"
                   class="btn btn-danger btn-sm btn-circle" id="delete-button">
@@ -50,6 +49,7 @@
         </p>
       </td>
       <td *ngIf="professor"></td>
+      <!--<td *ngIf="!(!professor && role && areMyExams && isTime(exam))"></td>-->
     </tr>
     </tbody>
   </table>

@@ -68,7 +68,7 @@ namespace exams_management_system.Controllers
 
             // Todo: need to check all fields before entering a new one. 
             // Todo: Exams with the same date, but with different rooms, are two separate exams
-            var exam = examService.FindByTimeAndRoomAndType(model.Date, model.Room, model.Type);
+            var exam = examService.FindByTimeAndRoomAndType(model.Date, model.Room, model.Type, model.CourseId);
             if (exam.Result == null)
             {
             var examId = await examService.CreateNew(model);

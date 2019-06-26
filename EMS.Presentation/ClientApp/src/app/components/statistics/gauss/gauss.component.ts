@@ -50,12 +50,13 @@ export class GaussComponent implements OnInit {
       .subscribe(grades => {
         this.noOfGrades = grades.length;
         // todo: don't hardcode
+        // todo: consider refactoring
         const grade10 = this.noOfGrades * 0.05;
-        const grade9 = grade10 * 0.1;
-        const grade8 = grade9 * 0.15;
-        const grade7 = grade8 * 0.25;
-        const grade6 = grade7 * 0.15;
-        const grade5 = grade6 * 0.10;
+        const grade9 = (this.noOfGrades - grade10) * 0.1;
+        const grade8 = (this.noOfGrades - (grade10 + grade9)) * 0.15;
+        const grade7 = (this.noOfGrades - (grade10 + grade9 + grade8)) * 0.20;
+        const grade6 = (this.noOfGrades - (grade10 + grade9 + grade8 + grade7)) * 0.18;
+        const grade5 = (this.noOfGrades - (grade10 + grade9 + grade8 + grade7 + grade6)) * 0.12;
         this.lineChartData =  [
           {data: [grade10, grade9, grade8, grade7, grade6, grade5], label: 'Toate notele'},
         ];

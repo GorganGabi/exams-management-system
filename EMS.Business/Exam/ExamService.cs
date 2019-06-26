@@ -31,7 +31,7 @@ namespace EMS.Business
 
         public Task<ExamDetailsModel> FindById(Guid id) => AllExamDetails.SingleOrDefaultAsync(e => e.Id == id);
 
-        public Task<ExamDetailsModel> FindByTimeAndRoomAndType(DateTime date, string room, string type) => AllExamDetails.SingleOrDefaultAsync(e => e.Date == date && e.Room == room && e.Type == type);
+        public Task<ExamDetailsModel> FindByTimeAndRoomAndType(DateTime date, string room, string type, Guid id) => AllExamDetails.SingleOrDefaultAsync(e => e.Date == date && e.Room == room && e.Type == type && e.Course.Id == id);
 
         public async Task Update(Guid id, Exam updatedExam)
 

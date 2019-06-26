@@ -101,14 +101,11 @@ namespace EMS.Business
 
         public async Task<bool> CheckExam(Guid id, Guid examId)
         {
-
-            //var student = await repository.FindByIdAsync<Student>(id);
-            //var exam = repository.GetAll<Exam>().Include(e => e.StudentExams).SingleOrDefault(e => e.Id == examId);
-
+            //todo: create a find on composite key instead of id from Entity base class
             var studentExam = repository.GetAll<StudentExam>().SingleOrDefault(se => se.ExamId == examId && se.StudentId == id);
 
             var updatedStudentExam = await repository.FindByIdAsync<StudentExam>(studentExam.Id);
-            updatedStudentExam.Checked = "yes";
+            //updatedStudentExam.CheckIn(); //todo: test with this line; fix encapsulation          
 
             await repository.TryUpdateModelAsync(studentExam, updatedStudentExam);
             await repository.SaveAsync();
@@ -128,7 +125,6 @@ namespace EMS.Business
         public Task<List<StudentDetailsModel>> GetAll() => GetAllStudentDetails().ToListAsync();
 
         public Task<StudentDetailsModel> FindById(Guid id) => GetAllStudentDetails().SingleOrDefaultAsync(p => p.Id == id);
-
 
         private IQueryable<StudentDetailsModel> GetAllStudentDetails() => repository.GetAll<Student>()
                 .Select(s => new StudentDetailsModel

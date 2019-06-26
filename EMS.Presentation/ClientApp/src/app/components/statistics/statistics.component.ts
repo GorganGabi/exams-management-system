@@ -22,7 +22,7 @@ export class StatisticsComponent implements OnInit {
     this.examService.getExams()
       .subscribe(exams => {
         this.exams = exams;
-        this.selectedExamTitle = exams[0].course.title;
+        this.selectedExamTitle = exams[1].course.title;
         this.selectedType = exams[0].type;
         this.types = [];
         for (let i = 0; i < exams.length; i++) {

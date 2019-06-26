@@ -55,7 +55,6 @@ export class ExamService {
       type: exam.type,
       date: exam.date,
       courseId: exam.course.id,
-      professorId: localStorage.getItem('userID'),
       room: exam.room
     };
 

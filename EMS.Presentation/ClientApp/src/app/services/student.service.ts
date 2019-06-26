@@ -64,7 +64,8 @@ export class StudentService {
     return this.http.put<Student>(this.url, updateStudent, httpOptions);
   }
 
-  checkIn(studentId: string, examId: string, url: string): Observable<any> {
+  checkIn(url: string): Observable<any> {
+    console.log(url);
     return this.http.put<any>(url, null, httpOptions);
   }
 

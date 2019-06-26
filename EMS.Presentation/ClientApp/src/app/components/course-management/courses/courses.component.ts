@@ -56,8 +56,4 @@ export class CoursesComponent implements OnInit {
     this.courseService.deleteCourse(course.id)
       .subscribe(() => location.reload());
   }
-
-  something($event: Event) {
-    console.log(event);
-  }
 }

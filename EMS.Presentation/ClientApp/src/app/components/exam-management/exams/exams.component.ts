@@ -87,6 +87,7 @@ export class ExamsComponent implements OnInit {
   }
 
   isChecked(exam: Exam) {
+    console.log(this.checkedExams);
     for (let i = 0; i < this.checkedExams.length; i++) {
       if (this.checkedExams[i].id === exam.id) {
         this.hide = true;
@@ -97,7 +98,7 @@ export class ExamsComponent implements OnInit {
   }
 
   isTime(exam: Exam) {
-    console.log(exam);
+    // console.log(exam);
     const examDate = new Date(exam.date);
     const currentTime = examDate.getHours() + 1;
     const examTime = new Date().getHours();
@@ -117,7 +118,6 @@ export class ExamsComponent implements OnInit {
   }
 
   setHide() {
-    console.log('==================');
     this.hide = false;
   }
 

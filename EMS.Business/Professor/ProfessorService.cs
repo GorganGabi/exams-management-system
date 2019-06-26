@@ -95,7 +95,6 @@ namespace EMS.Business
                Type = e.Type
            }).ToListAsync();
 
-
         private IQueryable<ProfessorDetailsModel> GetAllProfessorDetails() => repository.GetAll<Professor>()
             .Select(p => new ProfessorDetailsModel
             {
