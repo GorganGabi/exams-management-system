@@ -88,5 +88,42 @@ namespace exams_management_system
                 client.Disconnect(true);
             }
         }
+
+        public static void ProfessorSendMailUpdate(GradeDetailsModel gradeDetailsModel, StudentDetailsModel student)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Florin Olariu", "ergfdfgsgasdfasd@gmail.com"));
+            message.To.Add(new MailboxAddress(student.Name, student.Email));
+            message.Subject = "[" + gradeDetailsModel.ExamName + "]" + " Nota Examen";
+
+            var body = new TextPart("plain")
+            {
+                Text = "Buna ziua, " + student.Name +
+                        @"
+                        Va anunt ca lucrarea dumneavoastra la materia " + gradeDetailsModel.ExamName +
+                        " a fost recorectata si nota este " + gradeDetailsModel.Value +                    
+                        "-O zi buna!"
+            };
+
+
+            var multipart = new Multipart("mixed");
+            multipart.Add(body);
+
+            message.Body = multipart;
+
+            using (var client = new SmtpClient())
+            {
+                // For demo-purposes, accept all SSL certificates (in case the server supports STARTTLS)
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+                client.Connect("smtp.gmail.com", 465, true);
+
+                // Note: only needed if the SMTP server requires authentication
+                client.Authenticate("ergfdfgsgasdfasd@gmail.com", "mypassword.notsarcastic");
+
+                client.Send(message);
+                client.Disconnect(true);
+            }
+        }
     }
 }

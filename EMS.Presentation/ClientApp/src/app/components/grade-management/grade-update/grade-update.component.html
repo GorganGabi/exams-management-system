@@ -29,4 +29,4 @@
   </div>
 </ng-template>
 
-<button class="btn btn-sm btn-primary" (click)="open(content)">Editeaza</button>
+<button class="btn btn-sm btn-primary" (click)="open(content)" [disabled]="grade.isConfirmed">Editeaza</button>
